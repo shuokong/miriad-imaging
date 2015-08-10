@@ -1,6 +1,8 @@
 #!/bin/csh -fe
 #Modified from images_cont_jmc.csh from John Carpenter 2015
-
+# If verb = 1, echo status/debug statements to terminal.
+  set verb = 0
+  if $verb echo "Setting up parameters..."
 # Make images for web site
   set make_images = 0
   set webdir_plots = jansky:/scr2/carmaorion/web/orion/images
@@ -66,6 +68,7 @@
   end
 
 # Set source to all sources
+  if $verb echo "Setting sources..."
   set source_orig = $source
   if ($source_orig == "") then
      set source = "omc*"
@@ -83,6 +86,8 @@
   endif
 
 # Make directories
+  if $verb echo "Making directories..."
+
   if (!(-e "$dir")) then
      mkdir $dir
   endif
@@ -121,7 +126,7 @@
   endif
 
 # Get beam size
-if ($run_imfit == 1) then
+  if ($run_imfit == 1) then
      set log = $outfile.psf.log
      rm -rf $log
      imfit in=$outfile.psf object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
@@ -129,7 +134,7 @@ if ($run_imfit == 1) then
      set bmin=`grep "Minor axis" $log | awk '{print $4}'`
      set bpa=`grep "  Position angle" $log | awk '{print $4}'`
      echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
-endif
+  endif
 
 # Clean image
   if ($run_clean == 1) then
@@ -185,8 +190,10 @@ endif
        maths exp="<$outfile.cm>/<$outfile.sen>" out=$outfile.snr
   endif
 
+  
 # Display Dirty images
 # set directory
+  if $verb echo "Displaying images, if requested..."
   set outplot = $dir_plot/carma_cont
   if ($run_invert) then
      if ($plotx == 1) then
@@ -212,6 +219,7 @@ endif
   endif
 
 # Make PDF images
+  if $verb echo "Making pdfs, if requested..."
   if ($make_images != 0) then
      # Remove files
        rm -rf orion_continuum_{signal,rms,snr}.{ps,pdf}
@@ -237,6 +245,8 @@ endif
                options=blacklab,wedge \
                 labtyp=hms beamtyp=b,l nxy=1 range=0,10e-3
           set psfiles = ($psfiles $fn)
+       endif
+
        if (-e $outfile.snr) then
           set fn = $dir/orion_continuum_snr
           cgdisp device=$fn.ps/ps  in=$outfile.snr \
