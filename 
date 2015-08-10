@@ -20,9 +20,6 @@
   set run_mkmask = 0
   set mask = ""
 
-# If run_imfit = 1, then fit the psf image and derive the beam
-  set run_imfit = 0
-
 # If run_clean = 1, then clean map
   set run_clean = 0
 
@@ -67,9 +64,7 @@
 
 # Set source to all sources
   set source_orig = $source
-  if ($source_orig == "") then
-     set source = "omc*"
-  endif
+  if ($source_orig == "") set source = "omc*"
 
 # Set output directories
   set dir      = /hifi/carmaorion/orion/images/jrf/cont
@@ -83,13 +78,8 @@
   endif
 
 # Make directories
-  if (!(-e "$dir")) then
-     mkdir $dir
-  endif
-
-  if (!(-e "$dir_plot")) then
-     mkdir $dir_plot
-  endif
+  if (!(-e "$dir")) mkdir $dir
+  if (!(-e "$dir_plot")) mkdir $dir_plot
   
 # Make dirty map
   if ($run_invert == 1) then
@@ -121,15 +111,13 @@
   endif
 
 # Get beam size
-if ($run_imfit == 1) then
-     set log = $outfile.psf.log
-     rm -rf $log
-     imfit in=$outfile.psf object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
-     set bmaj=`grep "Major axis" $log | awk '{print $4}'`
-     set bmin=`grep "Minor axis" $log | awk '{print $4}'`
-     set bpa=`grep "  Position angle" $log | awk '{print $4}'`
-     echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
-endif
+  set log = $outfile.psf.log
+  rm -rf $log
+  imfit in=$outfile.psf object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
+  set bmaj=`grep "Major axis" $log | awk '{print $4}'`
+  set bmin=`grep "Minor axis" $log | awk '{print $4}'`
+  set bpa=`grep "  Position angle" $log | awk '{print $4}'`
+  echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
 
 # Clean image
   if ($run_clean == 1) then
