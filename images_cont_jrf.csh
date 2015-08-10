@@ -67,7 +67,7 @@
   if ($source_orig == "") set source = "omc*"
 
 # Set output directories
-  set dir      = jmc/cont
+  set dir      = jrf/cont
   set dir_plot = $dir/plots
 
 # Set output files
