@@ -16,7 +16,7 @@
   set vis = "$cdir/orion.D.wide.mir,$cdir/orion.E.wide.mir"
 
 # If run_invert = 1, then make dirty map
-  set run_invert = 0
+  set run_invert = 1
 
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   set run_mkmask = 0
@@ -29,13 +29,13 @@
   set run_clean = 0
 
 # If plotx = 1, plot maps onto xwindow
-  set plotx = 0
+  set plotx = 1
 
 # If hardcopy = 1, plot maps onto eps 
-  set hardcopy = 0
+  set hardcopy = 1
 
 # Set source
-  set source = ""
+  set source = "OMC1-42"
 
 # invert parameters
   set cell = 1
