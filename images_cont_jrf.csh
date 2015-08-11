@@ -23,10 +23,10 @@
   set mask = ""
 
 # If run_imfit = 1, then fit the psf image and derive the beam
-  set run_imfit = 0
+  set run_imfit = 1
 
 # If run_clean = 1, then clean map
-  set run_clean = 0
+  set run_clean = 1
 
 # If plotx = 1, plot maps onto xwindow
   set plotx = 1
@@ -35,20 +35,20 @@
   set hardcopy = 1
 
 # Set source
-  set source = "OMC1-42"
+  set source = ""
 
 # invert parameters
   set cell = 1
   set imsize = 257
-  set robust = 2
+  set robust = 0
 
 # mossdi parameters
   set cutoff = 0.1
+  set niter  = 40
 # set region = "arcsec,'box(-540,-540,540,540)'"
   set region = ""
 
 # mosmem parameters
-  set niter      = 40
   set rmsfac     = 1.0
   set flux       = 1e-10
 
