@@ -1,0 +1,1268 @@
+
+
+
+*** Making /hifi/carmaorion/orion/images/jrf/cont/OMC42_cont.map and /hifi/carmaorion/orion/images/jrf/cont/OMC42_cont.beam ***
+
+invert: CVS Revision 1.12.2.1, 2015/02/08 03:03:42 UTC
+
+Reading the visibility data ...
+Making MFS images
+Visibilities accepted: 19569864
+Number of pointings: 756
+Mean Frequency(GHz):     107.
+Doing the geometry calculations ...
+Sidelobe suppression area is 512x512 arcsec
+ ... this corresponds to uniform weighting
+Calculating the weights ...
+ PJT1         191         207         756             15023232
+Applying weights and geometry corrections ...
+Theoretical rms noise: 9.877E-03
+ ... assuming pointings do not overlap
+ PJT1 mosaic:         491         303
+Forming the beam ...
+ PJT2:         101         253         756             38636136
+ PJT2a             48390804             38635934                64009                51106                    6
+ PJT2aa              9754870                12897
+ PJT2b     9754870              9754870
+ PJT2bb           1           1
+ PJT2c           1             38636136              9754870                    0
+ PJT2d           1             38636136              9754870                    0
+ PJT2e           1             38636136              9754870             48391006
+Finished gridding  50% ...
+Forming Stokes I  image ...
+ PJT2:         101         213         756             32527656
+ PJT2a             12193524             32518768                16129                25654                 8692
+ PJT2aa            -20325244               -18217
+ PJT2b           0                    0
+ PJT2bb           1           1
+ PJT2c           1             32527656                    0             48391006
+Mosaicing the image ...
+Completed 100% !
+
+cgdisp: CVS Revision 1.16, 2013/07/27 17:23:29 UTC
+
+Character sizes (axes & velocity) are: 1.0, 1.0
+Linear x and y scales per mm = 2.753202E-05, 2.753202E-05
+Beginning plane   1
+Finding image minimum and maximum
+Tabulating linear black and white table
+MosPsf: version 16-aug-2014
+ mallox:          253         253         756
+ mallox-2:             48390804                64009
+MosSen: version 1.0 30-Sep-99
+
+maths: CVS Revision 1.5, 2013/12/27 18:32:30 UTC
+
+Beam size = 8.385 x 6.018 arcsec at PA = 7.68 deg
+
+mossdi: CVS Revision 1.6, 2012/06/04 21:25:22 UTC
+
+Beginning to CLEAN ...
+Steer Iterations: 4
+ Residual min,max,rms:   -1.627E-01   8.334E-01   2.646E-02
+ Total CLEANed flux:    1.423E-01
+Steer Iterations: 8
+ Residual min,max,rms:   -1.609E-01   7.310E-01   2.585E-02
+ Total CLEANed flux:    2.704E-01
+Steer Iterations: 14
+ Residual min,max,rms:   -1.610E-01   6.457E-01   2.530E-02
+ Total CLEANed flux:    3.962E-01
+Steer Iterations: 22
+ Residual min,max,rms:   -1.610E-01   5.830E-01   2.478E-02
+ Total CLEANed flux:    5.250E-01
+Steer Iterations: 28
+ Residual min,max,rms:   -1.610E-01   5.191E-01   2.432E-02
+ Total CLEANed flux:    6.510E-01
+Steer Iterations: 33
+ Residual min,max,rms:   -1.610E-01   4.513E-01   2.392E-02
+ Total CLEANed flux:    7.786E-01
+Steer Iterations: 49
+ Residual min,max,rms:   -1.610E-01   4.096E-01   2.356E-02
+ Total CLEANed flux:    9.009E-01
+Steer Iterations: 63
+ Residual min,max,rms:   -1.609E-01   3.700E-01   2.322E-02
+ Total CLEANed flux:    1.026E+00
+Steer Iterations: 84
+ Residual min,max,rms:   -1.600E-01   3.449E-01   2.284E-02
+ Total CLEANed flux:    1.191E+00
+Steer Iterations: 113
+ Residual min,max,rms:   -1.571E-01   3.102E-01   2.232E-02
+ Total CLEANed flux:    1.437E+00
+Steer Iterations: 130
+ Residual min,max,rms:   -1.551E-01   2.756E-01   2.187E-02
+ Total CLEANed flux:    1.667E+00
+Steer Iterations: 162
+ Residual min,max,rms:   -1.525E-01   2.500E-01   2.148E-02
+ Total CLEANed flux:    1.885E+00
+Steer Iterations: 183
+ Residual min,max,rms:   -1.504E-01   2.247E-01   2.115E-02
+ Total CLEANed flux:    2.083E+00
+Steer Iterations: 225
+ Residual min,max,rms:   -1.494E-01   2.129E-01   2.086E-02
+ Total CLEANed flux:    2.285E+00
+Steer Iterations: 250
+ Residual min,max,rms:   -1.504E-01   1.954E-01   2.054E-02
+ Total CLEANed flux:    2.529E+00
+Steer Iterations: 293
+ Residual min,max,rms:   -1.519E-01   1.826E-01   2.032E-02
+ Total CLEANed flux:    2.700E+00
+Steer Iterations: 359
+ Residual min,max,rms:   -1.529E-01   1.699E-01   1.998E-02
+ Total CLEANed flux:    2.983E+00
+Steer Iterations: 430
+ Residual min,max,rms:   -1.412E-01   1.574E-01   1.966E-02
+ Total CLEANed flux:    3.218E+00
+Steer Iterations: 493
+ Residual min,max,rms:   -1.273E-01   1.449E-01   1.939E-02
+ Total CLEANed flux:    3.398E+00
+Steer Iterations: 602
+ Residual min,max,rms:   -1.196E-01   1.380E-01   1.907E-02
+ Total CLEANed flux:    3.637E+00
+Steer Iterations: 655
+ Residual min,max,rms:   -1.184E-01   1.284E-01   1.874E-02
+ Total CLEANed flux:    3.928E+00
+Steer Iterations: 762
+ Residual min,max,rms:   -1.119E-01   1.216E-01   1.850E-02
+ Total CLEANed flux:    4.065E+00
+Steer Iterations: 957
+ Residual min,max,rms:   -1.098E-01   1.113E-01   1.802E-02
+ Total CLEANed flux:    4.426E+00
+Steer Iterations: 1012
+ Residual min,max,rms:   -1.097E-01   1.082E-01   1.791E-02
+ Total CLEANed flux:    4.546E+00
+Steer Iterations: 1284
+ Residual min,max,rms:   -9.835E-02   9.859E-02   1.743E-02
+ Total CLEANed flux:    4.889E+00
+Steer Iterations: 1372
+ Residual min,max,rms:   -9.527E-02   9.581E-02   1.728E-02
+ Total CLEANed flux:    5.070E+00
+Steer Iterations: 1708
+ Residual min,max,rms:   -8.539E-02   8.858E-02   1.681E-02
+ Total CLEANed flux:    5.386E+00
+Steer Iterations: 1821
+ Residual min,max,rms:   -8.436E-02   8.589E-02   1.667E-02
+ Total CLEANed flux:    5.547E+00
+Steer Iterations: 2270
+ Residual min,max,rms:   -7.837E-02   8.105E-02   1.618E-02
+ Total CLEANed flux:    5.894E+00
+Steer Iterations: 2416
+ Residual min,max,rms:   -7.552E-02   7.942E-02   1.603E-02
+ Total CLEANed flux:    6.120E+00
+Steer Iterations: 2862
+ Residual min,max,rms:   -7.374E-02   7.414E-02   1.561E-02
+ Total CLEANed flux:    6.387E+00
+Steer Iterations: 3094
+ Residual min,max,rms:   -7.038E-02   7.194E-02   1.544E-02
+ Total CLEANed flux:    6.627E+00
+Steer Iterations: 3312
+ Residual min,max,rms:   -6.532E-02   6.829E-02   1.512E-02
+ Total CLEANed flux:    6.911E+00
+Steer Iterations: 3652
+ Residual min,max,rms:   -6.328E-02   6.580E-02   1.485E-02
+ Total CLEANed flux:    7.176E+00
+Steer Iterations: 4199
+ Residual min,max,rms:   -6.183E-02   6.173E-02   1.451E-02
+ Total CLEANed flux:    7.410E+00
+Steer Iterations: 4478
+ Residual min,max,rms:   -5.939E-02   5.971E-02   1.433E-02
+ Total CLEANed flux:    7.665E+00
+Steer Iterations: 5029
+ Residual min,max,rms:   -5.649E-02   5.764E-02   1.396E-02
+ Total CLEANed flux:    7.925E+00
+Steer Iterations: 5392
+ Residual min,max,rms:   -5.634E-02   5.606E-02   1.378E-02
+ Total CLEANed flux:    8.121E+00
+Steer Iterations: 5567
+ Residual min,max,rms:   -5.636E-02   5.533E-02   1.364E-02
+ Total CLEANed flux:    8.328E+00
+Steer Iterations: 6136
+ Residual min,max,rms:   -5.327E-02   5.247E-02   1.324E-02
+ Total CLEANed flux:    8.531E+00
+Steer Iterations: 6566
+ Residual min,max,rms:   -5.209E-02   5.073E-02   1.305E-02
+ Total CLEANed flux:    8.671E+00
+Steer Iterations: 6624
+ Residual min,max,rms:   -5.212E-02   5.071E-02   1.300E-02
+ Total CLEANed flux:    8.745E+00
+Steer Iterations: 7616
+ Residual min,max,rms:   -4.963E-02   4.855E-02   1.253E-02
+ Total CLEANed flux:    9.003E+00
+Steer Iterations: 7843
+ Residual min,max,rms:   -4.736E-02   4.719E-02   1.245E-02
+ Total CLEANed flux:    9.111E+00
+Steer Iterations: 8562
+ Residual min,max,rms:   -4.437E-02   4.429E-02   1.209E-02
+ Total CLEANed flux:    9.269E+00
+Steer Iterations: 8775
+ Residual min,max,rms:   -4.436E-02   4.414E-02   1.205E-02
+ Total CLEANed flux:    9.350E+00
+Steer Iterations: 9138
+ Residual min,max,rms:   -4.288E-02   4.225E-02   1.185E-02
+ Total CLEANed flux:    9.521E+00
+Steer Iterations: 10411
+ Residual min,max,rms:   -4.257E-02   4.049E-02   1.150E-02
+ Total CLEANed flux:    9.720E+00
+Steer Iterations: 10598
+ Residual min,max,rms:   -4.240E-02   4.055E-02   1.143E-02
+ Total CLEANed flux:    9.827E+00
+Steer Iterations: 11425
+ Residual min,max,rms:   -4.196E-02   3.879E-02   1.110E-02
+ Total CLEANed flux:    1.001E+01
+Steer Iterations: 11863
+ Residual min,max,rms:   -4.172E-02   3.860E-02   1.101E-02
+ Total CLEANed flux:    1.010E+01
+Steer Iterations: 12502
+ Residual min,max,rms:   -4.056E-02   3.786E-02   1.072E-02
+ Total CLEANed flux:    1.028E+01
+Steer Iterations: 12983
+ Residual min,max,rms:   -4.082E-02   3.764E-02   1.060E-02
+ Total CLEANed flux:    1.034E+01
+Steer Iterations: 13590
+ Residual min,max,rms:   -4.008E-02   3.720E-02   1.040E-02
+ Total CLEANed flux:    1.045E+01
+Steer Iterations: 13785
+ Residual min,max,rms:   -4.010E-02   3.724E-02   1.036E-02
+ Total CLEANed flux:    1.053E+01
+Steer Iterations: 14983
+ Residual min,max,rms:   -3.974E-02   3.694E-02   1.003E-02
+ Total CLEANed flux:    1.066E+01
+Steer Iterations: 15567
+ Residual min,max,rms:   -3.947E-02   3.696E-02   9.918E-03
+ Total CLEANed flux:    1.076E+01
+Steer Iterations: 16349
+ Residual min,max,rms:   -3.940E-02   3.635E-02   9.733E-03
+ Total CLEANed flux:    1.094E+01
+Steer Iterations: 16596
+ Residual min,max,rms:   -3.947E-02   3.625E-02   9.690E-03
+ Total CLEANed flux:    1.103E+01
+Steer Iterations: 18091
+ Residual min,max,rms:   -3.949E-02   3.671E-02   9.355E-03
+ Total CLEANed flux:    1.115E+01
+Steer Iterations: 18512
+ Residual min,max,rms:   -3.949E-02   3.631E-02   9.305E-03
+ Total CLEANed flux:    1.123E+01
+Steer Iterations: 19339
+ Residual min,max,rms:   -3.942E-02   3.645E-02   9.113E-03
+ Total CLEANed flux:    1.137E+01
+Steer Iterations: 19588
+ Residual min,max,rms:   -3.942E-02   3.637E-02   9.092E-03
+ Total CLEANed flux:    1.141E+01
+Steer Iterations: 20959
+ Residual min,max,rms:   -3.941E-02   3.599E-02   8.804E-03
+ Total CLEANed flux:    1.153E+01
+Steer Iterations: 21687
+ Residual min,max,rms:   -3.940E-02   3.561E-02   8.713E-03
+ Total CLEANed flux:    1.166E+01
+Steer Iterations: 22360
+ Residual min,max,rms:   -3.954E-02   3.561E-02   8.586E-03
+ Total CLEANed flux:    1.180E+01
+Steer Iterations: 23103
+ Residual min,max,rms:   -3.934E-02   3.560E-02   8.494E-03
+ Total CLEANed flux:    1.192E+01
+Steer Iterations: 23617
+ Residual min,max,rms:   -3.933E-02   3.560E-02   8.416E-03
+ Total CLEANed flux:    1.200E+01
+Steer Iterations: 24322
+ Residual min,max,rms:   -3.948E-02   3.559E-02   8.266E-03
+ Total CLEANed flux:    1.210E+01
+Steer Iterations: 25188
+ Residual min,max,rms:   -3.952E-02   3.558E-02   8.177E-03
+ Total CLEANed flux:    1.215E+01
+Steer Iterations: 25381
+ Residual min,max,rms:   -3.945E-02   3.558E-02   8.141E-03
+ Total CLEANed flux:    1.221E+01
+Steer Iterations: 28240
+ Residual min,max,rms:   -3.926E-02   3.554E-02   7.833E-03
+ Total CLEANed flux:    1.227E+01
+Steer Iterations: 28274
+ Residual min,max,rms:   -3.926E-02   3.554E-02   7.831E-03
+ Total CLEANed flux:    1.229E+01
+Steer Iterations: 28548
+ Residual min,max,rms:   -3.913E-02   3.554E-02   7.791E-03
+ Total CLEANed flux:    1.235E+01
+Steer Iterations: 30028
+ Residual min,max,rms:   -3.903E-02   3.552E-02   7.602E-03
+ Total CLEANed flux:    1.246E+01
+Steer Iterations: 30273
+ Residual min,max,rms:   -3.905E-02   3.552E-02   7.592E-03
+ Total CLEANed flux:    1.250E+01
+Steer Iterations: 30528
+ Residual min,max,rms:   -3.893E-02   3.551E-02   7.545E-03
+ Total CLEANed flux:    1.256E+01
+Steer Iterations: 33286
+ Residual min,max,rms:   -3.887E-02   3.548E-02   7.293E-03
+ Total CLEANed flux:    1.265E+01
+Steer Iterations: 33605
+ Residual min,max,rms:   -3.885E-02   3.548E-02   7.271E-03
+ Total CLEANed flux:    1.269E+01
+Steer Iterations: 34480
+ Residual min,max,rms:   -3.854E-02   3.545E-02   7.124E-03
+ Total CLEANed flux:    1.280E+01
+Steer Iterations: 34671
+ Residual min,max,rms:   -3.859E-02   3.545E-02   7.111E-03
+ Total CLEANed flux:    1.285E+01
+Steer Iterations: 35218
+ Residual min,max,rms:   -3.857E-02   3.544E-02   7.033E-03
+ Total CLEANed flux:    1.287E+01
+Steer Iterations: 35823
+ Residual min,max,rms:   -3.853E-02   3.544E-02   6.984E-03
+ Total CLEANed flux:    1.294E+01
+Steer Iterations: 38199
+ Residual min,max,rms:   -3.849E-02   3.543E-02   6.794E-03
+ Total CLEANed flux:    1.301E+01
+Steer Iterations: 38259
+ Residual min,max,rms:   -3.848E-02   3.543E-02   6.793E-03
+ Total CLEANed flux:    1.302E+01
+Steer Iterations: 39003
+ Residual min,max,rms:   -3.842E-02   3.543E-02   6.757E-03
+ Total CLEANed flux:    1.306E+01
+Steer Iterations: 39718
+ Residual min,max,rms:   -3.838E-02   3.544E-02   6.680E-03
+ Total CLEANed flux:    1.311E+01
+Steer Iterations: 40339
+ Residual min,max,rms:   -3.831E-02   3.544E-02   6.655E-03
+ Total CLEANed flux:    1.315E+01
+Steer Iterations: 42574
+ Residual min,max,rms:   -3.833E-02   3.544E-02   6.449E-03
+ Total CLEANed flux:    1.322E+01
+Steer Iterations: 42764
+ Residual min,max,rms:   -3.827E-02   3.544E-02   6.445E-03
+ Total CLEANed flux:    1.324E+01
+Steer Iterations: 42975
+ Residual min,max,rms:   -3.817E-02   3.543E-02   6.427E-03
+ Total CLEANed flux:    1.328E+01
+Steer Iterations: 44437
+ Residual min,max,rms:   -3.804E-02   3.544E-02   6.309E-03
+ Total CLEANed flux:    1.334E+01
+Steer Iterations: 44786
+ Residual min,max,rms:   -3.806E-02   3.544E-02   6.298E-03
+ Total CLEANed flux:    1.337E+01
+Steer Iterations: 45348
+ Residual min,max,rms:   -3.787E-02   3.548E-02   6.222E-03
+ Total CLEANed flux:    1.343E+01
+Steer Iterations: 46147
+ Residual min,max,rms:   -3.794E-02   3.546E-02   6.182E-03
+ Total CLEANed flux:    1.347E+01
+Steer Iterations: 47672
+ Residual min,max,rms:   -3.788E-02   3.460E-02   6.066E-03
+ Total CLEANed flux:    1.351E+01
+Steer Iterations: 48180
+ Residual min,max,rms:   -3.786E-02   3.423E-02   6.054E-03
+ Total CLEANed flux:    1.353E+01
+Steer Iterations: 49678
+ Residual min,max,rms:   -3.764E-02   3.317E-02   5.917E-03
+ Total CLEANed flux:    1.359E+01
+Steer Iterations: 50168
+ Residual min,max,rms:   -3.760E-02   3.316E-02   5.907E-03
+ Total CLEANed flux:    1.361E+01
+Steer Iterations: 51942
+ Residual min,max,rms:   -3.743E-02   3.140E-02   5.787E-03
+ Total CLEANed flux:    1.365E+01
+Steer Iterations: 52137
+ Residual min,max,rms:   -3.741E-02   3.140E-02   5.782E-03
+ Total CLEANed flux:    1.366E+01
+Steer Iterations: 53883
+ Residual min,max,rms:   -3.613E-02   3.063E-02   5.677E-03
+ Total CLEANed flux:    1.367E+01
+Steer Iterations: 54928
+ Residual min,max,rms:   -3.539E-02   3.012E-02   5.638E-03
+ Total CLEANed flux:    1.369E+01
+Steer Iterations: 55898
+ Residual min,max,rms:   -3.415E-02   2.928E-02   5.578E-03
+ Total CLEANed flux:    1.373E+01
+Steer Iterations: 56548
+ Residual min,max,rms:   -3.415E-02   2.927E-02   5.554E-03
+ Total CLEANed flux:    1.376E+01
+Steer Iterations: 56833
+ Residual min,max,rms:   -3.409E-02   2.924E-02   5.533E-03
+ Total CLEANed flux:    1.380E+01
+Steer Iterations: 59484
+ Residual min,max,rms:   -3.300E-02   2.776E-02   5.384E-03
+ Total CLEANed flux:    1.382E+01
+Steer Iterations: 59563
+ Residual min,max,rms:   -3.300E-02   2.776E-02   5.383E-03
+ Total CLEANed flux:    1.383E+01
+Steer Iterations: 59972
+ Residual min,max,rms:   -3.294E-02   2.778E-02   5.372E-03
+ Total CLEANed flux:    1.385E+01
+Steer Iterations: 60047
+ Residual min,max,rms:   -3.294E-02   2.777E-02   5.370E-03
+ Total CLEANed flux:    1.386E+01
+Steer Iterations: 61453
+ Residual min,max,rms:   -3.150E-02   2.771E-02   5.276E-03
+ Total CLEANed flux:    1.388E+01
+Steer Iterations: 61759
+ Residual min,max,rms:   -3.151E-02   2.771E-02   5.273E-03
+ Total CLEANed flux:    1.389E+01
+Steer Iterations: 62075
+ Residual min,max,rms:   -3.156E-02   2.768E-02   5.251E-03
+ Total CLEANed flux:    1.390E+01
+Steer Iterations: 62935
+ Residual min,max,rms:   -3.062E-02   2.750E-02   5.189E-03
+ Total CLEANed flux:    1.390E+01
+Steer Iterations: 63309
+ Residual min,max,rms:   -3.061E-02   2.750E-02   5.179E-03
+ Total CLEANed flux:    1.392E+01
+Steer Iterations: 65074
+ Residual min,max,rms:   -3.049E-02   2.749E-02   5.062E-03
+ Total CLEANed flux:    1.390E+01
+Steer Iterations: 65363
+ Residual min,max,rms:   -3.049E-02   2.749E-02   5.059E-03
+ Total CLEANed flux:    1.391E+01
+Steer Iterations: 66552
+ Residual min,max,rms:   -2.966E-02   2.735E-02   5.010E-03
+ Total CLEANed flux:    1.392E+01
+Steer Iterations: 67200
+ Residual min,max,rms:   -2.971E-02   2.737E-02   4.984E-03
+ Total CLEANed flux:    1.393E+01
+Steer Iterations: 67313
+ Residual min,max,rms:   -2.970E-02   2.738E-02   4.982E-03
+ Total CLEANed flux:    1.394E+01
+Steer Iterations: 68887
+ Residual min,max,rms:   -2.805E-02   2.729E-02   4.864E-03
+ Total CLEANed flux:    1.394E+01
+Steer Iterations: 69005
+ Residual min,max,rms:   -2.805E-02   2.729E-02   4.863E-03
+ Total CLEANed flux:    1.394E+01
+Steer Iterations: 69458
+ Residual min,max,rms:   -2.808E-02   2.728E-02   4.851E-03
+ Total CLEANed flux:    1.395E+01
+Steer Iterations: 70318
+ Residual min,max,rms:   -2.807E-02   2.721E-02   4.809E-03
+ Total CLEANed flux:    1.396E+01
+Steer Iterations: 72031
+ Residual min,max,rms:   -2.746E-02   2.705E-02   4.762E-03
+ Total CLEANed flux:    1.398E+01
+Steer Iterations: 72400
+ Residual min,max,rms:   -2.745E-02   2.703E-02   4.756E-03
+ Total CLEANed flux:    1.399E+01
+Steer Iterations: 73440
+ Residual min,max,rms:   -2.616E-02   2.599E-02   4.684E-03
+ Total CLEANed flux:    1.400E+01
+Steer Iterations: 73968
+ Residual min,max,rms:   -2.616E-02   2.598E-02   4.679E-03
+ Total CLEANed flux:    1.401E+01
+Steer Iterations: 74526
+ Residual min,max,rms:   -2.609E-02   2.601E-02   4.651E-03
+ Total CLEANed flux:    1.402E+01
+Steer Iterations: 77167
+ Residual min,max,rms:   -2.537E-02   2.555E-02   4.575E-03
+ Total CLEANed flux:    1.404E+01
+Steer Iterations: 77212
+ Residual min,max,rms:   -2.537E-02   2.555E-02   4.574E-03
+ Total CLEANed flux:    1.404E+01
+Steer Iterations: 77350
+ Residual min,max,rms:   -2.537E-02   2.555E-02   4.573E-03
+ Total CLEANed flux:    1.405E+01
+Steer Iterations: 79352
+ Residual min,max,rms:   -2.528E-02   2.474E-02   4.502E-03
+ Total CLEANed flux:    1.405E+01
+Steer Iterations: 79668
+ Residual min,max,rms:   -2.528E-02   2.474E-02   4.499E-03
+ Total CLEANed flux:    1.405E+01
+Steer Iterations: 80271
+ Residual min,max,rms:   -2.519E-02   2.468E-02   4.476E-03
+ Total CLEANed flux:    1.406E+01
+Steer Iterations: 83700
+ Residual min,max,rms:   -2.423E-02   2.382E-02   4.357E-03
+ Total CLEANed flux:    1.408E+01
+Steer Iterations: 83954
+ Residual min,max,rms:   -2.423E-02   2.382E-02   4.356E-03
+ Total CLEANed flux:    1.409E+01
+Steer Iterations: 84193
+ Residual min,max,rms:   -2.426E-02   2.382E-02   4.353E-03
+ Total CLEANed flux:    1.410E+01
+Steer Iterations: 84585
+ Residual min,max,rms:   -2.425E-02   2.382E-02   4.343E-03
+ Total CLEANed flux:    1.411E+01
+Steer Iterations: 87226
+ Residual min,max,rms:   -2.342E-02   2.298E-02   4.256E-03
+ Total CLEANed flux:    1.411E+01
+Steer Iterations: 87576
+ Residual min,max,rms:   -2.342E-02   2.297E-02   4.254E-03
+ Total CLEANed flux:    1.411E+01
+Steer Iterations: 88288
+ Residual min,max,rms:   -2.348E-02   2.292E-02   4.241E-03
+ Total CLEANed flux:    1.412E+01
+Steer Iterations: 90308
+ Residual min,max,rms:   -2.262E-02   2.201E-02   4.160E-03
+ Total CLEANed flux:    1.412E+01
+Steer Iterations: 90401
+ Residual min,max,rms:   -2.261E-02   2.201E-02   4.160E-03
+ Total CLEANed flux:    1.412E+01
+Steer Iterations: 90539
+ Residual min,max,rms:   -2.261E-02   2.201E-02   4.159E-03
+ Total CLEANed flux:    1.412E+01
+Steer Iterations: 90962
+ Residual min,max,rms:   -2.246E-02   2.202E-02   4.154E-03
+ Total CLEANed flux:    1.413E+01
+Steer Iterations: 93660
+ Residual min,max,rms:   -2.173E-02   2.107E-02   4.060E-03
+ Total CLEANed flux:    1.414E+01
+Steer Iterations: 94193
+ Residual min,max,rms:   -2.174E-02   2.108E-02   4.056E-03
+ Total CLEANed flux:    1.415E+01
+Steer Iterations: 95746
+ Residual min,max,rms:   -2.096E-02   2.110E-02   4.008E-03
+ Total CLEANed flux:    1.416E+01
+Steer Iterations: 96177
+ Residual min,max,rms:   -2.095E-02   2.108E-02   4.003E-03
+ Total CLEANed flux:    1.417E+01
+Steer Iterations: 96474
+ Residual min,max,rms:   -2.097E-02   2.112E-02   3.997E-03
+ Total CLEANed flux:    1.418E+01
+Steer Iterations: 101179
+ Residual min,max,rms:   -2.015E-02   2.037E-02   3.873E-03
+ Total CLEANed flux:    1.418E+01
+Steer Iterations: 101276
+ Residual min,max,rms:   -2.015E-02   2.037E-02   3.872E-03
+ Total CLEANed flux:    1.418E+01
+Steer Iterations: 101373
+ Residual min,max,rms:   -2.015E-02   2.037E-02   3.872E-03
+ Total CLEANed flux:    1.419E+01
+Steer Iterations: 101487
+ Residual min,max,rms:   -2.015E-02   2.036E-02   3.872E-03
+ Total CLEANed flux:    1.419E+01
+Steer Iterations: 101791
+ Residual min,max,rms:   -2.019E-02   2.034E-02   3.869E-03
+ Total CLEANed flux:    1.420E+01
+Steer Iterations: 103776
+ Residual min,max,rms:   -2.013E-02   1.948E-02   3.818E-03
+ Total CLEANed flux:    1.421E+01
+Steer Iterations: 103812
+ Residual min,max,rms:   -2.013E-02   1.948E-02   3.818E-03
+ Total CLEANed flux:    1.421E+01
+Steer Iterations: 103887
+ Residual min,max,rms:   -2.013E-02   1.948E-02   3.818E-03
+ Total CLEANed flux:    1.421E+01
+Steer Iterations: 104516
+ Residual min,max,rms:   -2.011E-02   1.953E-02   3.807E-03
+ Total CLEANed flux:    1.422E+01
+Steer Iterations: 107750
+ Residual min,max,rms:   -1.901E-02   1.872E-02   3.717E-03
+ Total CLEANed flux:    1.423E+01
+Steer Iterations: 107805
+ Residual min,max,rms:   -1.901E-02   1.872E-02   3.717E-03
+ Total CLEANed flux:    1.423E+01
+Steer Iterations: 107849
+ Residual min,max,rms:   -1.901E-02   1.872E-02   3.717E-03
+ Total CLEANed flux:    1.424E+01
+Steer Iterations: 107939
+ Residual min,max,rms:   -1.901E-02   1.872E-02   3.716E-03
+ Total CLEANed flux:    1.424E+01
+Steer Iterations: 108176
+ Residual min,max,rms:   -1.901E-02   1.872E-02   3.715E-03
+ Total CLEANed flux:    1.424E+01
+Steer Iterations: 108941
+ Residual min,max,rms:   -1.899E-02   1.871E-02   3.704E-03
+ Total CLEANed flux:    1.425E+01
+Steer Iterations: 111066
+ Residual min,max,rms:   -1.903E-02   1.886E-02   3.665E-03
+ Total CLEANed flux:    1.425E+01
+Steer Iterations: 111202
+ Residual min,max,rms:   -1.903E-02   1.886E-02   3.665E-03
+ Total CLEANed flux:    1.425E+01
+Steer Iterations: 111436
+ Residual min,max,rms:   -1.904E-02   1.885E-02   3.664E-03
+ Total CLEANed flux:    1.426E+01
+Steer Iterations: 111915
+ Residual min,max,rms:   -1.909E-02   1.886E-02   3.656E-03
+ Total CLEANed flux:    1.426E+01
+Steer Iterations: 114237
+ Residual min,max,rms:   -1.821E-02   1.817E-02   3.601E-03
+ Total CLEANed flux:    1.427E+01
+Steer Iterations: 115511
+ Residual min,max,rms:   -1.810E-02   1.823E-02   3.591E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 115935
+ Residual min,max,rms:   -1.811E-02   1.825E-02   3.587E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 116426
+ Residual min,max,rms:   -1.814E-02   1.833E-02   3.581E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 117361
+ Residual min,max,rms:   -1.813E-02   1.809E-02   3.562E-03
+ Total CLEANed flux:    1.430E+01
+Steer Iterations: 120768
+ Residual min,max,rms:   -1.739E-02   1.772E-02   3.497E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 120903
+ Residual min,max,rms:   -1.739E-02   1.772E-02   3.497E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 121055
+ Residual min,max,rms:   -1.739E-02   1.772E-02   3.496E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 121325
+ Residual min,max,rms:   -1.739E-02   1.772E-02   3.496E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 123252
+ Residual min,max,rms:   -1.746E-02   1.730E-02   3.467E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 123353
+ Residual min,max,rms:   -1.746E-02   1.730E-02   3.467E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 123591
+ Residual min,max,rms:   -1.747E-02   1.734E-02   3.465E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 126367
+ Residual min,max,rms:   -1.679E-02   1.722E-02   3.399E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 127328
+ Residual min,max,rms:   -1.673E-02   1.721E-02   3.394E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 128373
+ Residual min,max,rms:   -1.680E-02   1.704E-02   3.379E-03
+ Total CLEANed flux:    1.430E+01
+Steer Iterations: 129474
+ Residual min,max,rms:   -1.672E-02   1.700E-02   3.371E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 129613
+ Residual min,max,rms:   -1.672E-02   1.700E-02   3.370E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 129701
+ Residual min,max,rms:   -1.672E-02   1.699E-02   3.370E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 133342
+ Residual min,max,rms:   -1.658E-02   1.623E-02   3.281E-03
+ Total CLEANed flux:    1.430E+01
+Steer Iterations: 133860
+ Residual min,max,rms:   -1.658E-02   1.624E-02   3.279E-03
+ Total CLEANed flux:    1.430E+01
+Steer Iterations: 134286
+ Residual min,max,rms:   -1.645E-02   1.624E-02   3.276E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 135351
+ Residual min,max,rms:   -1.638E-02   1.594E-02   3.263E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 136336
+ Residual min,max,rms:   -1.637E-02   1.593E-02   3.256E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 138263
+ Residual min,max,rms:   -1.602E-02   1.598E-02   3.222E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 138527
+ Residual min,max,rms:   -1.602E-02   1.598E-02   3.222E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 138844
+ Residual min,max,rms:   -1.602E-02   1.597E-02   3.221E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 139816
+ Residual min,max,rms:   -1.561E-02   1.605E-02   3.207E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 141445
+ Residual min,max,rms:   -1.556E-02   1.559E-02   3.183E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 141755
+ Residual min,max,rms:   -1.557E-02   1.560E-02   3.182E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 142420
+ Residual min,max,rms:   -1.560E-02   1.555E-02   3.173E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 145965
+ Residual min,max,rms:   -1.586E-02   1.543E-02   3.125E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 146147
+ Residual min,max,rms:   -1.586E-02   1.543E-02   3.124E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 146314
+ Residual min,max,rms:   -1.586E-02   1.543E-02   3.124E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 146440
+ Residual min,max,rms:   -1.560E-02   1.540E-02   3.123E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 147793
+ Residual min,max,rms:   -1.557E-02   1.537E-02   3.112E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 148078
+ Residual min,max,rms:   -1.558E-02   1.539E-02   3.111E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 149483
+ Residual min,max,rms:   -1.568E-02   1.495E-02   3.087E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 150243
+ Residual min,max,rms:   -1.541E-02   1.497E-02   3.083E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 150707
+ Residual min,max,rms:   -1.540E-02   1.496E-02   3.079E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 152898
+ Residual min,max,rms:   -1.523E-02   1.498E-02   3.045E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 153679
+ Residual min,max,rms:   -1.510E-02   1.498E-02   3.043E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 154121
+ Residual min,max,rms:   -1.508E-02   1.501E-02   3.040E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 156397
+ Residual min,max,rms:   -1.510E-02   1.443E-02   3.008E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 156592
+ Residual min,max,rms:   -1.510E-02   1.443E-02   3.008E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 156794
+ Residual min,max,rms:   -1.510E-02   1.444E-02   3.007E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 157060
+ Residual min,max,rms:   -1.511E-02   1.445E-02   3.005E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 159481
+ Residual min,max,rms:   -1.495E-02   1.422E-02   2.974E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 159817
+ Residual min,max,rms:   -1.486E-02   1.421E-02   2.974E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 159992
+ Residual min,max,rms:   -1.468E-02   1.421E-02   2.973E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 160860
+ Residual min,max,rms:   -1.478E-02   1.416E-02   2.965E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 161564
+ Residual min,max,rms:   -1.474E-02   1.421E-02   2.959E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 165890
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.895E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 166034
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.895E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 166162
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.895E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 166266
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.895E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 166353
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.895E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 166435
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.895E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 166650
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.894E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 166843
+ Residual min,max,rms:   -1.460E-02   1.385E-02   2.893E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 168340
+ Residual min,max,rms:   -1.433E-02   1.384E-02   2.884E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 168724
+ Residual min,max,rms:   -1.432E-02   1.382E-02   2.883E-03
+ Total CLEANed flux:    1.434E+01
+Steer Iterations: 169255
+ Residual min,max,rms:   -1.434E-02   1.380E-02   2.878E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 170382
+ Residual min,max,rms:   -1.407E-02   1.378E-02   2.872E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 173060
+ Residual min,max,rms:   -1.412E-02   1.362E-02   2.846E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 174435
+ Residual min,max,rms:   -1.413E-02   1.360E-02   2.842E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 176962
+ Residual min,max,rms:   -1.374E-02   1.357E-02   2.812E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 178750
+ Residual min,max,rms:   -1.375E-02   1.346E-02   2.803E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 178800
+ Residual min,max,rms:   -1.375E-02   1.346E-02   2.803E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 178878
+ Residual min,max,rms:   -1.375E-02   1.346E-02   2.803E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 179117
+ Residual min,max,rms:   -1.374E-02   1.342E-02   2.802E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 182527
+ Residual min,max,rms:   -1.356E-02   1.330E-02   2.758E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 184943
+ Residual min,max,rms:   -1.346E-02   1.328E-02   2.747E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 185021
+ Residual min,max,rms:   -1.346E-02   1.328E-02   2.747E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 185273
+ Residual min,max,rms:   -1.346E-02   1.326E-02   2.747E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 187245
+ Residual min,max,rms:   -1.346E-02   1.315E-02   2.728E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 188420
+ Residual min,max,rms:   -1.353E-02   1.313E-02   2.723E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 188439
+ Residual min,max,rms:   -1.353E-02   1.313E-02   2.723E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 188464
+ Residual min,max,rms:   -1.353E-02   1.313E-02   2.723E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 188518
+ Residual min,max,rms:   -1.353E-02   1.313E-02   2.723E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 188837
+ Residual min,max,rms:   -1.330E-02   1.315E-02   2.721E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 194427
+ Residual min,max,rms:   -1.310E-02   1.251E-02   2.655E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 194534
+ Residual min,max,rms:   -1.310E-02   1.251E-02   2.655E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 194689
+ Residual min,max,rms:   -1.310E-02   1.251E-02   2.655E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 194817
+ Residual min,max,rms:   -1.310E-02   1.251E-02   2.655E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 194917
+ Residual min,max,rms:   -1.310E-02   1.251E-02   2.655E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 195024
+ Residual min,max,rms:   -1.310E-02   1.251E-02   2.655E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 195141
+ Residual min,max,rms:   -1.310E-02   1.252E-02   2.655E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 195431
+ Residual min,max,rms:   -1.309E-02   1.252E-02   2.654E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 196043
+ Residual min,max,rms:   -1.310E-02   1.248E-02   2.652E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 197873
+ Residual min,max,rms:   -1.276E-02   1.241E-02   2.643E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 200801
+ Residual min,max,rms:   -1.275E-02   1.238E-02   2.622E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 201471
+ Residual min,max,rms:   -1.276E-02   1.237E-02   2.622E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 203442
+ Residual min,max,rms:   -1.291E-02   1.234E-02   2.612E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 204986
+ Residual min,max,rms:   -1.261E-02   1.227E-02   2.604E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 205805
+ Residual min,max,rms:   -1.262E-02   1.226E-02   2.602E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 211759
+ Residual min,max,rms:   -1.253E-02   1.213E-02   2.522E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 211896
+ Residual min,max,rms:   -1.253E-02   1.213E-02   2.522E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 212125
+ Residual min,max,rms:   -1.253E-02   1.213E-02   2.522E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 212563
+ Residual min,max,rms:   -1.252E-02   1.212E-02   2.522E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 213494
+ Residual min,max,rms:   -1.252E-02   1.196E-02   2.522E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 213961
+ Residual min,max,rms:   -1.252E-02   1.195E-02   2.521E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 214391
+ Residual min,max,rms:   -1.251E-02   1.194E-02   2.521E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 215315
+ Residual min,max,rms:   -1.225E-02   1.184E-02   2.518E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 215655
+ Residual min,max,rms:   -1.225E-02   1.184E-02   2.518E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 216605
+ Residual min,max,rms:   -1.223E-02   1.185E-02   2.513E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 218311
+ Residual min,max,rms:   -1.224E-02   1.182E-02   2.506E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 218570
+ Residual min,max,rms:   -1.224E-02   1.182E-02   2.506E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 218821
+ Residual min,max,rms:   -1.228E-02   1.181E-02   2.505E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 223433
+ Residual min,max,rms:   -1.187E-02   1.170E-02   2.463E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 223781
+ Residual min,max,rms:   -1.187E-02   1.169E-02   2.462E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 224132
+ Residual min,max,rms:   -1.188E-02   1.169E-02   2.462E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 224679
+ Residual min,max,rms:   -1.187E-02   1.167E-02   2.460E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 225526
+ Residual min,max,rms:   -1.189E-02   1.173E-02   2.457E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 226117
+ Residual min,max,rms:   -1.188E-02   1.161E-02   2.455E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 227954
+ Residual min,max,rms:   -1.172E-02   1.148E-02   2.444E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 228080
+ Residual min,max,rms:   -1.172E-02   1.148E-02   2.444E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 228240
+ Residual min,max,rms:   -1.172E-02   1.148E-02   2.444E-03
+ Total CLEANed flux:    1.438E+01
+Steer Iterations: 228488
+ Residual min,max,rms:   -1.172E-02   1.147E-02   2.444E-03
+ Total CLEANed flux:    1.438E+01
+Steer Iterations: 229326
+ Residual min,max,rms:   -1.172E-02   1.147E-02   2.441E-03
+ Total CLEANed flux:    1.438E+01
+Steer Iterations: 232620
+ Residual min,max,rms:   -1.172E-02   1.141E-02   2.416E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 233168
+ Residual min,max,rms:   -1.165E-02   1.141E-02   2.416E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 234470
+ Residual min,max,rms:   -1.148E-02   1.132E-02   2.411E-03
+ Total CLEANed flux:    1.437E+01
+Steer Iterations: 237041
+ Residual min,max,rms:   -1.154E-02   1.125E-02   2.398E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 237216
+ Residual min,max,rms:   -1.154E-02   1.125E-02   2.398E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 237535
+ Residual min,max,rms:   -1.153E-02   1.125E-02   2.398E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 239034
+ Residual min,max,rms:   -1.149E-02   1.123E-02   2.392E-03
+ Total CLEANed flux:    1.436E+01
+Steer Iterations: 241246
+ Residual min,max,rms:   -1.147E-02   1.125E-02   2.383E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 241306
+ Residual min,max,rms:   -1.147E-02   1.125E-02   2.383E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 241386
+ Residual min,max,rms:   -1.147E-02   1.125E-02   2.383E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 241521
+ Residual min,max,rms:   -1.147E-02   1.125E-02   2.383E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 242373
+ Residual min,max,rms:   -1.145E-02   1.118E-02   2.380E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 244858
+ Residual min,max,rms:   -1.156E-02   1.111E-02   2.365E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 246057
+ Residual min,max,rms:   -1.144E-02   1.107E-02   2.363E-03
+ Total CLEANed flux:    1.435E+01
+Steer Iterations: 251085
+ Residual min,max,rms:   -1.113E-02   1.069E-02   2.324E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 251169
+ Residual min,max,rms:   -1.113E-02   1.069E-02   2.324E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 251302
+ Residual min,max,rms:   -1.113E-02   1.069E-02   2.324E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 251977
+ Residual min,max,rms:   -1.116E-02   1.070E-02   2.323E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 253010
+ Residual min,max,rms:   -1.118E-02   1.073E-02   2.321E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 254111
+ Residual min,max,rms:   -1.121E-02   1.072E-02   2.317E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 255975
+ Residual min,max,rms:   -1.114E-02   1.078E-02   2.311E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 256229
+ Residual min,max,rms:   -1.114E-02   1.079E-02   2.311E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 256891
+ Residual min,max,rms:   -1.112E-02   1.078E-02   2.309E-03
+ Total CLEANed flux:    1.433E+01
+Steer Iterations: 263333
+ Residual min,max,rms:   -1.094E-02   1.069E-02   2.254E-03
+ Total CLEANed flux:    1.430E+01
+Steer Iterations: 263583
+ Residual min,max,rms:   -1.094E-02   1.069E-02   2.253E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 263830
+ Residual min,max,rms:   -1.094E-02   1.070E-02   2.253E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 264150
+ Residual min,max,rms:   -1.094E-02   1.070E-02   2.253E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 264423
+ Residual min,max,rms:   -1.094E-02   1.070E-02   2.253E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 265040
+ Residual min,max,rms:   -1.092E-02   1.069E-02   2.252E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 265536
+ Residual min,max,rms:   -1.092E-02   1.060E-02   2.252E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 267162
+ Residual min,max,rms:   -1.088E-02   1.043E-02   2.248E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 267341
+ Residual min,max,rms:   -1.088E-02   1.043E-02   2.248E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 267592
+ Residual min,max,rms:   -1.089E-02   1.043E-02   2.248E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 268413
+ Residual min,max,rms:   -1.091E-02   1.041E-02   2.246E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 271320
+ Residual min,max,rms:   -1.065E-02   1.037E-02   2.234E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 271418
+ Residual min,max,rms:   -1.065E-02   1.037E-02   2.234E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 271643
+ Residual min,max,rms:   -1.065E-02   1.037E-02   2.234E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 272019
+ Residual min,max,rms:   -1.060E-02   1.037E-02   2.234E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 273167
+ Residual min,max,rms:   -1.063E-02   1.040E-02   2.231E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 274391
+ Residual min,max,rms:   -1.064E-02   1.030E-02   2.227E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 277096
+ Residual min,max,rms:   -1.073E-02   1.027E-02   2.218E-03
+ Total CLEANed flux:    1.432E+01
+Steer Iterations: 281286
+ Residual min,max,rms:   -1.047E-02   1.010E-02   2.203E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 281393
+ Residual min,max,rms:   -1.047E-02   1.010E-02   2.203E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 281520
+ Residual min,max,rms:   -1.047E-02   1.010E-02   2.203E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 281707
+ Residual min,max,rms:   -1.047E-02   1.010E-02   2.203E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 282207
+ Residual min,max,rms:   -1.047E-02   1.012E-02   2.203E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 283024
+ Residual min,max,rms:   -1.049E-02   1.015E-02   2.201E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 284408
+ Residual min,max,rms:   -1.050E-02   1.015E-02   2.197E-03
+ Total CLEANed flux:    1.431E+01
+Steer Iterations: 293319
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293339
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293361
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293382
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293404
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293425
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293451
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293484
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293524
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293563
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293613
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293669
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293731
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293793
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293855
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 293939
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 294029
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 294135
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 294258
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 294412
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 294587
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 294802
+ Residual min,max,rms:   -1.034E-02   9.925E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 295050
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 295337
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 295650
+ Residual min,max,rms:   -1.034E-02   9.926E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 296030
+ Residual min,max,rms:   -1.034E-02   9.927E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 296431
+ Residual min,max,rms:   -1.034E-02   9.927E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 296929
+ Residual min,max,rms:   -1.034E-02   9.927E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 297535
+ Residual min,max,rms:   -1.033E-02   9.929E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 298207
+ Residual min,max,rms:   -1.032E-02   9.931E-03   2.129E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 299121
+ Residual min,max,rms:   -1.032E-02   9.942E-03   2.128E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 299276
+ Residual min,max,rms:   -1.032E-02   9.942E-03   2.128E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 299656
+ Residual min,max,rms:   -1.032E-02   9.941E-03   2.128E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 301216
+ Residual min,max,rms:   -1.016E-02   9.949E-03   2.127E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 301351
+ Residual min,max,rms:   -1.016E-02   9.949E-03   2.127E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 301613
+ Residual min,max,rms:   -1.016E-02   9.950E-03   2.127E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 302461
+ Residual min,max,rms:   -1.015E-02   9.839E-03   2.125E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 302555
+ Residual min,max,rms:   -1.015E-02   9.840E-03   2.125E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 302758
+ Residual min,max,rms:   -1.015E-02   9.841E-03   2.125E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 303610
+ Residual min,max,rms:   -1.016E-02   9.843E-03   2.123E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 305850
+ Residual min,max,rms:   -1.013E-02   9.929E-03   2.116E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 307197
+ Residual min,max,rms:   -1.012E-02   9.805E-03   2.114E-03
+ Total CLEANed flux:    1.429E+01
+Steer Iterations: 311998
+ Residual min,max,rms:   -1.013E-02   9.880E-03   2.085E-03
+ Total CLEANed flux:    1.427E+01
+Steer Iterations: 312034
+ Residual min,max,rms:   -1.013E-02   9.880E-03   2.085E-03
+ Total CLEANed flux:    1.427E+01
+Steer Iterations: 312073
+ Residual min,max,rms:   -1.013E-02   9.880E-03   2.085E-03
+ Total CLEANed flux:    1.427E+01
+Steer Iterations: 312119
+ Residual min,max,rms:   -1.013E-02   9.880E-03   2.085E-03
+ Total CLEANed flux:    1.427E+01
+Steer Iterations: 312178
+ Residual min,max,rms:   -1.013E-02   9.880E-03   2.085E-03
+ Total CLEANed flux:    1.427E+01
+Steer Iterations: 312252
+ Residual min,max,rms:   -1.013E-02   9.880E-03   2.085E-03
+ Total CLEANed flux:    1.427E+01
+Steer Iterations: 312372
+ Residual min,max,rms:   -1.013E-02   9.880E-03   2.085E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 312558
+ Residual min,max,rms:   -1.013E-02   9.885E-03   2.085E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 313090
+ Residual min,max,rms:   -1.012E-02   9.897E-03   2.085E-03
+ Total CLEANed flux:    1.428E+01
+Steer Iterations: 314241
+ Residual min,max,rms:   -9.941E-03   9.591E-03   2.083E-03
+ Total CLEANed flux:    1.428E+01
+
+restor: CVS Revision 1.6, 2013/07/20 03:35:27 UTC
+
+Using Gaussian beam fwhm of    8.385 by    6.018 arcsec.
+Position angle:    7.7 degrees.
+
+restor: CVS Revision 1.6, 2013/07/20 03:35:27 UTC
+
+
+maths: CVS Revision 1.5, 2013/12/27 18:32:30 UTC
+
+
+cgdisp: CVS Revision 1.16, 2013/07/27 17:23:29 UTC
+
+Character sizes (axes & velocity) are: 1.0, 1.0
+Tabulating linear black and white table
+
+cgdisp: CVS Revision 1.16, 2013/07/27 17:23:29 UTC
+
+Character sizes (axes & velocity) are: 1.0, 1.0
+Linear x and y scales per mm = 2.196653E-05, 2.196653E-05
+Beginning plane   1
+Tabulating linear black and white table
+
+cgdisp: CVS Revision 1.16, 2013/07/27 17:23:29 UTC
+
+Character sizes (axes & velocity) are: 1.0, 1.0
+Finding image minimum and maximum
+Tabulating linear black and white table
+
+cgdisp: CVS Revision 1.16, 2013/07/27 17:23:29 UTC
+
+Character sizes (axes & velocity) are: 1.0, 1.0
+Linear x and y scales per mm = 2.196653E-05, 2.196653E-05
+Beginning plane   1
+Tabulating linear black and white table
+
+
+*** Finished to make maps of /hifi/carmaorion/orion/images/jrf/cont/OMC42_cont
+
+
