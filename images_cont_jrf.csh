@@ -150,19 +150,37 @@
        if ($run_mkmask == 1) then
            # Remove existing files
            rm -rf $outfile.{mask}
+           
+           # JRF, August 2015
+           # ==================
+           # Problem: The mean of the sensitivity map, found below, is the mean
+           # rms of the image, but the RMS is much higher on the edges, so we
+           # should really define the mask pixel by pixel based on a snr IMAGE, not just the
+           # overall mean!!
+            
+           # Make an SNR image of the dirty map.
+           maths exp="<$outfile.map>/<$outfile.sen>" out=$outfile.snr_dirty
+           # Define mask using SNR image and the snr floor specified.
+           maths exp="<$outfile.snr_dirty>.gt.$snr_mask" out=$outfile.mask           
+
+     
+
+           # Old mask routine
+           # =================
 
            # calculate rms from sensitivity map
-           set rms = `imstat in=$outfile.sen | tail -n 1 | awk '{print $3}'`
-           echo "rms from sensitivity map is $rms"
-           set clip = `calc "$rms*$snr_mask"`
-           echo "Clipping mask is constructed from emission is larger than $clip"
+           #set rms = `imstat in=$outfile.sen | tail -n 1 | awk '{print $3}'`
+           #echo "rms from sensitivity map is $rms"
+           #set clip = `calc "$rms*$snr_mask"`
+           #echo "Clipping mask is constructed from emission is larger than $clip"
            # make mask file
-           maths exp="<$outfile.map>.gt.$clip" out=$outfile.mask
+           #maths exp="<$outfile.map>.gt.$clip" out=$outfile.mask
             
            if ($run_replace == 1) then
-              rm -rf $outfile.{map_replace}
-              # JRF Replace all unwanted areas of image with 0s by
+              # JRF, August 2015
+              # Replace all unwanted areas of image with 0s by
               # multiplying the dirty image by the mask.
+              rm -rf $outfile.{map_replace}
               maths exp="<$outfile.map>*<$outfile.mask>" out=$outfile.map_replace
            endif 
 
