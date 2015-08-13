@@ -61,6 +61,10 @@
 # Set RA/DEC
   set coords = "ra(3,7),dec(-10,0)"
 
+# Set output directories
+  set dir      = /hifi/carmaorion/orion/images/jrf/cont
+  set dir_plot = $dir/plots
+
 # Override user supplied parameters with command line arguments
   foreach a ( $* )
     set nargs = `echo $a | awk -F= '{print NF}'`
@@ -80,9 +84,6 @@
      set source = "omc*"
   endif
 
-# Set output directories
-  set dir      = /hifi/carmaorion/orion/images/jrf/cont
-  set dir_plot = $dir/plots
 
 # Set output files
   set outfile = "$dir/carma_cont"
