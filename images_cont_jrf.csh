@@ -20,13 +20,19 @@
 
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   set run_mkmask = 0
+  set snr_mask = 2.5 # The minimum SNR to be cleaned.
   set mask = ""
+
+# If run_replace = 1, replace values below mask in dirty map with 0s; jrf 
+  set run_replace = 0
+
 
 # If run_imfit = 1, then fit the psf image and derive the beam
   set run_imfit = 1
 
 # If run_clean = 1, then clean map
   set run_clean = 1
+
 
 # If plotx = 1, plot maps onto xwindow
   set plotx = 1
@@ -38,8 +44,8 @@
   set source = ""
 
 # invert parameters
-  set cell = 1
-  set imsize = 257
+  set cell = 2
+  set imsize = 127
   set robust = 0
 
 # mossdi parameters
@@ -144,20 +150,38 @@
        if ($run_mkmask == 1) then
            # Remove existing files
            rm -rf $outfile.{mask}
+
            # calculate rms from sensitivity map
            set rms = `imstat in=$outfile.sen | tail -n 1 | awk '{print $3}'`
            echo "rms from sensitivity map is $rms"
-           set clip = `calc "$rms*2.5"`
+           set clip = `calc "$rms*$snr_mask"`
            echo "Clipping mask is constructed from emission is larger than $clip"
            # make mask file
            maths exp="<$outfile.map>.gt.$clip" out=$outfile.mask
+            
+           if ($run_replace == 1) then
+              rm -rf $outfile.{map_replace}
+              # JRF Replace all unwanted areas of image with 0s by
+              # multiplying the dirty image by the mask.
+              maths exp="<$outfile.map>*<$outfile.mask>" out=$outfile.map_replace
+           endif 
+
        endif
 
      # Clean map
        if ($algorithm == "mossdi") then
           if ($run_mkmask == 1) then
-               mossdi map=$outfile.map beam=$outfile.beam out=$outfile.cc \
+
+             if ($run_replace == 1) then
+                mossdi map=$outfile.map_replace beam=$outfile.beam out=$outfile.cc \
+                 cutoff=$cutoff region=$region niters=$niter 
+
+             else
+                mossdi map=$outfile.map beam=$outfile.beam out=$outfile.cc \
                  cutoff=$cutoff region=$region niters=$niter region="mask("$outfile.mask")"
+                
+             endif
+
           else 
              #  mossdi map=$outfile.map beam=$outfile.beam out=$outfile.cc \
              #    cutoff=$cutoff region=$region niters=$niter
@@ -180,10 +204,24 @@
        endif
 
      # Restore image
-       restor map=$outfile.map beam=$outfile.beam model=$outfile.cc \
-              out=$outfile.cm fwhm=$bmaj,$bmin pa=$bpa
-       restor map=$outfile.map beam=$outfile.beam model=$outfile.cc \
-              out=$outfile.rs fwhm=$bmaj,$bmin pa=$bpa mode=residual
+       if ($run_replace == 1) then
+          #Use the original (unmasked) dirty map as the input file for restor.
+          restor map=$outfile.map beam=$outfile.beam model=$outfile.cc \
+                 out=$outfile.cm fwhm=$bmaj,$bmin pa=$bpa
+          restor map=$outfile.map beam=$outfile.beam model=$outfile.cc \
+                 out=$outfile.rs fwhm=$bmaj,$bmin pa=$bpa mode=residual
+
+          #restor map=$outfile.map_replace beam=$outfile.beam model=$outfile.cc \
+          #       out=$outfile.cm fwhm=$bmaj,$bmin pa=$bpa
+          #restor map=$outfile.map_replace beam=$outfile.beam model=$outfile.cc \
+          #       out=$outfile.rs fwhm=$bmaj,$bmin pa=$bpa mode=residual
+       
+       else
+          restor map=$outfile.map beam=$outfile.beam model=$outfile.cc \
+                 out=$outfile.cm fwhm=$bmaj,$bmin pa=$bpa
+          restor map=$outfile.map beam=$outfile.beam model=$outfile.cc \
+                 out=$outfile.rs fwhm=$bmaj,$bmin pa=$bpa mode=residual
+       endif
 
      # Create signal to noise image
        rm -rf $outfile.snr
