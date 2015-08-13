@@ -150,6 +150,7 @@
        if ($run_mkmask == 1) then
            # Remove existing files
            rm -rf $outfile.{mask}
+           rm -rf $outfile.{snr_dirty}
            
            # JRF, August 2015
            # ==================
