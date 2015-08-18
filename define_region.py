@@ -55,15 +55,15 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
 
      for x,y in zip(n_col_left, n_row_left):
         out_list.append(str(x))
-        out_list.append(', ')
+        out_list.append(',')
         out_list.append(str(y))
-        out_list.append(', ')
+        out_list.append(',')
 
      for x,y in zip(n_col_right, n_row_right):
         out_list.append(str(x))
-        out_list.append(', ')
+        out_list.append(',')
         out_list.append(str(y))
-        out_list.append(', ')
+        out_list.append(',')
 
      #Replace trailing comma with parenthesis to close off polygon.
      out_list[-1] = ')'
@@ -75,3 +75,14 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
 
    if format == 'radec':
        pass
+
+
+def main():
+   """
+   Calls region() function to generate region.txt file for use in image
+   cleaning.
+   """
+   region()
+
+if __name__ == "__main()__":
+   main()    
