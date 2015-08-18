@@ -1,4 +1,7 @@
 *.swp
 *.pdf
 *.png
-cont/*
+*.fits
+*.txt
+cont*/
+
