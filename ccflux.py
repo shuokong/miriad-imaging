@@ -1,13 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-#Default parameters
-flux_str = 'Total CLEANed flux'
-cc_str = 'Steer'
-    
 def plot(infile='clean_region.log', plotfile='ccflux_region.pdf',
       flux_str='Total CLEANed flux', cc_str='Steer'):
+   """
 
+   """
    f = open(infile)
    lines = f.read().split('\n')
    f.close()
@@ -48,6 +46,7 @@ def plotmulti(infiles, plotfile='ccflux_multi.pdf',
       flux = np.array([float(i.split()[3]) for i in flux_lines])
       
       plt.plot(cc, flux, label=labels[ii_file], lw=1.3) 
+           
 
    if xlim is not None:
       plt.xlim(xlim)

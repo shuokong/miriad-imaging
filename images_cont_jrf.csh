@@ -1,6 +1,15 @@
 #!/bin/csh -fe
 #Modified from images_cont_jmc.csh from John Carpenter 2015
 # If verb = 1, echo status/debug statements to terminal.
+  set miriad_64 = 1
+  if $miriad_64 then
+     echo ""
+     echo "*** Loading miriad version miriad_64 ***"
+     echo ""
+     source ~/.cshrc startMiriad=0
+     source /scr/carmaorion/sw/miriad_64/miriad_start.csh
+  endif
+
   set verb = 0
   if $verb echo "Setting up parameters..."
 # Make images for web site
@@ -160,10 +169,8 @@
            # should really define the mask pixel by pixel based on a snr IMAGE, not just the
            # overall mean!!
             
-           # Make an SNR image of the dirty map.
-           maths exp="<$outfile.map>/<$outfile.sen>" out=$outfile.snr_dirty
            # Define mask using SNR image and the snr floor specified.
-           maths exp="<$outfile.snr_dirty>.gt.$snr_mask" out=$outfile.mask           
+           maths exp="<$outfile.snr>.gt.$snr_mask" out=$outfile.mask           
 
      
 
