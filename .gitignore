@@ -2,7 +2,6 @@
 *.pdf
 *.png
 *.fits
-*.txt
 cont*/
 __py*
 
