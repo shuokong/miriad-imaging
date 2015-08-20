@@ -59,6 +59,7 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
 
      #Plot the polygon on top of the gain image.
      plt.plot(n_col_left, n_row_left)
+     plt.plot(n_col_right, n_row_right)
      plt.show()
 
      out_list = ['polygon(']
@@ -110,7 +111,6 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
 
    if format == 'radec':
        pass
-
 
 def main():
    """
