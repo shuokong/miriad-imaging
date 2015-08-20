@@ -1,9 +1,11 @@
+#! /usr/bin/env python
+#This comment was added while working on hifi.
 import numpy as np
 from astropy.io import fits
 import matplotlib.pyplot as plt 
 
 def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
-      format='pixels'):
+      format='pixels', outformat='oneline'):
    """
       Write out a text file that can be be read by the MIRIAD command mossdi
       to specify a region for cleaning. Finds the vertices of a polygon that
@@ -53,25 +55,49 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
 
      out_list = ['polygon(']
 
-     for x,y in zip(n_col_left, n_row_left):
-        out_list.append(str(x))
-        out_list.append(',')
-        out_list.append(str(y))
-        out_list.append(',')
+     if outformat == 'multiline':
 
-     for x,y in zip(n_col_right, n_row_right):
-        out_list.append(str(x))
-        out_list.append(',')
-        out_list.append(str(y))
-        out_list.append(',')
+        for x,y in zip(n_col_left, n_row_left):
+           out_list.append(str(x))
+           out_list.append('\n')
+           out_list.append(str(y))
+           out_list.append('\n')
 
-     #Replace trailing comma with parenthesis to close off polygon.
-     out_list[-1] = ')'
-     out_string = ''.join(out_list)
-     
-     f = open(outfile, 'w')
-     f.write(out_string)
-     f.close()
+        for x,y in zip(n_col_right, n_row_right):
+           out_list.append(str(x))
+           out_list.append('\n')
+           out_list.append(str(y))
+           out_list.append('\n')
+
+        out_list[-1] = ')'
+        out_string = ''.join(out_list)
+        
+        f = open(outfile, 'w')
+        f.write(out_string)
+        f.close()
+
+
+     if outformat == 'oneline':
+
+        for x,y in zip(n_col_left, n_row_left):
+           out_list.append(str(x))
+           out_list.append(',')
+           out_list.append(str(y))
+           out_list.append(',')
+
+        for x,y in zip(n_col_right, n_row_right):
+           out_list.append(str(x))
+           out_list.append(',')
+           out_list.append(str(y))
+           out_list.append(',')
+
+        #Replace trailing comma with parenthesis to close off polygon.
+        out_list[-1] = ')'
+        out_string = ''.join(out_list)
+        
+        f = open(outfile, 'w')
+        f.write(out_string)
+        f.close()
 
    if format == 'radec':
        pass
@@ -82,7 +108,9 @@ def main():
    Calls region() function to generate region.txt file for use in image
    cleaning.
    """
-   region()
+   print("running main()")
+   region(outformat='multiline')
 
-if __name__ == "__main()__":
+if __name__ == "__main__":
+   print("This program is running by itself")
    main()    

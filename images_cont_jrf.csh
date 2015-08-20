@@ -27,6 +27,10 @@
 # If run_invert = 1, then make dirty map
   set run_invert = 1
 
+# If run_mkregion = 1, then define a region where gain=1, and only clean within
+# this.
+  set run_mkregion = 0
+
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   set run_mkmask = 0
   set snr_mask = 2.5 # The minimum SNR to be cleaned.
@@ -195,8 +199,16 @@
 
        endif
 
+     # Working on this... 8/18/15
+     #  if ($run_mkregion == 1) then
+     #     fits in=$outfile.gain out=$outfile.gain.fits op=xyout
+     #     python 
+
+     #     endif
+
      # Clean map
        if ($algorithm == "mossdi") then
+          
           if ($run_mkmask == 1) then
 
              if ($run_replace == 1) then
