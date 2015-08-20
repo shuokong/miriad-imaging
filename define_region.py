@@ -43,9 +43,11 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
    #   if 
        
 
-   plt.imshow(gain)    
+   plt.imshow(gain, cmap="Greys", interpolation='none')    
 
    if format == 'pixels':
+
+
      #Miriad wants 1-indexd coordinates.  
      n_col_left += 1
      n_col_right += 1
@@ -54,6 +56,10 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
      #Reverse the rightmost pixel coordinates so that the polygon wraps
      #around the top of the image.
      n_row_right, n_col_right = n_row_right[::-1], n_col_right[::-1]
+
+     #Plot the polygon on top of the gain image.
+     plt.plot(n_col_left, n_row_left)
+     plt.show()
 
      out_list = ['polygon(']
 
@@ -100,6 +106,7 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
         f = open(outfile, 'w')
         f.write(out_string)
         f.close()
+
 
    if format == 'radec':
        pass
