@@ -12,7 +12,7 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
       Write out a text file that can be be read by the MIRIAD command mossdi
       to specify a region for cleaning. Finds the vertices of a polygon that
       covers the entire region where gain >= gainfloor. The vertices are
-      written in pixels relative to the center or in RA/DEC. Write ou t in
+      written in pi<p></p>xels relative to the center or in RA/DEC. Write ou t in
       RA/DEC when writing one region file that will be used repeatedly with
       mossdi. Write out in relative pixels if the pixel scale, image size do
       not change. See the next function below to convert ra/dec coordinates to
@@ -62,21 +62,30 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
      plt.plot(n_col_right, n_row_right)
      plt.show()
 
+     #Combine left and right columns and rows into single array.
+     n_col = [n_col_left, n_col_right]
+     n_row = [n_row_left, n_row_right]
+
      out_list = ['polygon(']
 
      if outformat == 'multiline':
 
-        for x,y in zip(n_col_left, n_row_left):
+        for x,y in zip(n_col, n_row):
            out_list.append(str(x))
            out_list.append('\n')
            out_list.append(str(y))
            out_list.append('\n')
 
-        for x,y in zip(n_col_right, n_row_right):
-           out_list.append(str(x))
-           out_list.append('\n')
-           out_list.append(str(y))
-           out_list.append('\n')
+        #    out_list.append(str(x))
+        #    out_list.append('\n')
+        #    out_list.append(str(y))
+        #    out_list.append('\n')
+
+        # for x,y in zip(n_col_right, n_row_right):
+        #    out_list.append(str(x))
+        #    out_list.append('\n')
+        #    out_list.append(str(y))
+        #    out_list.append('\n')
 
         out_list[-1] = ')'
         out_string = ''.join(out_list)
@@ -88,17 +97,22 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
 
      if outformat == 'oneline':
 
-        for x,y in zip(n_col_left, n_row_left):
+        for x,y in zip(n_col, n_row):
            out_list.append(str(x))
            out_list.append(',')
            out_list.append(str(y))
            out_list.append(',')
 
-        for x,y in zip(n_col_right, n_row_right):
-           out_list.append(str(x))
-           out_list.append(',')
-           out_list.append(str(y))
-           out_list.append(',')
+        #    out_list.append(str(x))
+        #    out_list.append(',')
+        #    out_list.append(str(y))
+        #    out_list.append(',')
+
+        # for x,y in zip(n_col_right, n_row_right):
+        #    out_list.append(str(x))
+        #    out_list.append(',')
+        #    out_list.append(str(y))
+        #    out_list.append(',')
 
         #Replace trailing comma with parenthesis to close off polygon.
         out_list[-1] = ')'
