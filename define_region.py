@@ -22,7 +22,7 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
    gain = gain_hdu[0].data[0][0] # Assumes continuum, no vel/pol info.
    hdr = gain_hdu[0].header
    
-   one_coords = np.where(gain == 1)
+   one_coords = np.where(gain >= gainfloor)
 
    n_row_left, ind = np.unique(one_coords[0], return_index=True)
    n_col_left = one_coords[1][ind]
@@ -76,24 +76,12 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
            out_list.append(str(y))
            out_list.append('\n')
 
-        #    out_list.append(str(x))
-        #    out_list.append('\n')
-        #    out_list.append(str(y))
-        #    out_list.append('\n')
-
-        # for x,y in zip(n_col_right, n_row_right):
-        #    out_list.append(str(x))
-        #    out_list.append('\n')
-        #    out_list.append(str(y))
-        #    out_list.append('\n')
-
         out_list[-1] = ')'
         out_string = ''.join(out_list)
         
         f = open(outfile, 'w')
         f.write(out_string)
         f.close()
-
 
      if outformat == 'oneline':
 
@@ -103,17 +91,6 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
            out_list.append(str(y))
            out_list.append(',')
 
-        #    out_list.append(str(x))
-        #    out_list.append(',')
-        #    out_list.append(str(y))
-        #    out_list.append(',')
-
-        # for x,y in zip(n_col_right, n_row_right):
-        #    out_list.append(str(x))
-        #    out_list.append(',')
-        #    out_list.append(str(y))
-        #    out_list.append(',')
-
         #Replace trailing comma with parenthesis to close off polygon.
         out_list[-1] = ')'
         out_string = ''.join(out_list)
@@ -122,15 +99,19 @@ def region(gain_image='gain.fits', outfile='region.txt', gainfloor=1.0,
         f.write(out_string)
         f.close()
 
+     # Return the column and row numbers IN 1-INDEXED FORMAT.
+     return n_col, n_row 
 
    if format == 'radec':
        pass
+
 
 def main():
    """
    Calls region() function to generate region.txt file for use in image
    cleaning.
    """
+   import argparse
    print("running main()")
    region(outformat='multiline')
 
