@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def region(image='gain.fits', outfile='region.txt', limit=1.0,
       format='pixels', outformat='oneline', image_type='gain'):
-    """
+  """
     Write out a text file that can be be read by the MIRIAD command mossdi
     to specify a region for cleaning. Finds the vertices of a polygon that
     covers the entire region where gain >= limit. The vertices are
@@ -28,16 +28,13 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
     image_type : str, {'gain', 'sens'}, optional
       Use an upper limit to select pixels from sensitivity image, and
       lower limit to select pixels from the gain image.
+  """
 
-
-
-
-    """
-  hdu = fits.open(image) 
-  data = hdu[0].data[0][0] # Assumes continuum, no vel/pol info.
+  hdu = fits.open(image)
+  data = hdu[0].data[0][0]  # Assumes continuum, no vel/pol info.
   hdr = hdu[0].header
-  
-  # Select all pixels that satisfy the floor 
+
+  # Select all pixels that satisfy the floor
 
   if image_type == 'gain':
     good_coords = np.where(data >= limit)
@@ -47,29 +44,24 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
 
   n_row_left, ind = np.unique(good_coords[0], return_index=True)
   n_col_left = good_coords[1][ind]
-  print(n_col_left, n_row_left) #Coordinates of leftmost gain=1 pixels.
-  
+  print(n_col_left, n_row_left)  # Coordinates of leftmost gain=1 pixels.
+
   good_coords_bwd = (good_coords[0][::-1], good_coords[1][::-1])
   n_row_right, ind = np.unique(good_coords_bwd[0], return_index=True)
   n_col_right = good_coords_bwd[1][ind]
-  print(n_col_right, n_row_right) #Coordinates of rightmost gain=1 pixels.
+  print(n_col_right, n_row_right)  # Coordinates of rightmost gain=1 pixels.
 
-   
- 
   # Pick the rows that have at least one pixel with gain = 1.
   # gain_hasones = gain[np.any(gain == 1, axis=1)]
 
-
   # for n_row, row in enumerate(gain):
-  #   if 
-     
+  #   if
 
-  plt.imshow(data, cmap="Greys", interpolation='none')    
+  plt.imshow(data, cmap="Greys", interpolation='none')
 
   if format == 'pixels':
 
-
-    # Miriad wants 1-indexd coordinates.  
+    # Miriad wants 1-indexd coordinates.
     n_col_left += 1
     n_col_right += 1
     n_row_left += 1
@@ -91,7 +83,7 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
 
     if outformat == 'multiline':
 
-       for x,y in zip(n_col, n_row):
+       for x, y in zip(n_col, n_row):
          out_list.append(str(x))
          out_list.append('\n')
          out_list.append(str(y))
@@ -104,20 +96,20 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
        out_list.append(')')
 
        out_string = ''.join(out_list)
-      
+
        f = open(outfile, 'w')
        f.write(out_string)
        f.close()
 
     if outformat == 'oneline':
 
-      for x,y in zip(n_col, n_row):
+      for x, y in zip(n_col, n_row):
          out_list.append(str(x))
          out_list.append(',')
          out_list.append(str(y))
          out_list.append(',')
 
-       # Close the polygon by repeating the first vertex.  
+       # Close the polygon by repeating the first vertex.
        out_list.append(str(n_col[0]))
        out_list.append(',')
        out_list.append(str(n_row[0]))
