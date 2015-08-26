@@ -97,7 +97,12 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
          out_list.append(str(y))
          out_list.append('\n')
 
-       out_list[-1] = ')'
+       # Close the polygon by repeating the first vertex.
+       out_list.append(str(n_col[0]))
+       out_list.append('\n')
+       out_list.append(str(n_row[0]))
+       out_list.append(')')
+
        out_string = ''.join(out_list)
       
        f = open(outfile, 'w')
@@ -112,8 +117,12 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
          out_list.append(str(y))
          out_list.append(',')
 
-      # Replace trailing comma with parenthesis to close off polygon.
-       out_list[-1] = ')'
+       # Close the polygon by repeating the first vertex.  
+       out_list.append(str(n_col[0]))
+       out_list.append(',')
+       out_list.append(str(n_row[0]))
+       out_list.append(')')
+
        out_string = ''.join(out_list)
        
        f = open(outfile, 'w')
