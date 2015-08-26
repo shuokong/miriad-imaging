@@ -110,19 +110,19 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
          out_list.append(',')
 
        # Close the polygon by repeating the first vertex.
-       out_list.append(str(n_col[0]))
-       out_list.append(',')
-       out_list.append(str(n_row[0]))
-       out_list.append(')')
+      out_list.append(str(n_col[0]))
+      out_list.append(',')
+      out_list.append(str(n_row[0]))
+      out_list.append(')')
 
-       out_string = ''.join(out_list)
-       
-       f = open(outfile, 'w')
-       f.write(out_string)
-       f.close()
+      out_string = ''.join(out_list)
+
+      f = open(outfile, 'w')
+      f.write(out_string)
+      f.close()
 
     # Return the column and row numbers IN 1-INDEXED FORMAT.
-    return n_col, n_row 
+    return n_col, n_row
 
   if format == 'radec':
       pass
