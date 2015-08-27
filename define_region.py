@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # This comment was added while working on hifi.
+from __future__ import print_function
 import numpy as np
 from astropy.io import fits
 import matplotlib.pyplot as plt
@@ -44,12 +45,13 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
 
     n_row_left, ind = np.unique(good_coords[0], return_index=True)
     n_col_left = good_coords[1][ind]
-    print(n_col_left, n_row_left)  # Coordinates of leftmost gain=1 pixels.
+    # print(n_col_left, n_row_left)  # Coordinates of leftmost gain=1 pixels.
 
     good_coords_bwd = (good_coords[0][::-1], good_coords[1][::-1])
     n_row_right, ind = np.unique(good_coords_bwd[0], return_index=True)
     n_col_right = good_coords_bwd[1][ind]
-    print(n_col_right, n_row_right)  # Coordinates of rightmost gain=1 pixels.
+    # print(n_col_right, n_row_right)  # Coordinates of rightmost gain=1
+    # pixels.
 
     # Pick the rows that have at least one pixel with gain = 1.
     # gain_hasones = gain[np.any(gain == 1, axis=1)]
@@ -57,7 +59,7 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
     # for n_row, row in enumerate(gain):
     #   if
 
-    plt.imshow(data, cmap="Greys", interpolation='none')
+    # plt.imshow(data, cmap="Greys", interpolation='none')
 
     if format == 'pixels':
 
@@ -71,13 +73,15 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
         n_row_right, n_col_right = n_row_right[::-1], n_col_right[::-1]
 
         # Plot the polygon on top of the gain image.
-        plt.plot(n_col_left, n_row_left)
-        plt.plot(n_col_right, n_row_right)
-        plt.show()
+        # plt.plot(n_col_left, n_row_left)
+        # plt.plot(n_col_right, n_row_right)
+        # plt.show()
 
         # Combine left and right columns and rows into single array.
-        n_col = [n_col_left, n_col_right]
-        n_row = [n_row_left, n_row_right]
+        # n_col = [n_col_left, n_col_right]
+        # n_row = [n_row_left, n_row_right]
+        n_col = np.concatenate((n_col_left, n_col_right))
+        n_row = np.concatenate((n_row_left, n_row_right))
 
         out_list = ['polygon(']
 
@@ -104,12 +108,14 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
         if outformat == 'oneline':
 
             for x, y in zip(n_col, n_row):
+                print(x, y)
                 out_list.append(str(x))
                 out_list.append(',')
                 out_list.append(str(y))
                 out_list.append(',')
 
             # Close the polygon by repeating the first vertex.
+            # print(str(n_col[0]))
             out_list.append(str(n_col[0]))
             out_list.append(',')
             out_list.append(str(n_row[0]))
@@ -122,7 +128,8 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
             f.close()
 
         # Return the column and row numbers IN 1-INDEXED FORMAT.
-        return n_col, n_row
+        # return n_col, n_row
+        pass
 
     if format == 'radec':
         pass
