@@ -25,8 +25,12 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
       image : str, optional
 
       limit : flt, optional
+        When `image_type` is 'gain', limit is the gain floor to be selected
+        When `image_type` is 'sen', `limit` is the fraction of the median
+        sensitivity accross the entire image to be set as the sensitivity
+        ceiling. i.e; selects data <= `limit` * median_sensitivity.
 
-      image_type : str, {'gain', 'sens'}, optional
+      image_type : str, {'gain', 'sen'}, optional
         Use an upper limit to select pixels from sensitivity image, and
         lower limit to select pixels from the gain image.
     """
@@ -40,8 +44,11 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
     if image_type == 'gain':
         good_coords = np.where(data >= limit)
 
-    elif image_type == 'sens':
-        good_coords = np.where(data <= limit)
+    elif image_type == 'sen':
+        ceiling = np.nanmedian(data) * limit
+        good_coords = np.where(data <= ceiling)
+    else:
+        raise ValueError("image_type must be 'gain' or 'sen'")
 
     n_row_left, ind = np.unique(good_coords[0], return_index=True)
     n_col_left = good_coords[1][ind]
@@ -59,7 +66,7 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
     # for n_row, row in enumerate(gain):
     #   if
 
-    # plt.imshow(data, cmap="Greys", interpolation='none')
+    plt.imshow(data, cmap="Greys", interpolation='none')
 
     if format == 'pixels':
 
@@ -73,9 +80,9 @@ def region(image='gain.fits', outfile='region.txt', limit=1.0,
         n_row_right, n_col_right = n_row_right[::-1], n_col_right[::-1]
 
         # Plot the polygon on top of the gain image.
-        # plt.plot(n_col_left, n_row_left)
-        # plt.plot(n_col_right, n_row_right)
-        # plt.show()
+        plt.plot(n_col_left, n_row_left)
+        plt.plot(n_col_right, n_row_right)
+        plt.show()
 
         # Combine left and right columns and rows into single array.
         # n_col = [n_col_left, n_col_right]
