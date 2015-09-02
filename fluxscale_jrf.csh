@@ -139,7 +139,7 @@
   endif
 
 # Remake NRO beam
-  makeBeam.csh mol=$mol carmap=$carmap
+  makeBeam_jrf.csh mol=$mol carmap=$carmap
   set bmnro = "beamsNRO/$mol/beamnro.bm"
 
 # Make sure correct version of miriad is loaded
@@ -150,7 +150,7 @@
   source /scr/carmaorion/sw/miriad_64/miriad_start.csh
 
 # Set NRO45 observing parameters
-  source nroParams.csh
+  source nroParams_jrf.csh
 
 # NRO45: Convert unit to Janskys
 # Convert Ta* -> Jy
@@ -301,7 +301,7 @@
 
 # Combine all UV data
   if (-e "$nrouv.all") rm -rf "$nrouv.all"
-  ipython vismerge_single.py $nrod $mol $nrod
+  ipython vismerge_single_jrf.py $nrod $mol $nrod
   if (! -e "$nrouv.all") then
      echo "Error generating combined uv file"
      exit
