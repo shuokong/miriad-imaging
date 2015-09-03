@@ -41,6 +41,9 @@
   set uvrange = "0,6"
   set makeImage = 1
 
+# Set NRO45 observing parameters
+  source nroParams_jrf.csh
+
 # Imaging options (both CARMA and NRO)
 # "systemp" is deliberately omitted in "options" so map is weighted by 
 # telescope parameters only. This is because the single dish uv data will 
@@ -52,9 +55,15 @@
   set robust  = 2
   set options = "mosaic"  
  
+
 # Possible bug if only channel in line commmand!
 # The resampled NRO data do not look correct if nchannel=1
-  set line = "velocity,2,8.0,0.264,0.264"
+# Channels set first and last channel to use.
+  set chan = (31,32) 
+  @ nchan = ($chan[2]-$chan[1]+1)
+  @ chan1 = ($v1nro + $chan[1] * $dvnro - $dvnro)
+  set line = "velocity,$nchan,$chan1,$dvnro,$dvnro"
+  ## set line = "velocity,2,8.0,0.264,0.264"
 
 # End of user-supplied arguments
 ##########################################################################
@@ -150,7 +159,7 @@
   source /scr/carmaorion/sw/miriad_64/miriad_start.csh
 
 # Set NRO45 observing parameters
-  source nroParams_jrf.csh
+  #source nroParams_jrf.csh
 
 # NRO45: Convert unit to Janskys
 # Convert Ta* -> Jy
@@ -168,8 +177,8 @@
 
 # Display images
   echo "Displaying images"
-  cgdisp device=3/xs in=$carmap region="image(1)" labtyp=hms options=3value,3pixel nxy=1
-  cgdisp device=4/xs in=$nroreg region="image(1)" labtyp=hms options=3value,3pixel nxy=1
+  cgdisp device=3/xs in=$carmap region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
+  cgdisp device=4/xs in=$nroreg region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
 # cgdisp device=3/xs in=$nroscl labtyp=hms options=3value,3pixel nxy=2,2
 
 # Derive NRO45 RMS
@@ -332,7 +341,7 @@
   set n = 0
   foreach image (nro.map $carmap) 
     @ n += 1
-    cgdisp device=$n/xs in=$image options=wedge labtyp=hms range=-10,100
+    cgdisp device=$n/xs in=$image options=full,wedge labtyp=hms range=-10,100
   end
 # imfit in=test.bm object=gauss "region=relcen,box(-10,-10,10,10)" 
 

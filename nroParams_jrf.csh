@@ -42,6 +42,7 @@
   set nxnro    = `imhead in="$nroorg" key="naxis1" | awk '{printf("%i",$1)}'`
   set nynro    = `imhead in="$nroorg" key="naxis2" | awk '{printf("%i",$1)}'`
   set nznro    = `imhead in="$nroorg" key="naxis3" | awk '{printf("%i",$1)}'`
+  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '(printf("%i",$1)}'`
   set cellnro  = `imhead in="$nroorg" key="cdelt2" | awk '{printf("%f",$1*206264.8)}'`
   set dvnro    = `imhead in="$nroorg" key="cdelt3" | awk '{printf("%f",$1)}'`
 
