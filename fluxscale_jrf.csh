@@ -10,6 +10,7 @@
 #
 # Requirements:
 #   hkdemos:  cd $MIR/src/spec/hkmiriad; debug hkdemos
+  alias MATH 'set \!:1 = `echo "\!:3-$" | bc -l`'
 
 # Molecule
   set mol = "13co"
@@ -29,7 +30,7 @@
 
 # Set which source to image
   set coords = "dec(-6.5,-4)"
-# set source = "omc*"
+  #set source = "omc*"
   set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
 
 # CARMA dirty image
@@ -59,9 +60,9 @@
 # Possible bug if only channel in line commmand!
 # The resampled NRO data do not look correct if nchannel=1
 # Channels set first and last channel to use.
-  set chan = (31,32) 
-  @ nchan = ($chan[2]-$chan[1]+1)
-  @ chan1 = ($v1nro + $chan[1] * $dvnro - $dvnro)
+  set chan = (31 32) 
+  MATH nchan = $chan[2] - $chan[1] + 1
+  MATH chan1 = $v1nro + ($chan[1] * $dvnro) - $dvnro
   set line = "velocity,$nchan,$chan1,$dvnro,$dvnro"
   ## set line = "velocity,2,8.0,0.264,0.264"
 

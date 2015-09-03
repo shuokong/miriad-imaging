@@ -1,6 +1,5 @@
 *.swp
 *.pdf
-*.png
 *.fits
 cont*/
 __py*
