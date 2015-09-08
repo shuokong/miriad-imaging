@@ -43,7 +43,14 @@
   set makeImage = 1
 
 # Set NRO45 observing parameters
-  source nroParams_jrf.csh
+  set nxnro    = `imhead in="$nroorg" key="naxis1" | awk '{printf("%i",$1)}'`
+  set nynro    = `imhead in="$nroorg" key="naxis2" | awk '{printf("%i",$1)}'`
+  set nznro    = `imhead in="$nroorg" key="naxis3" | awk '{printf("%i",$1)}'`
+  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '{printf("%i",$1)}'`
+  set cellnro  = `imhead in="$nroorg" key="cdelt2" | awk '{printf("%f",$1*206264.8)}'`
+  set dvnro    = `imhead in="$nroorg" key="cdelt3" | awk '{printf("%f",$1)}'`
+
+  # source nroParams_jrf.csh
 
 # Imaging options (both CARMA and NRO)
 # "systemp" is deliberately omitted in "options" so map is weighted by 
@@ -81,7 +88,7 @@
     set $a
   end
 
-# Set file names
+# Set NRO file names
   set nrod     = "nro/$mol/fluxscale"      # Directory
   set nrof     = "nro/$mol/fluxscale/$mol" # Root file name
   set nroscl   = $nrof".scl"
@@ -143,7 +150,7 @@
   if ($makeImage != 0) then
      # Make image
        rm -rf $carmap $carbeam
-       invert vis=$caruvavg map=$carmap beam=$carbeam \
+       invert vis==$caruvavg map$carmap beam=$carbeam \
               select="source($source)" \
               imsize=$imsize  cell=$cell robust=$robust options=$options
   endif
@@ -161,7 +168,7 @@ exit
   source /scr/carmaorion/sw/miriad_64/miriad_start.csh
 
 # Set NRO45 observing parameters
-  #source nroParams_jrf.csh
+  source nroParams_jrf.csh
 
 # NRO45: Convert unit to Janskys
 # Convert Ta* -> Jy
