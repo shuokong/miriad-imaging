@@ -12,6 +12,7 @@
 #   hkdemos:  cd $MIR/src/spec/hkmiriad; debug hkdemos
   alias MATH 'set \!:1 = `echo "\!:3-$" | bc -l`'
 
+  set verb = 1
 # Molecule
   set mol = "13co"
 
@@ -31,7 +32,8 @@
 # Set which source to image
   set coords = "dec(-6.5,-4)"
   #set source = "omc*"
-  set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
+  #set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
+  set source = ""
 
 # CARMA dirty image
 # If makeImage = 1, then the maps will be generated.
@@ -104,6 +106,12 @@
     set $a
   end
 
+# Set source to all sources
+  if $verb echo "Setting sources..."
+  set source_orig = $source
+  if ($source_orig == "") then
+     set source = "omc*"
+  endif
 
 # Make directories
   if (!(-e $nrod)) mkdir -p $nrod
