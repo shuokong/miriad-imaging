@@ -41,6 +41,7 @@
   set carbeam = "carma.beam"
   set uvrange = "0,6"
   set makeImage = 1
+  set caronly = 0
 
 # Set the file names for the NRO output images.
   set nromap = "nro.map"
