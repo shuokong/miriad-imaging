@@ -154,7 +154,6 @@
               select="source($source)" \
               imsize=$imsize  cell=$cell robust=$robust options=$options
   endif
-exit
 
 # Remake NRO beam
   makeBeam_jrf.csh mol=$mol carmap=$carmap
