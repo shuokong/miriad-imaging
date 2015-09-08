@@ -42,6 +42,10 @@
   set uvrange = "0,6"
   set makeImage = 1
 
+# Set the file names for the NRO output images.
+  set nromap = "nro.map"
+  set nrobeam = "nro.beam"
+
 # Set NRO45 observing parameters
   set nxnro    = `imhead in="$nroorg" key="naxis1" | awk '{printf("%i",$1)}'`
   set nynro    = `imhead in="$nroorg" key="naxis2" | awk '{printf("%i",$1)}'`
@@ -73,6 +77,17 @@
   set line = "velocity,$nchan,$chan1,$dvnro,$dvnro"
   ## set line = "velocity,2,8.0,0.264,0.264"
 
+# Set NRO file names
+  set nrod     = "nro/$mol/fluxscale"      # Directory
+  set nrof     = $nrod/$mol # Root file name
+  set nroscl   = $nrof".scl"
+  set nroreg   = $nrof".reg"
+  set nroavg   = $nrof".avg"
+  set nrojypix = $nrof".jypix"
+  set nrodcv   = $nrof".dcv"
+  set nrodem   = $nrof".dem"
+  set nrouv    = $nrof".uv"
+
 # End of user-supplied arguments
 ##########################################################################
 
@@ -88,16 +103,6 @@
     set $a
   end
 
-# Set NRO file names
-  set nrod     = "nro/$mol/fluxscale"      # Directory
-  set nrof     = "nro/$mol/fluxscale/$mol" # Root file name
-  set nroscl   = $nrof".scl"
-  set nroreg   = $nrof".reg"
-  set nroavg   = $nrof".avg"
-  set nrojypix = $nrof".jypix"
-  set nrodcv   = $nrof".dcv"
-  set nrodem   = $nrof".dem"
-  set nrouv    = $nrof".uv"
 
 # Make directories
   if (!(-e $nrod)) mkdir -p $nrod
@@ -340,14 +345,14 @@
   source /scr/carmaorion/sw/miriad_64/miriad_start.csh
 
 # Dirty image for check
-  if (-e nro.map)  rm -rf nro.map
-  if (-e nro.beam) rm -rf nro.beam
+  if (-e $nromap)  rm -rf $nromap
+  if (-e $nrobeam) rm -rf $nrobeam
   echo "Making Nobeyama map from $nrouv.all"
-  invert vis=$nrouv".all" map=nro.map beam=nro.beam \
+  invert vis=$nrouv".all" map=$nromap beam=$nrobeam \
          imsize=$imsize cell=$cell robust=$robust \
          options=$options select="uvrange($uvrange)"
   set n = 0
-  foreach image (nro.map $carmap) 
+  foreach image ($nromap $carmap) 
     @ n += 1
     cgdisp device=$n/xs in=$image options=full,wedge labtyp=hms range=-10,100
   end
