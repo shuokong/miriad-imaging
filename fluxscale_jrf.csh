@@ -150,7 +150,7 @@
   if ($makeImage != 0) then
      # Make image
        rm -rf $carmap $carbeam
-       invert vis==$caruvavg map$carmap beam=$carbeam \
+       invert vis=$caruvavg map=$carmap beam=$carbeam \
               select="source($source)" \
               imsize=$imsize  cell=$cell robust=$robust options=$options
   endif
