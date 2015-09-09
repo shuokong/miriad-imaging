@@ -169,8 +169,7 @@
               imsize=$imsize  cell=$cell robust=$robust options=$options
   endif
 
-  if ($caronly == 1) then
-    exit
+  if ($caronly == 1) exit 
     
 # Remake NRO beam
   makeBeam_jrf.csh mol=$mol carmap=$carmap
