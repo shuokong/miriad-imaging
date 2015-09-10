@@ -53,4 +53,4 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False):
         axarr[0].plot(xcrd, ratio[crd], '+', [xcrd[0], xcrd[-1]], [1, 1])
         axarr[1].plot(ycrd, ratio[crd], '+', [ycrd[0], ycrd[-1]], [1, 1])
         plt.show()
-        plt.savefig(plot + str(nchan))
+        plt.savefig(out + str(nchan))
