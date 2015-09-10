@@ -1,0 +1,59 @@
+Setting sources...
+UvAver: version 1.0 17-Nov-08
+
+uvputhd: CVS Revision 1.7, 2012/04/06 16:11:48 UTC
+
+ DEBUG: TIME0=                                 JD0 =    0.0000000000000000     
+ Reading data from file: nro/13co/fluxscale/carma_uv.mir
+ Altering value of systemp in data
+ Expecting array of 23 values
+ Replicating  1 value
+ Writing data out to file: nro/13co/fluxscale/tmptmp.mir
+No Wideband data
+ DEBUG: Variable modified       103738  times.
+
+*** Loading miriad version miriad_64 ***
+
+
+invert: CVS Revision 1.12.2.1, 2015/02/08 03:03:42 UTC
+
+Reading the visibility data ...
+Making cubes with 2 planes
+Visibilities accepted: 919008
+Number of pointings: 16188
+Doing the geometry calculations ...
+Sidelobe suppression area is 512x512 arcsec
+ ... this corresponds to uniform weighting
+Calculating the weights ...
+ PJT1          31          31       16188              8029248
+Applying weights and geometry corrections ...
+Theoretical rms noise:  6.93
+ ... assuming pointings do not overlap
+ PJT1 mosaic:        4568        6229
+Forming the beam ...
+ PJT2:          21         257       16188            174733272
+ PJT2a           1069201212            174733230                66049                10794                    6
+ PJT2aa            894467982                55249
+ PJT2b   894467982            894467982
+ PJT2bb           1           3
+ PJT2c           1            174733272            894467982                    0
+ PJT2d           1            174733272            894467982                    0
+ PJT2e           1            174733272            894467982           1069201254
+Finished gridding  33% ...
+Forming Stokes I  image ...
+ PJT2:          21         257       16188            174733272
+ PJT2a           1069201212            174733230                66049                10794                    6
+ PJT2aa            894467982                55249
+ PJT2b   894467982            894467982
+ PJT2bb           1           2
+ PJT2c           1            174733272            894467982           1069201254
+Finished gridding  67% ...
+Mosaicing plane 1
+ PJT2:          21         257       16188            174733272
+ PJT2a           1069201212            174733230                66049                10794                    6
+ PJT2aa            894467982                55249
+ PJT2b   894467982            894467982
+ PJT2bb           1           1
+ PJT2c           1            174733272            894467982           1069201254
+Mosaicing plane 2
+Completed 100% !
