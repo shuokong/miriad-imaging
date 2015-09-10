@@ -13,17 +13,32 @@
 # echo "rms from CARMA sensitivity map is $rmsCARMA"
 # set rmsNRO   = `imstat in=carma.sen | tail -n 1 | awk '{print $3}'`
 # echo "rms from NRO   sensitivity map is $rmsNRO"
+set cutoff = 50
+set carmap = "carma.map"
+set nromap = "nro.map"
+set out = "ratio.map"
+
+  foreach a ( $* )
+    set nargs = `echo $a | awk -F= '{print NF}'`
+    set var   = `echo $a | awk -F= '{print $1}'`
+    if ("$nargs" == 1) then
+       echo "Error reading command line option '$a'"
+       echo "Format is $a=<value>"
+       exit
+    endif
+    set $a
+  end
 
 # make mask file
 rm -rf carma.mask
-maths exp="<carma.map>.gt.50" out=carma.mask
+maths exp="<$carmap>.gt.$cutoff" out=carma.mask
 
 # Multiply by mask
 rm -rf carma2.map nro2.map
-maths exp="<carma.map>*<carma.mask>" out=carma2.map
-maths exp="<nro.map>*<carma.mask>"   out=nro2.map
+maths exp="<$carmap>*<carma.mask>" out=carma2.map
+maths exp="<$nromap>*<carma.mask>"   out=nro2.map
 
 # Compute ratio
 rm -rf ratio.map
-maths exp="<carma2.map>/<nro2.map>" out=ratio.map
+maths exp="<carma2.map>/<nro2.map>" out=$out
 
