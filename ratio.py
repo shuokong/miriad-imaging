@@ -56,7 +56,7 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
             raise
         else:
             # If `mask` is a valid file name, apply it.
-            maskdata = maskhdulist[0].data[0, 0]
+            maskdata = maskhdulist[0].data[0][0]
             ratio = ratio[np.isfinite(maskdata)]
 
         if plotxy:
