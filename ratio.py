@@ -74,6 +74,7 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
             pass
             # Transform pixel coordinates to sky coordinates using WCS.
 
+        print('Median ratio: ' + str(np.median(ratio[crd])))
         f, axarr = plt.subplots(2, sharey=True)
         axarr[0].plot(xcrd, ratio[crd], '+', [xcrd[0], xcrd[-1]], [1, 1])
         axarr[1].plot(ycrd, ratio[crd], '+', [ycrd[0], ycrd[-1]], [1, 1])
