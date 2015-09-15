@@ -1,11 +1,18 @@
 #! /usr/bin/env python
-"""Summary"""
+"""Contains functions for working with the NRO/CARMA ratio image produced by fluxscale + ratio scripts."""
 import numpy as np
 from astropy.io import fits
 import matplotlib.pyplot as plt
+import sys
 
 
-def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False):
+# def nro_mask():
+# 	"""
+
+# 	"""
+
+
+def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, mask=None):
     """
     Parameters
     ----------
@@ -17,6 +24,9 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False):
         Description, the default is None.
     plotxy : bool, optional
         If True, then plot the xy coordinates, not RaDec
+    mask : str, optional
+        Location of FITS image to be used to mask `ratio_image`.
+        If None, no mask is applied.
 
     Deleted Parameters
     ------------------
@@ -32,11 +42,27 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False):
 
     data = data[0]  # Drop polarization axis.
 
+    try:
+        maskhdulist = fits.open(mask)
+    except ValueError:
+        print('No mask specified. Plotting all defined pixels.')
+        pass
+    except:
+        raise
+    else:
+        # If `mask` is a valid file name, apply it.
+        maskdata = maskhdulist[0].data[0, 0]
+        data = data[np.isfinite(maskdata)]
+
     for nchan in range(data.shape[0]):
 
         ratio = data[nchan]
 
+        # Mask the area not covered by NRO with Nan
+
         if plotxy:
+                # Only plot pixels where the ratio is within the bounds set by
+                # `cutoff`
             if cutoff is not None:
                 crd = np.where((ratio > -1. * cutoff) & (ratio < cutoff))
                 xcrd = crd[1]
