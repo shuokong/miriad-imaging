@@ -42,23 +42,22 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
 
     data = data[0]  # Drop polarization axis.
 
-    try:
-        maskhdulist = fits.open(mask)
-    except ValueError:
-        print('No mask specified. Plotting all defined pixels.')
-        pass
-    except:
-        raise
-    else:
-        # If `mask` is a valid file name, apply it.
-        maskdata = maskhdulist[0].data[0, 0]
-        data = data[np.isfinite(maskdata)]
-
     for nchan in range(data.shape[0]):
 
         ratio = data[nchan]
 
         # Mask the area not covered by NRO with Nan
+        try:
+            maskhdulist = fits.open(mask)
+        except ValueError:
+            print('No mask specified. Plotting all defined pixels.')
+            pass
+        except:
+            raise
+        else:
+            # If `mask` is a valid file name, apply it.
+            maskdata = maskhdulist[0].data[0, 0]
+            ratio = ratio[np.isfinite(maskdata)]
 
         if plotxy:
                 # Only plot pixels where the ratio is within the bounds set by
