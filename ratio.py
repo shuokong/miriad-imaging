@@ -58,6 +58,8 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
             # If `mask` is a valid file name, apply it.
             maskdata = maskhdulist[0].data[0][0]
             ratio = ratio[np.isfinite(maskdata)]
+        finally:
+            maskhdulist.close()
 
         if plotxy:
                 # Only plot pixels where the ratio is within the bounds set by
