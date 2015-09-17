@@ -5,14 +5,25 @@ from astropy.io import fits
 import matplotlib.pyplot as plt
 import sys
 
-
+#- Region: Middle: dec = -05:55 to -05:23 , ra = 5:36:30 to 5:33:37
+#                Bottom: dec = -6:30 to -05:55 , ra = 5:36:30 to 5:34:47
+#                Top: dec = -05:23 to -04:49, ra = 5:35:31 to 5:34:34
 # def nro_mask():
 # 	"""
 
 # 	"""
+ra_region = [['5:36:30', '5:33:37'], [
+    '5:36:30', '5:34:47'], ['5:35:31', '5:34:34']]
+dec_region = [['-05:55', '-05:23'], ['-06:30', '-05:55'], ['-05:23', '-04:49']]
+import astropy.units as u
+import astropy.coordinates as coord
+# Convert region limits to degrees.
+ra_region = coord.Angle(ra_region, unit=u.hour).deg
+dec_region = coord.Angle(dec_region, unit=u.deg).deg
 
 
-def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, mask=None):
+def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, mask=None,
+               ra_region=ra_region, dec_region=dec_region):
     """
     Parameters
     ----------
@@ -54,18 +65,31 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
             else:
                 boolean_crd = np.isfinite(ratio)
 
-            try:
-                maskhdulist = fits.open(mask)
-            except ValueError:
-                print('No mask specified. Plotting all defined pixels.')
-                pass
-            except:
-                raise
-            else:
-                # If `mask` is a valid file name, apply it.
-                maskdata = maskhdulist[0].data[0]  # Pick out first channel.
-                boolean_mask = np.isfinite(maskdata)
-                boolean_crd = boolean_crd & boolean_mask
+            #==============Region masking========================
+            w = WCS(ratio_image).dropaxis(3).dropaxis(2)
+            lx, ly = ratio.shape[1], ratio.shape[0]
+            X, Y = np.ogrid[0:lx, 0:ly]
+            boolean_region = (np.isnan(X)) & (np.isnan(Y))
+            for ra, dec in zip(ra_mid, dec_mid):
+
+                x, y = w.wcs_world2pix(ra, dec, 0)
+                new_boolean_region = (X > x[0]) & (
+                    X < x[1]) & (Y > y[0]) & (Y < y[1])
+                boolean_region = boolean_region | new_boolean_region
+
+            boolean_crd = boolean_region & boolean_crd
+            # try:
+            #     maskhdulist = fits.open(mask)
+            # except ValueError:
+            #     print('No mask specified. Plotting all defined pixels.')
+            #     pass
+            # except:
+            #     raise
+            # else:
+            # If `mask` is a valid file name, apply it.
+            # maskdata = maskhdulist[0].data[0]  # Pick out first channel.
+            #     boolean_mask = np.isfinite(maskdata)
+            #     boolean_crd = boolean_crd & boolean_mask
 
         else:
             pass
