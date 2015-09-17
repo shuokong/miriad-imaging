@@ -76,7 +76,9 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
         crd = np.where(boolean_crd)
         # Mask the area not covered by NRO with Nan
 
-        # plt.imshow(ratio)
+        plt.imshow(ratio)
+        plt.plot(crd[1], crd[0])
+        plt.show()
         print('Median ratio: ' + str(np.median(ratio[crd])))
         f, axarr = plt.subplots(2, sharey=True)
         axarr[0].plot(crd[1], ratio[crd], '+', [crd[1][0], crd[1][-1]], [1, 1])
