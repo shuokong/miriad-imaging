@@ -72,7 +72,7 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
             lx, ly = ratio.shape[1], ratio.shape[0]
             X, Y = np.ogrid[0:lx, 0:ly]
             boolean_region = (np.isnan(X)) & (np.isnan(Y))
-            for ra, dec in zip(ra_mid, dec_mid):
+            for ra, dec in zip(ra_region, dec_region):
 
                 x, y = w.wcs_world2pix(ra, dec, 0)
                 new_boolean_region = (X > x[0]) & (
