@@ -46,39 +46,40 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
 
         ratio = data[nchan]
 
-        # Mask the area not covered by NRO with Nan
-        try:
-            maskhdulist = fits.open(mask)
-        except ValueError:
-            print('No mask specified. Plotting all defined pixels.')
-            pass
-        except:
-            raise
-        else:
-            # If `mask` is a valid file name, apply it.
-            maskdata = maskhdulist[0].data[0][0]
-            ratio = ratio[np.isfinite(maskdata)]
-        finally:
-            maskhdulist.close()
-
         if plotxy:
-                # Only plot pixels where the ratio is within the bounds set by
-                # `cutoff`
+            # Only plot pixels where the ratio is within the bounds set by
+            # `cutoff`
             if cutoff is not None:
-                crd = np.where((ratio > -1. * cutoff) & (ratio < cutoff))
-                xcrd = crd[1]
-                ycrd = crd[0]
+                boolean_crd = (ratio > -1. * cutoff) & (ratio < cutoff)
             else:
-                crd = np.where(np.isfinite(ratio))
-                xcrd = crd[1]
-                ycrd = crd[0]
+                boolean_crd = np.isfinite(ratio)
+
+            try:
+                maskhdulist = fits.open(mask)
+            except ValueError:
+                print('No mask specified. Plotting all defined pixels.')
+                pass
+            except:
+                raise
+            else:
+                # If `mask` is a valid file name, apply it.
+                maskdata = maskhdulist[0].data[0]  # Pick out first channel.
+                boolean_mask = np.isfinite(maskdata)
+                boolean_crd = boolean_crd & boolean_mask
+
         else:
             pass
             # Transform pixel coordinates to sky coordinates using WCS.
 
+        # boolean_crd is a boolean array that picks only the pixels covered by NRO and
+        # within the cutoff.
+        crd = np.where(boolean_crd)
+        # Mask the area not covered by NRO with Nan
+
+        # plt.imshow(ratio)
         print('Median ratio: ' + str(np.median(ratio[crd])))
         f, axarr = plt.subplots(2, sharey=True)
-        axarr[0].plot(xcrd, ratio[crd], '+', [xcrd[0], xcrd[-1]], [1, 1])
-        axarr[1].plot(ycrd, ratio[crd], '+', [ycrd[0], ycrd[-1]], [1, 1])
+        axarr[0].plot(crd[1], ratio[crd], '+', [crd[1][0], crd[1][-1]], [1, 1])
+        axarr[1].plot(crd[0], ratio[crd], '+', [crd[0][0], crd[0][-1]], [1, 1])
         plt.show()
         plt.savefig(str(nchan) + out)
