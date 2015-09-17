@@ -79,7 +79,8 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
                     X < x[1]) & (Y > y[0]) & (Y < y[1])
                 boolean_region = boolean_region | new_boolean_region
 
-            boolean_crd = boolean_region & boolean_crd
+            # boolean_crd = boolean_region & boolean_crd
+            boolean_crd = boolean_region & np.swapaxes(boolean_crd, 0, 1)
             # try:
             #     maskhdulist = fits.open(mask)
             # except ValueError:
