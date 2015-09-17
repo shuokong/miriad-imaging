@@ -2,6 +2,7 @@
 """Contains functions for working with the NRO/CARMA ratio image produced by fluxscale + ratio scripts."""
 import numpy as np
 from astropy.io import fits
+from astropy.wcs import WCS
 import matplotlib.pyplot as plt
 import sys
 
@@ -66,6 +67,7 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
                 boolean_crd = np.isfinite(ratio)
 
             #==============Region masking========================
+
             w = WCS(ratio_image).dropaxis(3).dropaxis(2)
             lx, ly = ratio.shape[1], ratio.shape[0]
             X, Y = np.ogrid[0:lx, 0:ly]
