@@ -5,6 +5,7 @@ from astropy.io import fits
 from astropy.wcs import WCS
 import matplotlib.pyplot as plt
 import sys
+from scipy import stats
 
 #- Region: Middle: dec = -05:55 to -05:23 , ra = 5:36:30 to 5:33:37
 #                Bottom: dec = -6:30 to -05:55 , ra = 5:36:30 to 5:34:47
@@ -102,13 +103,43 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
         # within the cutoff.
         crd = np.where(boolean_crd)
         # Mask the area not covered by NRO with Nan
-
         plt.imshow(ratio)
-        plt.plot(crd[1], crd[0], 'o')
+        #plt.plot(crd[1], crd[0], 'o')
         plt.show()
         print('Median ratio: ' + str(np.median(ratio[crd])))
         f, axarr = plt.subplots(2, sharey=True)
         axarr[0].plot(crd[1], ratio[crd], '+', [crd[1][0], crd[1][-1]], [1, 1])
         axarr[1].plot(crd[0], ratio[crd], '+', [crd[0][0], crd[0][-1]], [1, 1])
+        #Plot binned medians.
+        #bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
+        #bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
+        #axarr[0].hlines(bin_medians_x, bin_edges_x[:-1], bin_edges_x[1:], lw=5,
+        #      label='binned medians')
+        #axarr[1].hlines(bin_medians_y, bin_edges_y[:-1], bin_edges_y[1:], lw=5,
+        #      label='binned medians')
+        nbins = 20
+        xbins = np.linspace(crd[1].min(), crd[1].max(), nbins)
+        ybins = np.linspace(crd[0].min(), crd[0].max(), nbins)
+        xdelta = xbins[1] - xbins[0]
+        ydelta = ybins[1] - ybins[0]
+        xidx = np.digitize(crd[1], xbins)
+        yidx = np.digitize(crd[0], ybins)
+        xrunning_median = [np.median(ratio[crd][xidx==k]) for k in range(nbins)]
+        xrunning_std = [ratio[crd][xidx==k].std() for k in range(nbins)]
+        yrunning_median = [np.median(ratio[crd][yidx==k]) for k in range(nbins)]
+        yrunning_std = [ratio[crd][yidx==k].std() for k in range(nbins)]
+
+        axarr[0].errorbar(xbins - xdelta/2, xrunning_median, xrunning_std)
+        axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2)
+        axarr[1].errorbar(ybins - ydelta/2, yrunning_median, yrunning_std)
+        axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2)
+
         plt.show()
+
+        #Plot a histogram of the ratio image.
+        f, ax = plt.subplots(1)
+        ax.hist(ratio[crd], bins=100)
+        plt.show()
+        
+   
         plt.savefig(str(nchan) + out)

@@ -31,7 +31,7 @@ set out = "ratio.map"
 
 # make mask file
 rm -rf carma.mask
-maths exp="<$carmap>.gt.$cutoff" out=carma.mask
+maths exp="<$carmap>.gt.$cutoff" out=carma.mask 
 
 # Multiply by mask
 rm -rf carma2.map nro2.map

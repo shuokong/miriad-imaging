@@ -82,14 +82,6 @@
 
 # Set NRO file names
   set nrod     = "nro/$mol/fluxscale"      # Directory
-  set nrof     = $nrod/$mol # Root file name
-  set nroscl   = $nrof".scl"
-  set nroreg   = $nrof".reg"
-  set nroavg   = $nrof".avg"
-  set nrojypix = $nrof".jypix"
-  set nrodcv   = $nrof".dcv"
-  set nrodem   = $nrof".dem"
-  set nrouv    = $nrof".uv"
 
 # End of user-supplied arguments
 ##########################################################################
@@ -105,6 +97,16 @@
     endif
     set $a
   end
+# Moved these definitions below the user defined parameters to ensure that
+# $nrod is captured from command line.
+  set nrof     = $nrod/$mol # Root file name
+  set nroscl   = $nrof".scl"
+  set nroreg   = $nrof".reg"
+  set nroavg   = $nrof".avg"
+  set nrojypix = $nrof".jypix"
+  set nrodcv   = $nrof".dcv"
+  set nrodem   = $nrof".dem"
+  set nrouv    = $nrof".uv"
 
 # Set source to all sources
   if $verb echo "Setting sources..."
