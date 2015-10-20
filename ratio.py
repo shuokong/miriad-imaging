@@ -22,11 +22,13 @@ import astropy.coordinates as coord
 # Convert region limits to degrees.
 ra_region = coord.Angle(ra_region, unit=u.hour).deg
 dec_region = coord.Angle(dec_region, unit=u.deg).deg
-#Define the list of colors to use.
-colors = ['black' , 'red', 'blue', 'green']
+# Define the list of colors to use.
+colors = ['black', 'red', 'blue', 'green']
+
+
 def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
-      plotxy=True, mask=None, ra_region=ra_region, dec_region=dec_region,
-      only_positive=True, plot_points=False):
+               plotxy=True, mask=None, ra_region=ra_region, dec_region=dec_region,
+               only_positive=True, plot_points=False):
     """
     Parameters
     ----------
@@ -51,116 +53,125 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
     plot : str, optional
         Description
     """
-    #Ensure that we can loop over a one item list.
+    # Ensure that we can loop over a one item list.
     if type(ratio_image_list) == str:
-       ratio_image_list = [ratio_image_list]
-    #Plot all channels on a single ratio plot
+        ratio_image_list = [ratio_image_list]
+    # Plot all channels on a single ratio plot
     f, axarr = plt.subplots(2, sharey=True)
     i_color = -1
     for ratio_image in ratio_image_list:
-       hdulist = fits.open(ratio_image)
-       hdr = hdulist[0].header
-       data = hdulist[0].data
-       hdulist.close()
+        hdulist = fits.open(ratio_image)
+        hdr = hdulist[0].header
+        data = hdulist[0].data
+        hdulist.close()
 
-       data = data[0]  # Drop polarization axis.
+        data = data[0]  # Drop polarization axis.
 
-       for nchan in range(data.shape[0]):
-        i_color += 1
+        for nchan in range(data.shape[0]):
+            i_color += 1
 
-        ratio = data[nchan]
+            ratio = data[nchan]
 
-        if plotxy:
-            # Only plot pixels where the ratio is within the bounds set by
-            # `cutoff`
-            if cutoff is not None:
-                boolean_crd = (ratio > -1. * cutoff) & (ratio < cutoff)
+            if plotxy:
+                # Only plot pixels where the ratio is within the bounds set by
+                # `cutoff`
+                if cutoff is not None:
+                    boolean_crd = (ratio > -1. * cutoff) & (ratio < cutoff)
+                else:
+                    boolean_crd = np.isfinite(ratio)
+
+                # Only plot positive ratios.
+                if only_positive == True:
+                    boolean_crd = (ratio >= 0) & (boolean_crd)
+
+                #==============Region masking========================
+
+                w = WCS(ratio_image).dropaxis(3).dropaxis(2)
+                lx, ly = ratio.shape[1], ratio.shape[0]
+                X, Y = np.ogrid[0:lx, 0:ly]
+                boolean_region = (np.isnan(X)) & (np.isnan(Y))
+                for ra, dec in zip(ra_region, dec_region):
+
+                    x, y = w.wcs_world2pix(ra, dec, 0)
+                    new_boolean_region = (X > x[0]) & (
+                        X < x[1]) & (Y > y[0]) & (Y < y[1])
+                    boolean_region = boolean_region | new_boolean_region
+
+                # boolean_crd = boolean_region & boolean_crd
+                boolean_crd = np.swapaxes(boolean_region, 0, 1) & boolean_crd
+                # try:
+                #     maskhdulist = fits.open(mask)
+                # except ValueError:
+                #     print('No mask specified. Plotting all defined pixels.')
+                #     pass
+                # except:
+                #     raise
+                # else:
+                # If `mask` is a valid file name, apply it.
+                # maskdata = maskhdulist[0].data[0]  # Pick out first channel.
+                #     boolean_mask = np.isfinite(maskdata)
+                #     boolean_crd = boolean_crd & boolean_mask
+
             else:
-                boolean_crd = np.isfinite(ratio)
+                pass
+                # Transform pixel coordinates to sky coordinates using WCS.
 
-            #Only plot positive ratios.
-            if only_positive == True:
-                boolean_crd = (ratio >= 0) & (boolean_crd)
+            # boolean_crd is a boolean array that picks only the pixels covered by NRO and
+            # within the cutoff.
+            crd = np.where(boolean_crd)
+            # Mask the area not covered by NRO with Nan
+            # plt.imshow(ratio)
+            #plt.plot(crd[1], crd[0], 'o')
+            # plt.show()
+            print('Median ratio: ' + str(np.median(ratio[crd])))
+            #f, axarr = plt.subplots(2, sharey=True)
+            axarr[0].set_ylabel('CARMA/NRO')
+            axarr[0].set_xlabel('X pixel')
+            axarr[1].set_ylabel('CARMA/NRO')
+            axarr[1].set_xlabel('Y pixel')
+            if plot_points == True:
+                axarr[0].plot(
+                    crd[1], ratio[crd], '.', markersize=2, alpha=0.1, color=colors[i_color])
+                axarr[1].plot(
+                    crd[0], ratio[crd], '.', markersize=2, alpha=0.1, color=colors[i_color])
+            # Plot binned medians.
+            #bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
+            #bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
+            # axarr[0].hlines(bin_medians_x, bin_edges_x[:-1], bin_edges_x[1:], lw=5,
+            #      label='binned medians')
+            # axarr[1].hlines(bin_medians_y, bin_edges_y[:-1], bin_edges_y[1:], lw=5,
+            #      label='binned medians')
+            nbins = 20
+            xbins = np.linspace(crd[1].min(), crd[1].max(), nbins)
+            ybins = np.linspace(crd[0].min(), crd[0].max(), nbins)
+            xdelta = xbins[1] - xbins[0]
+            ydelta = ybins[1] - ybins[0]
+            xidx = np.digitize(crd[1], xbins)
+            yidx = np.digitize(crd[0], ybins)
+            xrunning_median = [
+                np.median(ratio[crd][xidx == k]) for k in range(nbins)]
+            xrunning_std = [ratio[crd][xidx == k].std() for k in range(nbins)]
+            yrunning_median = [
+                np.median(ratio[crd][yidx == k]) for k in range(nbins)]
+            yrunning_std = [ratio[crd][yidx == k].std() for k in range(nbins)]
 
-            #==============Region masking========================
+            # Plot binned medians
+            axarr[0].errorbar(xbins - xdelta / 2, xrunning_median,  xrunning_std,
+                              xdelta / 2, color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
+            axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
+                              yrunning_std, ydelta / 2,
+                              color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
 
-            w = WCS(ratio_image).dropaxis(3).dropaxis(2)
-            lx, ly = ratio.shape[1], ratio.shape[0]
-            X, Y = np.ogrid[0:lx, 0:ly]
-            boolean_region = (np.isnan(X)) & (np.isnan(Y))
-            for ra, dec in zip(ra_region, dec_region):
+            # Plot total medians
+            axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(
+                ratio[crd])], lw=2, color=colors[i_color], label=ratio_image + ' chan' + str(nchan))
+            axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(
+                ratio[crd])], lw=2, color=colors[i_color], label=ratio_image + ' chan' + str(nchan))
 
-                x, y = w.wcs_world2pix(ra, dec, 0)
-                new_boolean_region = (X > x[0]) & (
-                    X < x[1]) & (Y > y[0]) & (Y < y[1])
-                boolean_region = boolean_region | new_boolean_region
-
-            # boolean_crd = boolean_region & boolean_crd
-            boolean_crd = np.swapaxes(boolean_region, 0, 1) & boolean_crd
-            # try:
-            #     maskhdulist = fits.open(mask)
-            # except ValueError:
-            #     print('No mask specified. Plotting all defined pixels.')
-            #     pass
-            # except:
-            #     raise
-            # else:
-            # If `mask` is a valid file name, apply it.
-            # maskdata = maskhdulist[0].data[0]  # Pick out first channel.
-            #     boolean_mask = np.isfinite(maskdata)
-            #     boolean_crd = boolean_crd & boolean_mask
-
-        else:
-            pass
-            # Transform pixel coordinates to sky coordinates using WCS.
-
-        # boolean_crd is a boolean array that picks only the pixels covered by NRO and
-        # within the cutoff.
-        crd = np.where(boolean_crd)
-        # Mask the area not covered by NRO with Nan
-        #plt.imshow(ratio)
-        #plt.plot(crd[1], crd[0], 'o')
-        #plt.show()
-        print('Median ratio: ' + str(np.median(ratio[crd])))
-        #f, axarr = plt.subplots(2, sharey=True)
-        axarr[0].set_ylabel('CARMA/NRO')
-        axarr[0].set_xlabel('X pixel')
-        axarr[1].set_ylabel('CARMA/NRO')
-        axarr[1].set_xlabel('Y pixel')
-        if plot_points == True:
-           axarr[0].plot(crd[1], ratio[crd], '.', markersize=2,alpha=0.1, color=colors[i_color])
-           axarr[1].plot(crd[0], ratio[crd], '.', markersize=2,alpha=0.1,color=colors[i_color])
-        #Plot binned medians.
-        #bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
-        #bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
-        #axarr[0].hlines(bin_medians_x, bin_edges_x[:-1], bin_edges_x[1:], lw=5,
-        #      label='binned medians')
-        #axarr[1].hlines(bin_medians_y, bin_edges_y[:-1], bin_edges_y[1:], lw=5,
-        #      label='binned medians')
-        nbins = 20
-        xbins = np.linspace(crd[1].min(), crd[1].max(), nbins)
-        ybins = np.linspace(crd[0].min(), crd[0].max(), nbins)
-        xdelta = xbins[1] - xbins[0]
-        ydelta = ybins[1] - ybins[0]
-        xidx = np.digitize(crd[1], xbins)
-        yidx = np.digitize(crd[0], ybins)
-        xrunning_median = [np.median(ratio[crd][xidx==k]) for k in range(nbins)]
-        xrunning_std = [ratio[crd][xidx==k].std() for k in range(nbins)]
-        yrunning_median = [np.median(ratio[crd][yidx==k]) for k in range(nbins)]
-        yrunning_std = [ratio[crd][yidx==k].std() for k in range(nbins)]
-
-        axarr[0].errorbar(xbins - xdelta/2, xrunning_median,  xrunning_std,xdelta/2, color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
-        axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2, color=colors[i_color], label=ratio_image+' chan'+str(nchan))
-        axarr[1].errorbar(ybins - ydelta/2, yrunning_median,
-              yrunning_std,ydelta/2,
-              color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
-        axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2, color=colors[i_color], label=ratio_image+' chan'+str(nchan))
-
-
-        #Plot a histogram of the ratio image.
-        #f, ax = plt.subplots(1)
-        #ax.hist(ratio[crd], bins=100)
-        #plt.show()
-    axarr[0].legend(prop={'size':8}) 
-    plt.show()   
+            # Plot a histogram of the ratio image.
+            #f, ax = plt.subplots(1)
+            #ax.hist(ratio[crd], bins=100)
+            # plt.show()
+    axarr[0].legend(prop={'size': 8})
+    plt.show()
     plt.savefig(out)
