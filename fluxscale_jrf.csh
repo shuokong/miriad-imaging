@@ -31,9 +31,9 @@
 
 # Set which source to image
   set coords = "dec(-6.5,-4)"
-  #set source = "omc*"
+  set source = "omc*"
   #set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
-  set source = ""
+  #set source = @nro_subregions.txt
 
 # CARMA dirty image
 # If makeImage = 1, then the maps will be generated.
@@ -49,13 +49,6 @@
   set nromap = "nro.map"
   set nrobeam = "nro.beam"
 
-# Set NRO45 observing parameters
-  set nxnro    = `imhead in="$nroorg" key="naxis1" | awk '{printf("%i",$1)}'`
-  set nynro    = `imhead in="$nroorg" key="naxis2" | awk '{printf("%i",$1)}'`
-  set nznro    = `imhead in="$nroorg" key="naxis3" | awk '{printf("%i",$1)}'`
-  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '{printf("%i",$1)}'`
-  set cellnro  = `imhead in="$nroorg" key="cdelt2" | awk '{printf("%f",$1*206264.8)}'`
-  set dvnro    = `imhead in="$nroorg" key="cdelt3" | awk '{printf("%f",$1)}'`
 
   # source nroParams_jrf.csh
 
@@ -73,11 +66,9 @@
 
 # Possible bug if only channel in line commmand!
 # The resampled NRO data do not look correct if nchannel=1
-# Channels set first and last channel to use.
-  set chan = (31 32) 
-  MATH nchan = $chan[2] - $chan[1] + 1
-  MATH chan1 = $v1nro + ($chan[1] * $dvnro) - $dvnro
-  set line = "velocity,$nchan,$chan1,$dvnro,$dvnro"
+# jjjjjChannels set first and last channel to use.
+  set chan = (171 172) 
+  #set chan = (186 187)
   ## set line = "velocity,2,8.0,0.264,0.264"
 
 # Set NRO file names
@@ -85,7 +76,7 @@
 
 # End of user-supplied arguments
 ##########################################################################
-
+  if $verb echo "Reading command line arguments.."
 # Override user supplied parameters with command line arguments
   foreach a ( $* )
     set nargs = `echo $a | awk -F= '{print NF}'`
@@ -108,13 +99,30 @@
   set nrodem   = $nrof".dem"
   set nrouv    = $nrof".uv"
 
+# Set NRO45 observing parameters
+  set nxnro    = `imhead in="$nroorg" key="naxis1" | awk '{printf("%i",$1)}'`
+  set nynro    = `imhead in="$nroorg" key="naxis2" | awk '{printf("%i",$1)}'`
+  set nznro    = `imhead in="$nroorg" key="naxis3" | awk '{printf("%i",$1)}'`
+  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '{printf("%i",$1)}'`
+  set cellnro  = `imhead in="$nroorg" key="cdelt2" | awk '{printf("%f",$1*206264.8)}'`
+  set dvnro    = `imhead in="$nroorg" key="cdelt3" | awk '{printf("%f",$1)}'`
+
+#Set line definition, assuming that we want all channels between chan[1] and
+#chan[2]
+  if $verb echo "Setting line definition..."
+  MATH nchan = $chan[2] - $chan[1] + 1
+  MATH chan1 = $v1nro + ($chan[1] * $dvnro) - $dvnro
+  set line = "velocity,$nchan,$chan1,$dvnro,$dvnro"
+  if $verb echo "line = $line"
+  ## set line = "velocity,2,8.0,0.264,0.264"
+
 # Set source to all sources
   if $verb echo "Setting sources..."
   set source_orig = $source
   if ($source_orig == "") then
      set source = "omc*"
   endif
-
+  if $verb echo "Passed source_orig..."
 # Make directories
   if (!(-e $nrod)) mkdir -p $nrod
 
@@ -144,11 +152,13 @@
   rm -rf $caruvavg
   set select = "$ant,uvrange($uvrange),source($source)"
   if ($coords != "") set select = "$select,$coords"
+  if $verb echo "Averaging CARMA over veloicity range..."
   uvaver vis=$caruv out=$caruvavg line=$line select="$select"
 
 # The CARMA data has variable system temperature, but the NRO data 
 # does not. In order to get identical weighting of the pointings,
 # we need to set the CARMA data to a constant system temperature
+  if $verb echo "Setting CARMA data to a constant system temp..."
   set tmp = $nrod/tmptmp.mir
   rm -rf $tmp
   uvputhd hdvar=systemp type=r length=1 varval=650 vis=$caruvavg out=$tmp

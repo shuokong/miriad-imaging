@@ -41,17 +41,17 @@
 
 
 # If run_imfit = 1, then fit the psf image and derive the beam
-  set run_imfit = 1
+  set run_imfit = 0
 
 # If run_clean = 1, then clean map
-  set run_clean = 1
+  set run_clean = 0
 
 
 # If plotx = 1, plot maps onto xwindow
   set plotx = 1
 
 # If hardcopy = 1, plot maps onto eps 
-  set hardcopy = 1
+  set hardcopy = 0
 
 # Set source
   set source = ""

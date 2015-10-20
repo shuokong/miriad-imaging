@@ -22,15 +22,16 @@ import astropy.coordinates as coord
 # Convert region limits to degrees.
 ra_region = coord.Angle(ra_region, unit=u.hour).deg
 dec_region = coord.Angle(dec_region, unit=u.deg).deg
-
-
-def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, mask=None,
-               ra_region=ra_region, dec_region=dec_region):
+#Define the list of colors to use.
+colors = ['black' , 'red', 'blue', 'green']
+def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
+      plotxy=True, mask=None, ra_region=ra_region, dec_region=dec_region,
+      only_positive=True, plot_points=False):
     """
     Parameters
     ----------
-    ratio_image : str
-        Location of FITS image with NRO/CARMA ratio.
+    ratio_image : str, list
+        List of FITS image with NRO/CARMA ratio.
     out : str, optional
         Location of plot file.
     cutoff : float, optional
@@ -40,6 +41,8 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
     mask : str, optional
         Location of FITS image to be used to mask `ratio_image`.
         If None, no mask is applied.
+    only_positive: bool, optional
+        If True, then plot only positive ratios.
 
     Deleted Parameters
     ------------------
@@ -48,14 +51,22 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
     plot : str, optional
         Description
     """
-    hdulist = fits.open(ratio_image)
-    hdr = hdulist[0].header
-    data = hdulist[0].data
-    hdulist.close()
+    #Ensure that we can loop over a one item list.
+    if type(ratio_image_list) == str:
+       ratio_image_list = [ratio_image_list]
+    #Plot all channels on a single ratio plot
+    f, axarr = plt.subplots(2, sharey=True)
+    i_color = -1
+    for ratio_image in ratio_image_list:
+       hdulist = fits.open(ratio_image)
+       hdr = hdulist[0].header
+       data = hdulist[0].data
+       hdulist.close()
 
-    data = data[0]  # Drop polarization axis.
+       data = data[0]  # Drop polarization axis.
 
-    for nchan in range(data.shape[0]):
+       for nchan in range(data.shape[0]):
+        i_color += 1
 
         ratio = data[nchan]
 
@@ -66,6 +77,10 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
                 boolean_crd = (ratio > -1. * cutoff) & (ratio < cutoff)
             else:
                 boolean_crd = np.isfinite(ratio)
+
+            #Only plot positive ratios.
+            if only_positive == True:
+                boolean_crd = (ratio >= 0) & (boolean_crd)
 
             #==============Region masking========================
 
@@ -103,13 +118,18 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
         # within the cutoff.
         crd = np.where(boolean_crd)
         # Mask the area not covered by NRO with Nan
-        plt.imshow(ratio)
+        #plt.imshow(ratio)
         #plt.plot(crd[1], crd[0], 'o')
-        plt.show()
+        #plt.show()
         print('Median ratio: ' + str(np.median(ratio[crd])))
-        f, axarr = plt.subplots(2, sharey=True)
-        axarr[0].plot(crd[1], ratio[crd], '+', [crd[1][0], crd[1][-1]], [1, 1])
-        axarr[1].plot(crd[0], ratio[crd], '+', [crd[0][0], crd[0][-1]], [1, 1])
+        #f, axarr = plt.subplots(2, sharey=True)
+        axarr[0].set_ylabel('CARMA/NRO')
+        axarr[0].set_xlabel('X pixel')
+        axarr[1].set_ylabel('CARMA/NRO')
+        axarr[1].set_xlabel('Y pixel')
+        if plot_points == True:
+           axarr[0].plot(crd[1], ratio[crd], '.', markersize=2,alpha=0.1, color=colors[i_color])
+           axarr[1].plot(crd[0], ratio[crd], '.', markersize=2,alpha=0.1,color=colors[i_color])
         #Plot binned medians.
         #bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
         #bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
@@ -129,17 +149,18 @@ def plot_radec(ratio_image, out='ratio_radec.png', cutoff=None, plotxy=False, ma
         yrunning_median = [np.median(ratio[crd][yidx==k]) for k in range(nbins)]
         yrunning_std = [ratio[crd][yidx==k].std() for k in range(nbins)]
 
-        axarr[0].errorbar(xbins - xdelta/2, xrunning_median, xrunning_std)
-        axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2)
-        axarr[1].errorbar(ybins - ydelta/2, yrunning_median, yrunning_std)
-        axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2)
+        axarr[0].errorbar(xbins - xdelta/2, xrunning_median,  xrunning_std,xdelta/2, color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
+        axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2, color=colors[i_color], label=ratio_image+' chan'+str(nchan))
+        axarr[1].errorbar(ybins - ydelta/2, yrunning_median,
+              yrunning_std,ydelta/2,
+              color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
+        axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(ratio[crd])], lw=2, color=colors[i_color], label=ratio_image+' chan'+str(nchan))
 
-        plt.show()
 
         #Plot a histogram of the ratio image.
-        f, ax = plt.subplots(1)
-        ax.hist(ratio[crd], bins=100)
-        plt.show()
-        
-   
-        plt.savefig(str(nchan) + out)
+        #f, ax = plt.subplots(1)
+        #ax.hist(ratio[crd], bins=100)
+        #plt.show()
+    axarr[0].legend(prop={'size':8}) 
+    plt.show()   
+    plt.savefig(out)
