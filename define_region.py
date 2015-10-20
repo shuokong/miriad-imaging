@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+"""Summary"""
 # This comment was added while working on hifi.
 from __future__ import print_function
 import numpy as np
@@ -10,29 +11,37 @@ import matplotlib.pyplot as plt
 
 def region(image='gain.fits', outfile='region.txt', limit=1.0,
            format='pixels', outformat='oneline', image_type='gain'):
-    """
-      Write out a text file that can be be read by the MIRIAD command mossdi
-      to specify a region for cleaning. Finds the vertices of a polygon that
-      covers the entire region where gain >= limit. The vertices are
-      written in pixels relative to the center or in RA/DEC. Write ou t in
-      RA/DEC when writing one region file that will be used repeatedly with
-      mossdi. Write out in relative pixels if the pixel scale, image size do
-      not change. See the next function below to convert ra/dec coordinates to
-      pixel coordinates.
+    """Write out a text file that can be be read by the MIRIAD command mossdi
+    to specify a region for cleaning. Finds the vertices of a polygon that
+    covers the entire region where gain >= limit. The vertices are
+    written in pixels relative to the center or in RA/DEC. Write ou t in
+    RA/DEC when writing one region file that will be used repeatedly with
+    mossdi. Write out in relative pixels if the pixel scale, image size do
+    not change. See the next function below to convert ra/dec coordinates to
+    pixel coordinates.
 
-      Parameters
-      ----------
-      image : str, optional
-
-      limit : flt, optional
+    Parameters
+    ----------
+    image : str, optional
+    outfile : str, optional
+        Description
+    limit : flt, optional
         When `image_type` is 'gain', limit is the gain floor to be selected
         When `image_type` is 'sen', `limit` is the fraction of the median
         sensitivity accross the entire image to be set as the sensitivity
         ceiling. i.e; selects data <= `limit` * median_sensitivity.
-
-      image_type : str, {'gain', 'sen'}, optional
+    format : str, optional
+        Description
+    outformat : str, optional
+        Description
+    image_type : str, {'gain', 'sen'}, optional
         Use an upper limit to select pixels from sensitivity image, and
         lower limit to select pixels from the gain image.
+
+    Raises
+    ------
+    ValueError
+        Description
     """
 
     hdu = fits.open(image)
