@@ -167,10 +167,10 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
 
             # Plot binned medians
             axarr[0].errorbar(xbins - xdelta / 2, xrunning_median,  xrunning_std,
-                              xdelta / 2, color=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
+                              xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
             axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
                               yrunning_std, ydelta / 2,
-                              color=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
+                              ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
 
             # Plot total medians
             axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(
