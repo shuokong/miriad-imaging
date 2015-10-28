@@ -1,5 +1,15 @@
 #! /usr/bin/env python
-"""Contains functions for working with the NRO/CARMA ratio image produced by fluxscale + ratio scripts."""
+"""Contains functions for working with the NRO/CARMA ratio image produced by fluxscale + ratio scripts.
+
+Attributes
+----------
+cmap : TYPE
+    Description
+dec_region : list
+    Description
+ra_region : TYPE
+    Description
+"""
 import numpy as np
 from astropy.io import fits
 from astropy.wcs import WCS
@@ -31,12 +41,12 @@ cmap = mpl.cm.jet
 
 def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
                plotxy=True, mask=None, ra_region=ra_region, dec_region=dec_region,
-               only_positive=True, plot_points=False):
+               only_positive=True, plot_points=False, plot_bins=True, plot_medians=True):
     """
     Parameters
     ----------
-    ratio_image : str, list
-        List of FITS image with NRO/CARMA ratio.
+    ratio_image_list : str, list
+        Description
     out : str, optional
         Location of plot file.
     cutoff : float, optional
@@ -46,8 +56,18 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
     mask : str, optional
         Location of FITS image to be used to mask `ratio_image`.
         If None, no mask is applied.
-    only_positive: bool, optional
+    ra_region : str, optional
+        Description
+    dec_region : str, optional
+        Description
+    only_positive : bool, optional
         If True, then plot only positive ratios.
+    plot_points : bool, optional
+        If True, plot individual pixel values.
+    plot_bins : bool, optional
+        If True, plot binned medians with std deviation errorbars.
+    plot_medians : bool, optional
+        If True, plot median ratios in each channel as horizontal lines.
 
     Deleted Parameters
     ------------------
@@ -55,6 +75,8 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
         Location of output plot file.
     plot : str, optional
         Description
+    ratio_image : str, list
+        List of FITS image with NRO/CARMA ratio.
     """
     # Ensure that we can loop over a one item list.
     if type(ratio_image_list) == str:
@@ -166,17 +188,19 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
             yrunning_std = [ratio[crd][yidx == k].std() for k in range(nbins)]
 
             # Plot binned medians
-            axarr[0].errorbar(xbins - xdelta / 2, xrunning_median,  xrunning_std,
-                              xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
-            axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
-                              yrunning_std, ydelta / 2,
-                              ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
+            if plot_bins == True:
+                axarr[0].errorbar(xbins - xdelta / 2, xrunning_median,  xrunning_std,
+                                  xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
+                axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
+                                  yrunning_std, ydelta / 2,
+                                  ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
 
             # Plot total medians
-            axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(
-                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label='channel ' + ratio_image[6 + (nchan * 4): 9 + (nchan * 4)])
-            axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(
-                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label='channel ' + ratio_image[6 + (nchan * 4): 9 + (nchan * 4)])
+            if plot_medians == True:
+                axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(
+                    ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label='channel ' + ratio_image[6 + (nchan * 4): 9 + (nchan * 4)])
+                axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(
+                    ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label='channel ' + ratio_image[6 + (nchan * 4): 9 + (nchan * 4)])
 
             # Plot a histogram of the ratio image.
             #f, ax = plt.subplots(1)
