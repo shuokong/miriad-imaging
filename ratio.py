@@ -3,6 +3,7 @@
 import numpy as np
 from astropy.io import fits
 from astropy.wcs import WCS
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import sys
 from scipy import stats
@@ -22,8 +23,10 @@ import astropy.coordinates as coord
 # Convert region limits to degrees.
 ra_region = coord.Angle(ra_region, unit=u.hour).deg
 dec_region = coord.Angle(dec_region, unit=u.deg).deg
-# Define the list of colors to use.
-colors = ['black', 'red', 'blue', 'green']
+# Define the color map to use
+cmap = mpl.cm.jet
+
+# colors = ['black', 'red', 'blue', 'green']
 
 
 def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
@@ -58,6 +61,13 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
         ratio_image_list = [ratio_image_list]
     # Plot all channels on a single ratio plot
     f, axarr = plt.subplots(2, sharey=True)
+    # Define the total number of channels to be plotted
+    # as the number of equally space colors to use from cmap.
+    n_images = np.size(ratio_image_list)
+    n_colors = 0
+    for ratio_image in ratio_image_list:
+        n_colors += fits.open(ratio_image)[0].data[0].shape[0]
+
     i_color = -1
     for ratio_image in ratio_image_list:
         hdulist = fits.open(ratio_image)
@@ -131,9 +141,9 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
             axarr[1].set_xlabel('Y pixel')
             if plot_points == True:
                 axarr[0].plot(
-                    crd[1], ratio[crd], '.', markersize=2, alpha=0.1, color=colors[i_color])
+                    crd[1], ratio[crd], '.', markersize=2, alpha=0.1, color=cmap(i_color / float(n_colors)))
                 axarr[1].plot(
-                    crd[0], ratio[crd], '.', markersize=2, alpha=0.1, color=colors[i_color])
+                    crd[0], ratio[crd], '.', markersize=2, alpha=0.1, color=cmap(i_color / float(n_colors)))
             # Plot binned medians.
             #bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
             #bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
@@ -157,16 +167,16 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
 
             # Plot binned medians
             axarr[0].errorbar(xbins - xdelta / 2, xrunning_median,  xrunning_std,
-                              xdelta / 2, color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
+                              xdelta / 2, color=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
             axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
                               yrunning_std, ydelta / 2,
-                              color=colors[i_color], markersize=10, fmt=None, elinewidth=3)
+                              color=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
 
             # Plot total medians
             axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(
-                ratio[crd])], lw=2, color=colors[i_color], label=ratio_image + ' chan' + str(nchan))
+                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label=ratio_image + ' chan' + str(nchan))
             axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(
-                ratio[crd])], lw=2, color=colors[i_color], label=ratio_image + ' chan' + str(nchan))
+                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label=ratio_image + ' chan' + str(nchan))
 
             # Plot a histogram of the ratio image.
             #f, ax = plt.subplots(1)
