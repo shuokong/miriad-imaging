@@ -174,14 +174,14 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
 
             # Plot total medians
             axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(
-                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label=ratio_image + ' chan' + str(nchan))
+                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label='channel ' + ratio_image[6:9])
             axarr[1].plot([crd[0].min(), crd[0].max()], [np.median(ratio[crd]), np.median(
-                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label=ratio_image + ' chan' + str(nchan))
+                ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label='channel ' + ratio_image[10:13])
 
             # Plot a histogram of the ratio image.
             #f, ax = plt.subplots(1)
             #ax.hist(ratio[crd], bins=100)
             # plt.show()
-    axarr[0].legend(prop={'size': 8})
+    axarr[0].legend(prop={'size': 6})
     plt.show()
     plt.savefig(out)
