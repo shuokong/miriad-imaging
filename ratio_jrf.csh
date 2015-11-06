@@ -16,6 +16,8 @@
 set cutoff = 50
 set carmap = "carma.map"
 set nromap = "nro.map"
+set cutoffmap = "nro"
+
 set out = "ratio.map"
 
   foreach a ( $* )
@@ -29,16 +31,27 @@ set out = "ratio.map"
     set $a
   end
 
-# make mask file
-rm -rf carma.mask
-maths exp="<$carmap>.gt.$cutoff" out=carma.mask 
-
-# Multiply by mask
+#Remove existing files to overwrite them.
+rm -rf carma.mask nro.mask
 rm -rf carma2.map nro2.map
-maths exp="<$carmap>*<carma.mask>" out=carma2.map
-maths exp="<$nromap>*<carma.mask>"   out=nro2.map
+rm -rf $out
+
+if cutoffmap == "carma" then
+  # make mask file
+  maths exp="<$carmap>.gt.$cutoff" out=carma.mask 
+  # Multiply by mask
+  maths exp="<$carmap>*<carma.mask>" out=carma2.map
+  maths exp="<$nromap>*<carma.mask>" out=nro2.map
+endif
+
+if cutoffmap == "nro" then
+  # make mask file
+  maths exp="<$nromap>.gt.$cutoff" out=nro.mask 
+  # Multiply by mask
+  maths exp="<$carmap>*<nro.mask>" out=carma2.map
+  maths exp="<$nromap>*<nro.mask>" out=nro2.map
+endif
 
 # Compute ratio
-rm -rf ratio.map
 maths exp="<carma2.map>/<nro2.map>" out=$out
 
