@@ -184,14 +184,14 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
 	            ydelta = ybins[1] - ybins[0]
 	            xidx = np.digitize(crd[1], xbins)
 	            yidx = np.digitize(crd[0], ybins)
-	            xrunning_median = [
-	                np.median(ratio[crd][xidx == k]) for k in range(nbins)]
+	            xrunning_median = [np.median(ratio[crd][xidx == k])
+	                                         for k in range(nbins)]
 	            xrunning_std = [ratio[crd][xidx == k].std() for k in range(nbins)]
-	            yrunning_median = [
-	                np.median(ratio[crd][yidx == k]) for k in range(nbins)]
+	            yrunning_median = [np.median(ratio[crd][yidx == k])
+	                                         for k in range(nbins)]
 	            yrunning_std = [ratio[crd][yidx == k].std() for k in range(nbins)]
 
-                axarr[0].errorbar(xbins - xdelta / 2, xrunning_median,  xrunning_std,
+                axarr[0].errorbar(xbins - xdelta / 2, xrunning_median, xrunning_std,
                                   xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
                 axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
                                   yrunning_std, ydelta / 2,
