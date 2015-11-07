@@ -153,10 +153,10 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
             crd = np.where(boolean_crd)
             # Mask the area not covered by NRO with Nan
             # plt.imshow(ratio)
-            #plt.plot(crd[1], crd[0], 'o')
+            # plt.plot(crd[1], crd[0], 'o')
             # plt.show()
             print('Median ratio: ' + str(np.median(ratio[crd])))
-            #f, axarr = plt.subplots(2, sharey=True)
+            # f, axarr = plt.subplots(2, sharey=True)
             axarr[0].set_ylabel('CARMA/NRO')
             axarr[0].set_xlabel('X pixel')
             axarr[1].set_ylabel('CARMA/NRO')
@@ -167,28 +167,29 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
                 axarr[1].plot(
                     crd[0], ratio[crd], '.', markersize=2, alpha=0.1, color=cmap(i_color / float(n_colors)))
             # Plot binned medians.
-            #bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
-            #bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
+            # bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
+            # bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
             # axarr[0].hlines(bin_medians_x, bin_edges_x[:-1], bin_edges_x[1:], lw=5,
             #      label='binned medians')
             # axarr[1].hlines(bin_medians_y, bin_edges_y[:-1], bin_edges_y[1:], lw=5,
             #      label='binned medians')
-            nbins = 20
-            xbins = np.linspace(crd[1].min(), crd[1].max(), nbins)
-            ybins = np.linspace(crd[0].min(), crd[0].max(), nbins)
-            xdelta = xbins[1] - xbins[0]
-            ydelta = ybins[1] - ybins[0]
-            xidx = np.digitize(crd[1], xbins)
-            yidx = np.digitize(crd[0], ybins)
-            xrunning_median = [
-                np.median(ratio[crd][xidx == k]) for k in range(nbins)]
-            xrunning_std = [ratio[crd][xidx == k].std() for k in range(nbins)]
-            yrunning_median = [
-                np.median(ratio[crd][yidx == k]) for k in range(nbins)]
-            yrunning_std = [ratio[crd][yidx == k].std() for k in range(nbins)]
-
             # Plot binned medians
             if plot_bins == True:
+
+	            nbins = 20
+	            xbins = np.linspace(crd[1].min(), crd[1].max(), nbins)
+	            ybins = np.linspace(crd[0].min(), crd[0].max(), nbins)
+	            xdelta = xbins[1] - xbins[0]
+	            ydelta = ybins[1] - ybins[0]
+	            xidx = np.digitize(crd[1], xbins)
+	            yidx = np.digitize(crd[0], ybins)
+	            xrunning_median = [
+	                np.median(ratio[crd][xidx == k]) for k in range(nbins)]
+	            xrunning_std = [ratio[crd][xidx == k].std() for k in range(nbins)]
+	            yrunning_median = [
+	                np.median(ratio[crd][yidx == k]) for k in range(nbins)]
+	            yrunning_std = [ratio[crd][yidx == k].std() for k in range(nbins)]
+
                 axarr[0].errorbar(xbins - xdelta / 2, xrunning_median,  xrunning_std,
                                   xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
                 axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
@@ -203,8 +204,8 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
                     ratio[crd])], lw=2, color=cmap(i_color / float(n_colors)), label='channel ' + ratio_image[6 + (nchan * 4): 9 + (nchan * 4)])
 
             # Plot a histogram of the ratio image.
-            #f, ax = plt.subplots(1)
-            #ax.hist(ratio[crd], bins=100)
+            # f, ax = plt.subplots(1)
+            # ax.hist(ratio[crd], bins=100)
             # plt.show()
     axarr[0].legend(prop={'size': 6})
     plt.show()
