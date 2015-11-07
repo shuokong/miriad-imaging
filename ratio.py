@@ -176,7 +176,6 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
             #      label='binned medians')
             # Plot binned medians
             if plot_bins == True:
-
 	            nbins = 20
 	            xbins = np.linspace(crd[1].min(), crd[1].max(), nbins)
 	            ybins = np.linspace(crd[0].min(), crd[0].max(), nbins)
@@ -190,10 +189,8 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
 	            yrunning_median = [np.median(ratio[crd][yidx == k])
 	                                         for k in range(nbins)]
 	            yrunning_std = [ratio[crd][yidx == k].std() for k in range(nbins)]
-
                 axarr[0].errorbar(xbins - xdelta / 2, xrunning_median, xrunning_std, xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
                 axarr[1].errorbar(ybins - ydelta / 2, yrunning_median, yrunning_std, ydelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
-
             # Plot total medians
             if plot_medians == True:
                 axarr[0].plot([crd[1].min(), crd[1].max()], [np.median(ratio[crd]), np.median(
