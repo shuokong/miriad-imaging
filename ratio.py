@@ -166,6 +166,7 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
                     crd[1], ratio[crd], '.', markersize=2, alpha=0.1, color=cmap(i_color / float(n_colors)))
                 axarr[1].plot(
                     crd[0], ratio[crd], '.', markersize=2, alpha=0.1, color=cmap(i_color / float(n_colors)))
+
             # Plot binned medians.
             # bin_medians_x, bin_edges_x, bin_number_x = stats.binned_statistic(crd[1], ratio[crd], statistic='median', bins=50)
             # bin_medians_y, bin_edges_y, bin_number_y = stats.binned_statistic(crd[0], ratio[crd], statistic='median', bins=50)
