@@ -191,11 +191,8 @@ def plot_radec(ratio_image_list, out='ratio.png', cutoff=None,
 	                                         for k in range(nbins)]
 	            yrunning_std = [ratio[crd][yidx == k].std() for k in range(nbins)]
 
-                axarr[0].errorbar(xbins - xdelta / 2, xrunning_median, xrunning_std,
-                                  xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
-                axarr[1].errorbar(ybins - ydelta / 2, yrunning_median,
-                                  yrunning_std, ydelta / 2,
-                                  ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
+                axarr[0].errorbar(xbins - xdelta / 2, xrunning_median, xrunning_std, xdelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
+                axarr[1].errorbar(ybins - ydelta / 2, yrunning_median, yrunning_std, ydelta / 2, ecolor=cmap(i_color / float(n_colors)), markersize=10, fmt=None, elinewidth=3)
 
             # Plot total medians
             if plot_medians == True:
