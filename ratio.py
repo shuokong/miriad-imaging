@@ -138,7 +138,7 @@ def plot_histogram(ratio_root_name='ratio_full_nrocutoff.map.fits', cutoff_list=
         ax.set_ylabel = 'Normalized count'
 
         ax.hist(good_ratio_all, bins=n_bins, normed=True, histtype='step',
-                color=cmap(i_color / float(n_colors)), label='Flux_NRO > ' + str(cutoff) + ' (' + str(n_ratio) + ' points)')
+                color=cmap(i_color / float(n_colors)), label='Flux_NRO > ' + str(cutoff) + ' (' + str(n_ratio) + ' points)' + ' median = ' + str(median_ratio))
         if plot_medians:
             ax.plot([median_ratio, median_ratio], [0, 1.],
                     color=cmap(i_color / float(n_colors)))
