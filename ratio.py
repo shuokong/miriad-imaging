@@ -142,7 +142,7 @@ def plot_histogram(ratio_root_name='ratio_full_nrocutoff.map.fits', cutoff_list=
             ax.plot([median_ratio, median_ratio], [0, 1.],
                     color=cmap(i_color / float(n_colors)))
 
-    axarr[0].legend(prop={'size': 6})
+    ax.legend(prop={'size': 6})
     plt.show()
     plt.savefig(out)
 
