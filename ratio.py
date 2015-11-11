@@ -40,7 +40,7 @@ cmap = mpl.cm.jet
 # colors = ['black', 'red', 'blue', 'green']
 
 
-def plot_histogram(ratio_root_name='ratio_full_nrocutoff.map.fits', cutoff_list=[5, 10, 15], channel_list=[155, 156, 163, 164, 171, 172, 186, 187],
+def plot_histogram(ratio_root_name='ratio_full_nrocutoff.map.fits', cutoff_list=[5, 10, 15, 20, 25], channel_list=[155, 156, 163, 164, 171, 172, 186, 187],
                    out='ratio_hist.png', ratio_max=None,
                    ra_region=ra_region, dec_region=dec_region,
                    only_positive=False, plot_medians=True, n_bins=50):
@@ -138,7 +138,7 @@ def plot_histogram(ratio_root_name='ratio_full_nrocutoff.map.fits', cutoff_list=
         ax.set_ylabel = 'Normalized count'
 
         ax.hist(good_ratio_all, bins=n_bins, normed=True, histtype='step',
-                color=cmap(i_color / float(n_colors)), label='Flux_NRO > ' + str(cutoff) + ' (' + str(n_ratio) + ' points)' + ' median = ' + str(median_ratio))
+                color=cmap(i_color / float(n_colors)), label='Flux_NRO > ' + str(cutoff) + ' (' + str(n_ratio) + ' points)' + ' median = ' + str(np.around(median_ratio, 2)))
         if plot_medians:
             ax.plot([median_ratio, median_ratio], [0, 1.],
                     color=cmap(i_color / float(n_colors)))
