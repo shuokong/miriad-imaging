@@ -53,6 +53,10 @@
 # Set RA/DEC
   set coords = "ra(4,7),dec(-10,-2)"
 
+ # Set visibility and output file
+   set vis  = ""
+   set singledish = ""
+   
 # Override user supplied parameters with command line arguments
   foreach a ( $* )
     set nargs = `echo $a | awk -F= '{print NF}'`
@@ -97,9 +101,6 @@
        endif
        set line = "velocity,$nc,$vch,$dv,$dv"
 
-     # Set visibility and output file
-       set vis  = ""
-       set singledish = ""
        if ($mol == "12co") then
           set mol = 12co
        else if ($mol == "cn") then
