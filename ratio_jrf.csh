@@ -32,11 +32,13 @@ set out = "ratio.map"
   end
 
 #Remove existing files to overwrite them.
+echo 'removing files'
 rm -rf carma.mask nro.mask
 rm -rf carma2.map nro2.map
 rm -rf $out
 
-if cutoffmap == "carma" then
+if $cutoffmap == "carma" then
+  echo 'applying carma cutoff'
   # make mask file
   maths exp="<$carmap>.gt.$cutoff" out=carma.mask 
   # Multiply by mask
@@ -44,7 +46,8 @@ if cutoffmap == "carma" then
   maths exp="<$nromap>*<carma.mask>" out=nro2.map
 endif
 
-if cutoffmap == "nro" then
+if $cutoffmap == "nro" then
+  echo 'applying nro cutoff'
   # make mask file
   maths exp="<$nromap>.gt.$cutoff" out=nro.mask 
   # Multiply by mask
