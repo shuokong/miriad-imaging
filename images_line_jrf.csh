@@ -127,7 +127,7 @@
        echo "vis = $vis"
 
      # Set output directories
-       set dir      = jmc/${mol}
+       set dir      = ${mol}
        set dir_plot = $dir/plots
        set sindir   = $dir/45m
 
