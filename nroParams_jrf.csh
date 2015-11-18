@@ -7,6 +7,7 @@
 # nroorg : name of the original NRO single dish image
 # carmap : name of the CARMA dirty image
 
+
 # Set NRO45 observing parameters
   if ($mol == "13co") then
      set lambda   = 2.72            # 13CO(J=1-0) wavelength [mm]
@@ -15,6 +16,8 @@
      set fwhmnro  = 22.9            # OTF-Beam HWHM: from convbeam.c (case of 13co and c18o)
                                     #   19.7" for Sph. func. & grid=5.96"
                                     #   22.9" for Sph. func  * grid=8.00"
+     set scalefac = 3.3             # CARMA/NRO median scale factor         
+
   else if ($mol == "12co") then
      set lambda   = 2.6             # CO(J=1-0) wavelength [mm]
      set freq     = 115.271204      # CO(J=1-0) frequency [GHz]
