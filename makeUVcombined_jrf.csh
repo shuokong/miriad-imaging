@@ -50,7 +50,7 @@
 
 # Make sure files exist
   if (! -e $caruv) then
-     echo "CARMA uv file does not exist: $carmuv"
+     echo "CARMA uv file does not exist: $caruv"
      exit
   endif
   if (! -e $carmap) then
