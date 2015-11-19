@@ -27,7 +27,7 @@
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
   set carmap = "carma.map"
   set carbeam = "carma.beam"
-
+  set makeImage = 0
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
   # set caruv  = omc43.mir
