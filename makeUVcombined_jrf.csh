@@ -15,6 +15,7 @@
 
 
 # Molecule name - required
+  set verb = 1
   set mol = "13co"
 
 # NRO image in miriad format
@@ -22,15 +23,24 @@
 
 # CARMA dirty image 
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
-  set carmap = "/hifi/carmaorion/orion/images/test/13co/omc43_13co.map"
+  set carmap = "carma.map"
+  set carbeam = "carma.beam"
 
 # CARMA uv data
-  set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
-  set caruv  = omc43.mir
+  # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
+  # set caruv  = omc43.mir
+  set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
+
+
+  set imsize  = 257
+  set cell    = 1.0
+  set robust  = 2
+  set options = "mosaic"
 
 # Set velocity to image
   set source = "omc*"
-  set vel    = "9.5"
+  set chan = (171 172)
+  # set vel    = "9.5"
 
 
 # End of user-supplied arguments
@@ -72,7 +82,7 @@
 # Set file names
   set nrod    = "nro/$mol"
   set nrodtmp = "$nrod/tmp"
-  set nrofch  = "$nrodtmp/$mol.$vel"kms
+  set nrofch  = "$nrodtmp/$mol.$chan[1]_$chan[2]"chan
 
   set nroscl = $nrofch".scl"
   set nroreg = $nrofch".reg"
@@ -99,6 +109,23 @@
 # Set NRO45 observing parameters
   source nroParams.csh
 
+  # Set line definition, assuming that we want all channels between chan[1] and
+  # chan[2]
+  if $verb echo "Setting line definition using NRO parameters file to regrid CARMA."
+  MATH nchan = $chan[2] - $chan[1] + 1
+  MATH chan1 = $v1nro + ($chan[1] * $dvnro) - $dvnro
+  set line = "velocity,$nchan,$chan1,$dvnro,$dvnro"
+  if $verb echo "line = $line"
+  ## set line = "velocity,2,8.0,0.264,0.264"
+
+# Set source to all sources
+  if $verb echo "Setting sources..."
+  set source_orig = $source
+  if ($source_orig == "") then
+     set source = "omc*"
+  endif
+  if $verb echo "Passed source_orig..."
+
 # Make directories
   if (!(-e $nrod))     mkdir -p $nrod
   if (!(-e $nrodtmp))  mkdir -p $nrodtmp
@@ -116,15 +143,38 @@
 # =============================
 
 # Convert Ta* -> Jy
+  echo "Converting NRO image from Ta* to Jy using NROparams file."
   maths exp="<$nroorg>*$cjyknro" out=$nroscl
 
+  echo "Updating NRO image header with beam and rest frequency info."
   puthd in=$nroscl/bunit value=Jy/BEAM type=ascii 
   puthd in=$nroscl/bmaj value=$fwhmnro,arcs type=real
   puthd in=$nroscl/bmin value=$fwhmnro,arcs type=real
   puthd in=$nroscl/bpa value=0.0,arcs type=real
   puthd in=$nroscl/restfreq value=$freq type=double
 
+  #
+  set caruvavg = $nrod/carma_uv.mir
+  rm -rf $caruvavg
+  set select = "source($source)"
+  # set select = "$ant,uvrange($uvrange),source($source)"
+  #if ($coords != "") set select = "$select,$coords"
+  echo "Averaging CARMA over veloicity range..."
+  uvaver vis=$caruv out=$caruvavg line=$line select="$select"
+
+  # Make CARMA image, if needed
+  if ($makeImage != 0) then
+     # Make image
+       echo "Making CARMA dirty image."
+       rm -rf $carmap $carbeam
+       invert vis=$caruvavg map=$carmap beam=$carbeam \
+              select="source($source)" \
+              imsize=$imsize  cell=$cell robust=$robust options=$options
+  endif
+
+
 # Regrid wrt CARMA map
+  echo "Regridding NRO image with respect to CARMA map."
   regrid in=$nroscl tin=$carmap out=$nroreg 
 # cgdisp device=1/xs in=$carmap labtyp=hms options=3value,3pixel nxy=1,1
 # cgdisp device=2/xs in=$nroreg labtyp=hms options=3value,3pixel nxy=1,1
