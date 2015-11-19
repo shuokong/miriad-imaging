@@ -19,7 +19,8 @@
   set mol = "13co"
 
 # NRO image in miriad format
-  set nroorg = /hifi/carmaorion/orion/images/nro45m/$mol/13co_dv0.264kms_tmb.mir # Ta*
+  set nroorg = /hifi/carmaorion/orion/images/nro45m/$mol/13co_dv0.264kms_tmb.mir # Ta
+  set nroparams = /hifi/carmaorion/orion/images/jrf/nroParams_jrf.csh
 
 # CARMA dirty image 
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
@@ -108,7 +109,7 @@
   echo "Miriad version is $MIR"
 
 # Set NRO45 observing parameters
-  source nroParams.csh
+  source $nroparams
 
   # Set line definition, assuming that we want all channels between chan[1] and
   # chan[2]
