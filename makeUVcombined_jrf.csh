@@ -14,6 +14,7 @@
 #   hkrandom: cd $MIR/src/spec/hkmiriad; debug hkrandom
   alias MATH 'set \!:1 = `echo "\!:3-$" | bc -l`'
 
+  set vismerge_single_path = '/hifi/carmaorion/orion/images/script/vismerge_single.py'
 
 # Molecule name - required
   set verb = 1
@@ -299,7 +300,7 @@ calculation:
 
 # Combine all UV data
   if (-e $nrod/$nrod.uv.all) rm -rf $nrod/$nrod.uv.all
-  python vismerge_single.py $nrodtmp $mol $nrod
+  python $vismerge_single_path $nrodtmp $mol $nrod
 
 # Clean up
 # foreach f ($nrodem*)
