@@ -29,7 +29,7 @@
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
   # set caruv  = omc43.mir
-  set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
+  set caruv  = "/hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir"
 
 
   set imsize  = 257
