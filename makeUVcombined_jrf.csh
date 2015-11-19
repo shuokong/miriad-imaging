@@ -86,7 +86,7 @@
 # Set file names
   set nrod    = "nro/$mol"
   set nrodtmp = "$nrod/tmp"
-  set nrofch  = "$nrodtmp/$mol.$chan[1]_$chan[2]"chan
+  set nrofch  = "$nrodtmp/$mol_$chan[1]_$chan[2]"chan
 
   set nroscl = $nrofch".scl"
   set nroreg = $nrofch".reg"
