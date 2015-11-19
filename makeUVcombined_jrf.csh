@@ -59,9 +59,10 @@
   end
 
 # Make sure files exist
-  if (! -e $caruv) then
-     echo "CARMA uv file does not exist: $caruv"
-     exit
+# Can be list of two files, so this check doesn't make sense.
+  # if (! -e $caruv) then
+  #    echo "CARMA uv file does not exist: $caruv"
+  #    exit
   endif
   if (! -e $carmap) then
      echo "CARMA image does not exist: $carmap"
@@ -238,7 +239,8 @@ calculation:
 # Multiply psuede 2'-FWHM primary beam with NRO45 at each CARMA
   set tmpuv = tmptmp.uv
   if (-e $tmpuv) rm -rf $tmpuv
-  cp -r $caruv $tmpuv
+  # cp -r $caruv $tmpuv
+  cp -r $caruvavg $tmpuv
   puthd in=$tmpuv/telescop value="GAUS(120)"
 # puthd in=$tmpuv/telescop value="NBYM"
 
@@ -264,7 +266,7 @@ calculation:
 
   uvflag vis=uvgauss.mir flagval=flag "select=uvrange(10.0,1000.0)"
   uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
-  \rm -r uvgauss.mir
+  rm -r uvgauss.mir
   mv tmptmp.mir uvgauss.mir
 # smauvplt device=/xs vis=uvgauss.mir axis=uc,vc options=equal
 
