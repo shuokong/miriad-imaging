@@ -12,6 +12,7 @@
 #   hkconvol: cd $MIR/src/spec/hkmiriad; debug hkconvol
 #   hkdemos:  cd $MIR/src/spec/hkmiriad; debug hkdemos
 #   hkrandom: cd $MIR/src/spec/hkmiriad; debug hkrandom
+  alias MATH 'set \!:1 = `echo "\!:3-$" | bc -l`'
 
 
 # Molecule name - required
