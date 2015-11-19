@@ -315,7 +315,7 @@ calculation:
   if (-e test.dm) rm -rf test.dm
   if (-e test.bm) rm -rf test.bm
   if (-e test.psf) rm -rf test.psf
-  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=129 cell=1.0 robust=2 options=mosaic,systemp,double line=chan,$nzcar,1,1,1
+  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
   cgdisp device=/xs in=test.dm
   mospsf beam=test.bm out=test.psf
 
