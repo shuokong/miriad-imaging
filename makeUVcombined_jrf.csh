@@ -21,13 +21,13 @@
   set mol = "13co"
 
 # NRO image in miriad format
-  set nroorg = /hifi/carmaorion/orion/images/nro45m/$mol/13co_dv0.264kms_tmb.mir # Ta
+  set nroorg = /hifi/carmaorion/orion/images/$mol/nro_13co_dv0.2kms # 
   set nroparams = /hifi/carmaorion/orion/images/jrf/nroParams_jrf.csh
 
 # CARMA dirty image 
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
-  set carmap = "carma.map"
-  set carbeam = "carma.beam"
+  set carmap = "carma_full_171.172.map"
+  set carbeam = "carma_full_171.172.beam"
   set makeImage = 0
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
@@ -41,7 +41,7 @@
   set options = "mosaic"
 
 # Set velocity to image
-  set source = "omc*"
+  set source = "omc42,omc43"
   set chan = (171 172)
   # set vel    = "9.5"
 
@@ -86,8 +86,9 @@
 # Set file names
   set nrod    = "nro/$mol"
   set nrodtmp = "$nrod/tmp"
-  set nrofch  = "$nrodtmp/$mol_$chan[1]_$chan[2]"chan
+  set nrofch  = "$nrodtmp/$mol$chan[1]_$chan[2]"chan
 
+  set nrojy = $nrofch".jy"
   set nroscl = $nrofch".scl"
   set nroreg = $nrofch".reg"
   set nrojypix = $nrofch".jypix"
@@ -135,6 +136,7 @@
   if (!(-e $nrodtmp))  mkdir -p $nrodtmp
 
 # Clean up files
+  if (-e $nrojy)    rm -rf $nrojy
   if (-e $nroscl)   rm -rf $nroscl
   if (-e $nroreg)   rm -rf $nroreg
   if (-e $nrodcv)   rm -rf $nrodcv
@@ -148,7 +150,11 @@
 
 # Convert Ta* -> Jy
   echo "Converting NRO image from Ta* to Jy using NROparams file."
-  maths exp="<$nroorg>*$cjyknro" out=$nroscl
+  maths exp="<$nroorg>*$cjyknro" out=$nrojy
+
+# Use CARMA/NRO scale factor
+  echo "Scaling NRO image by CARMA/NRO scale factor from NROparams file."
+  maths exp="<$nrojy>*$scalefac" out=$nroscl
 
   echo "Updating NRO image header with beam and rest frequency info."
   puthd in=$nroscl/bunit value=Jy/BEAM type=ascii 
