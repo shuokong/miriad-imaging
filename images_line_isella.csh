@@ -22,7 +22,7 @@
 
 # Read molecule
   set mol = "13co"
-  set molecules = ''
+  # set molecules = ''
 
 # Invert parameters
   set robust = 2
