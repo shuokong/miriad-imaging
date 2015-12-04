@@ -61,7 +61,9 @@
 
 	# Set output directories
        set dir = ${mol}
-
+####CHANGE THIS !!!!!!!!!!##########
+######################
+########################@@@@@@@@@@@@@@@@@@@@@@@@!!!!!!!!!!!!!DSF:LKJSDF:LKJSD:FLKJ:SDLFJK:SLDK
        set vis = 'nro/13co/carma_uv.mir,nro/13co/13co.uv.all'
 #      set dir = ${mol}_center
 
