@@ -5,6 +5,7 @@
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   set run_invert = 1
+  set source = 'omc42,omc43'
   # set vis = "/hifi/carmaorion/orion/images/jrf/nro/13co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/13co/13co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   set run_mkmask = 0
@@ -82,7 +83,7 @@
            echo ""
            echo "*** Making $outfile.map and $outfile.beam ***"
            invert vis=$vis map=$dirtyImage beam=$dirtyBeam \
-                    select="$coords,source($source)" \
+                    select="source($source)" \
                     cell=$cell \
                     imsize=$imsize \
                     robust=$robust \
