@@ -7,14 +7,14 @@
   set run_invert = 1
   # set vis = "/hifi/carmaorion/orion/images/jrf/nro/13co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/13co/13co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
-  set run_mkmask = 1
+  set run_mkmask = 0
   set mask = ""
 
 # If run_clean = 1, then we clean!
-  set run_clean = 1
+  set run_clean = 0
 
 # If run_restor =1, then runrestor
-  set run_restor = 1
+  set run_restor = 0
 
 # If run_restart
 #
