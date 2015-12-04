@@ -41,8 +41,8 @@
   set options = "mosaic"
 
 # Set velocity to image
-  set source = "omc42,omc43"
-  set chan = (171 172)
+  set source = "omc*"
+  set chan = (130 220)
   # set vel    = "9.5"
 
 
@@ -66,10 +66,13 @@
   # if (! -e $caruv) then
   #    echo "CARMA uv file does not exist: $caruv"
   #    exit
+  # IF it does not exist then makeImage must be et to 1
   endif
   if (! -e $carmap) then
      echo "CARMA image does not exist: $carmap"
-     exit
+     if (makeImage == 0) then
+        exit
+     endif
   endif
   if (! -e $nroorg) then
      echo "NRO image does not exist: $nroorg"
@@ -180,6 +183,9 @@
        invert vis=$caruvavg map=$carmap beam=$carbeam \
               select="source($source)" \
               imsize=$imsize  cell=$cell robust=$robust options=$options
+       # Source the NRO parameters file again because we need parameters from
+       # the CARMA image.
+       source $nroparams
   endif
 
 
