@@ -62,7 +62,7 @@
 	# Set output directories
        set dir = ${mol}
 
-       set vis = 'nro/$mol/carma_uv.mir, nro/$mol/$mol.uv.all'
+       set vis = 'nro/$dir/carma_uv.mir, nro/$dir/$dir.uv.all'
 #      set dir = ${mol}_center
 
      # Set dirty image and beam
