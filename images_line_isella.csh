@@ -22,7 +22,7 @@
 
 # Read molecule
   set mol = "13co"
-  set molecules = $mol
+  set molecules = ''
 
 # Invert parameters
   set robust = 2
@@ -62,7 +62,7 @@
 	# Set output directories
        set dir = ${mol}
 
-       set vis = 'nro/$dir/carma_uv.mir, nro/$dir/$dir.uv.all'
+       set vis = 'nro/$mol/carma_uv.mir, nro/$mol/$mol.uv.all'
 #      set dir = ${mol}_center
 
      # Set dirty image and beam
