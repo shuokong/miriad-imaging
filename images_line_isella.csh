@@ -89,7 +89,7 @@
                     cell=$cell \
                     imsize=$imsize \
                     robust=$robust \
-                    options=systemp,mosaic,double,mfs
+                    options=$options
                cgdisp device =/xs in=$dirtyImage options=wedge labtyp=hms
      
          # Make combined beam
