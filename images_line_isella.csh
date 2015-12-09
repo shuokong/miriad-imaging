@@ -1,13 +1,19 @@
 #!/bin/csh -fe
-
 # Select algorithm
   set algorithm = "mossdi"
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
+  echo "Setting run_invert and vis"
   set run_invert = 1
+  echo "Setting vis"
+  set vis = "nro/13co/carma_uv.mir,nro/13co/13co.uv.all"
+#The root file name for the dirty map, beam, psf,sen etc.
+  echo "Setting dirty_name and source..."
+  set dirty_name = 'combined_scalefactor' 
   set source = 'omc42,omc43'
   # set vis = "/hifi/carmaorion/orion/images/jrf/nro/13co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/13co/13co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
+  echo "Setting run_mkmask, mask, run_clean, run_restor..." 
   set run_mkmask = 0
   set mask = ""
 
@@ -64,16 +70,16 @@
 ####CHANGE THIS !!!!!!!!!!##########
 ######################
 ########################@@@@@@@@@@@@@@@@@@@@@@@@!!!!!!!!!!!!!DSF:LKJSDF:LKJSD:FLKJ:SDLFJK:SLDK
-       set vis = 'nro/13co/carma_uv.mir,nro/13co/13co.uv.all'
+#       set vis = 'nro/13co/carma_uv.mir,nro/13co/13co.uv.all'
 #      set dir = ${mol}_center
 
      # Set dirty image and beam
-       set dirtyImage = $dir/combined_$mol.map
-       set dirtyBeam  = $dir/combined_$mol.beam
-       set dirtyPSF   = $dir/combined_$mol.psf
-       set dirtySen   = $dir/combined_$mol.sen
-       set dirtyGain = $dir/combined_$mol.gain
-       set dirtySNR = $dir/combined_$mol.SNR
+       set dirtyImage = $dir/$dirty_name\_$mol.map
+       set dirtyBeam  = $dir/$dirty_name\_$mol.beam
+       set dirtyPSF   = $dir/$dirty_name\_$mol.psf
+       set dirtySen   = $dir/$dirty_name\_$mol.sen
+       set dirtyGain = $dir/$dirty_name\_$mol.gain
+       set dirtySNR = $dir/$dirty_name\_$mol.SNR
 
       # Make dirty map
        if ($run_invert == 1) then
@@ -83,14 +89,21 @@
            echo ""
            echo ""
            echo ""
-           echo "*** Making $outfile.map and $outfile.beam ***"
+           echo "*** Making $dirtyImage and $dirtyBeam ***"
            invert vis=$vis map=$dirtyImage beam=$dirtyBeam \
-                    select="source($source)" \
+#                    select="source($source)" \
                     cell=$cell \
                     imsize=$imsize \
                     robust=$robust \
                     options=$options
                cgdisp device =/xs in=$dirtyImage options=wedge labtyp=hms
+#           invert vis=$vis map=$dirtyImage beam=$dirtyBeam \
+#                    select="source($source)" \
+#                    cell=$cell \
+#                    imsize=$imsize \
+#                    robust=$robust \
+#                    options=$options
+#               cgdisp device =/xs in=$dirtyImage options=wedge labtyp=hms
      
          # Make combined beam
            mospsf beam=$dirtyBeam out=$dirtyPSF
@@ -203,6 +216,8 @@
                         out=$outfile.rs fwhm=$bmaj,$bmin pa=$bpa mode=residual
               endif 
          endif
+       endif
+       endif
 
      # Done with channel
        echo ""

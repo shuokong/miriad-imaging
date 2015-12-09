@@ -96,6 +96,7 @@ echo "##     nx,ny,nz   = " $nxnro,$nynro,$nznro
 echo "##     cell[asec] = " $cellnro
 echo "##     Jy/K[Ta*]  = " $cjyknro
 echo "##     JYPERK     = " $jyperk
+echo "##     CARMA/NRO Scale Factor = " $scalefac 
 echo "## CARMA map:"
 echo "##     nx,ny,nz   = " $nxcar,$nycar,$nzcar
 echo "##     cell[asec] = " $cellcar

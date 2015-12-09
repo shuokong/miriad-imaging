@@ -33,7 +33,7 @@
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
   # set caruv  = omc43.mir
   set caruv  = "/hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir"
-
+  set run_fluxscale = 0
 
   set imsize  = 257
   set cell    = 1.0
@@ -41,8 +41,8 @@
   set options = "mosaic"
 
 # Set velocity to image
-  set source = "omc*"
-  set chan = (130 220)
+  set source = "omc42,omc43"
+  set chan = (171 172)
   # set vel    = "9.5"
 
 
@@ -153,11 +153,16 @@
 
 # Convert Ta* -> Jy
   echo "Converting NRO image from Ta* to Jy using NROparams file."
+
   maths exp="<$nroorg>*$cjyknro" out=$nrojy
 
 # Use CARMA/NRO scale factor
-  echo "Scaling NRO image by CARMA/NRO scale factor from NROparams file."
-  maths exp="<$nrojy>*$scalefac" out=$nroscl
+  if ($run_fluxscale == 1) then
+     echo "Scaling NRO image by CARMA/NRO scale factor from NROparams file."
+     maths exp="<$nrojy>*$scalefac" out=$nroscl
+  else
+    cp -rf $nrojy $nroscl
+  endif
 
   echo "Updating NRO image header with beam and rest frequency info."
   puthd in=$nroscl/bunit value=Jy/BEAM type=ascii 
@@ -169,7 +174,7 @@
   #
   set caruvavg = $nrod/carma_uv.mir
   rm -rf $caruvavg
-  set select = "source($source)"
+  set select = "source($source),dec(-10,-3)"
   # set select = "$ant,uvrange($uvrange),source($source)"
   #if ($coords != "") set select = "$select,$coords"
   echo "Averaging CARMA over veloicity range..."
