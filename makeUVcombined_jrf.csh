@@ -28,7 +28,7 @@
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
   set carmap = "carma_full_171.172.map"
   set carbeam = "carma_full_171.172.beam"
-  set makeImage = 0
+  set makeImage = 1
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
   # set caruv  = omc43.mir
@@ -41,8 +41,8 @@
   set options = "mosaic"
 
 # Set velocity to image
-  set source = "omc42,omc43"
-  set chan = (171 172)
+  set source = "omc*"
+  set chan = (130 220)
   # set vel    = "9.5"
 
 

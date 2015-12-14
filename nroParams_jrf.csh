@@ -78,7 +78,7 @@
 #     1/13.6 = 0.73535
 #     1/13.6*sqrt(2) = 0.10399
 # ------------------------------------------------------
-# set cjyknro = `calc "0.07354*($fwhmnro/$lambda)**2/$effmb"`
+#  set cjyknro = `calc "0.07354*($fwhmnro/$lambda)**2/$effmb"`
   set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2"` # map is already converted to TMB
   set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
   if sigk != "" then
