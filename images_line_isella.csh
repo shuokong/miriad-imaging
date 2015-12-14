@@ -136,7 +136,10 @@
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
 
        if $run_clean == 1 then
+         echo "Running clean..."
+         echo $run_restart
          if $run_restart == 1 then
+           echo "Running restart..."
            set chan = $restart_channel
            set n = $chan
            set outcc = $dir/$mol.$chan
@@ -186,8 +189,11 @@
               echo 'set algorithm = "mossdi" or "mosmem"'
               exit
            endif
-         if run_restart == 0 then 
-        # Determine which channel to clean next
+         endif
+
+         if $run_restart == 0 then 
+            echo "Not running restart..."
+         # Determine which channel to clean next
             set nchan = `imlist in=$dirtyImage | grep naxis3 | awk '{print $6}'`
 
           # Determine the next channel that needs to be reduced
@@ -195,6 +201,7 @@
             set found = 0
             set outcc = 0
             while ($found == 0 && $n < $nchan) 
+                echo "Determining which channel to clean next..."
                 # Increment
                   @ n += 1
                   set chan = `printf "%03d" $n`
@@ -212,6 +219,7 @@
 
           # If found a channel, then clean it
             if ($found == 1) then
+                echo "Found an uncleaned channel, cleaning it..."
                # Compute velocity of this channel
                  set crval3 = `imlist in=$dirtyImage | grep cdelt3 | awk '{print $9}'`
                  set crpix3 = `imlist in=$dirtyImage | grep crpix3 | awk '{print $9}'`
