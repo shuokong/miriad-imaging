@@ -155,11 +155,29 @@ def main():
     """
      Calls region() function to generate region.txt file for use in image
      cleaning.
+ def region(image='gain.fits', outfile='region.txt', limit=1.0,
+           format='pixels', outformat='oneline', image_type='gain'):
     """
     import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-image", type=str, default='gain.fits',
+                        help="Path to the FITS image to use in defining the polygon.")
+    parser.add_argument("-out", "-outfile", type=str, default='region.txt',
+                        help="Path to the output text file.")
+    parser.add_argument("-l", "-limit", type=float, default=1.0,
+                        help="The lower limit on gain to use for defining the outer edge of the polygon.")
+    parser.add_argument("-f", "-format", type=str, default='pixels', opt=['pixels', 'radec'],
+                        help="The output format of the polygon string. radec has not been implemented.")
+    parser.add_argument("-outformat", type=str, default='oneline', opt=['oneline', 'multiline'],
+                        help="Do we want the polygon string on one line or multiple lines?")
+    parser.add_argument("-image_type", type=str, default='gain', opt=['gain', 'sen'],
+                        help="If image_type is gain, then limit is a floor. If image_type is sen, limit is a ceiling.")
+
+    args = parser.parse_args()
     print("running main()")
-    region(outformat='multiline')
+    region(image=args.image, outfile=args.outfile, limit=args.limit, format=args.format,
+           outformat=args.outformat, image_type=args.image_type)
 
 if __name__ == "__main__":
-    print("This program is running by itself")
+    #print("This program is running by itself")
     main()
