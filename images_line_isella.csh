@@ -140,8 +140,8 @@
          echo $run_restart
          if $run_restart == 1 then
            echo "Running restart..."
-           set chan = $restart_channel
-           set n = $chan
+           set n = $restart_channel
+           set chan = `printf "%03d" $n`
            set outcc = $dir/$mol.$chan
            #mkdir -p $outcc
            set outfile = $dir/$mol.$chan/$mol.$chan
