@@ -135,9 +135,16 @@
        set bpa=`grep "  Position angle" $log | awk '{print $4}'`
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
 
+
        if $run_clean == 1 then
          echo "Running clean..."
-         echo $run_restart
+         #Use define_region.py to create a polygon region file using the gain image and a floor of 1.0
+         if $run_mkmask == 1 then         
+           if (!(-e $polygon_region)) then
+           echo "Defining polygon region..."
+           python define_region.py -image $dirtyGain -image_type 'gain' -out $polygon_region
+           endif
+         endif
          if $run_restart == 1 then
            echo "Running restart..."
            set chan = $restart_channel
@@ -151,38 +158,38 @@
            set cdelt3 = `imlist in=$dirtyImage | grep cdelt3 | awk '{print $9}'`
            set velocity = `echo "scale=5;$crval3 + $cdelt3 * ($n - $crpix3)" | bc`
 
-         # Create mask
-           if ($run_mkmask == 1) then
-               # Remove existing files
-                 rm -rf $outfile.mask
+         # # Create mask
+         #   if ($run_mkmask == 1) then
+         #       # Remove existing files
+         #         rm -rf $outfile.mask
 
-               # make signal to noise ratio map
-                 maths exp="<$outfile.map>/<$outfile.sen>" out=$outfile.snr 
+         #       # make signal to noise ratio map
+         #         maths exp="<$outfile.map>/<$outfile.sen>" out=$outfile.snr 
 
-               # make mask file
-                 maths exp="<$outfile.snr>.gt.2.5" out=$outfile.mask
-           endif
+         #       # make mask file
+         #         maths exp="<$outfile.snr>.gt.2.5" out=$outfile.mask
+         #   endif
 
          # Clean map
            if ($algorithm == "mossdi") then
               if ($run_mkmask == 1) then
                    mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
-                     cutoff=$cutoff niters=$niter region="mask($outfile.mask)"\
+                     cutoff=$cutoff niters=$niter region=@$polygon_region\
                      model=$outfile.cc
               else 
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
-                     cutoff=$cutoff region=$region niters=$niter\
+                     cutoff=$cutoff niters=$niter\
                      model=$outfile.cc
               endif
 
            else if ($algorithm == "mosmem") then
               if ($run_mkmask == 1) then 
                    mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
-                       niters=$niter region=$region rmsfac=$rmsfac \
-                       flux=$flux measure=gull region="mask($outfile.mask)" model=$outfile.cc
+                       niters=$niter rmsfac=$rmsfac \
+                       flux=$flux measure=gull region=@$polygon_region model=$outfile.cc
               else
                    mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
-                       niters=$niter region=$region rmsfac=$rmsfac \
+                       niters=$niter rmsfac=$rmsfac \
                        flux=$flux measure=gull model=$outfile.cc
               endif
            else
@@ -249,20 +256,20 @@
                  if ($algorithm == "mossdi") then
                     if ($run_mkmask == 1) then
                          mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region="mask($outfile.mask)"
+                           cutoff=$cutoff niters=$niter region=@$polygon_region
                     else 
                          mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff region=$region niters=$niter
+                           cutoff=$cutoff niters=$niter
                     endif
 
                  else if ($algorithm == "mosmem") then
                     if ($run_mkmask == 1) then 
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                             niters=$niter region=$region rmsfac=$rmsfac \
-                             flux=$flux measure=gull region="mask($outfile.mask)"
+                             niters=$niter rmsfac=$rmsfac \
+                             flux=$flux measure=gull region=@$polygon_region
                     else
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                             niters=$niter region=$region rmsfac=$rmsfac \
+                             niters=$niter rmsfac=$rmsfac \
                              flux=$flux measure=gull
                     endif
                  else
