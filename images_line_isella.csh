@@ -15,6 +15,7 @@
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
   set run_mkmask = 0
+  set polygon_region = 'region.txt'
   set mask = ""
 
 # If run_clean = 1, then we clean!
@@ -43,7 +44,7 @@
   set options = "mosaic" 
 
 # mossdi parameters
-  set cutoff = 1.0 
+  set cutoff = 0.01 
   set region = ""
 
 # mosmem parameters
