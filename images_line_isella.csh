@@ -46,9 +46,9 @@
 # mossdi parameters
   set cutoff = 0.01 
   set region = ""
+  set niter      = 1000
 
 # mosmem parameters
-  set niter      = 1000
   set rmsfac     = 1.0
   set flux       = 1e-10
 
