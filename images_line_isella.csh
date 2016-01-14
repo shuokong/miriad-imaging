@@ -143,7 +143,8 @@
          if $run_mkmask == 1 then         
            if (!(-e $polygon_region)) then
            echo "Defining polygon region..."
-           python define_region.py -image $dirtyGain -image_type 'gain' -outfile $polygon_region
+           fits in=$dirtyGain out=gain.fits op=xyout
+           python define_region.py -image gain.fits -image_type 'gain' -outfile $polygon_region
            endif
          endif
          if $run_restart == 1 then
