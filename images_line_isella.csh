@@ -243,16 +243,16 @@
                  imsub in=$dirtySen out=$outfile.sen region=abspix,images"($chan,$chan)"
 
                # Create mask
-                 if ($run_mkmask == 1) then
-                     # Remove existing files
-                       rm -rf $outfile.mask
+                 # if ($run_mkmask == 1) then
+                 #     # Remove existing files
+                 #       rm -rf $outfile.mask
 
-                     # make signal to noise ratio map
-                       maths exp="<$outfile.map>/<$outfile.sen>" out=$outfile.snr 
+                 #     # make signal to noise ratio map
+                 #       maths exp="<$outfile.map>/<$outfile.sen>" out=$outfile.snr 
 
-                     # make mask file
-                       maths exp="<$outfile.snr>.gt.2.5" out=$outfile.mask
-                 endif
+                 #     # make mask file
+                 #       maths exp="<$outfile.snr>.gt.2.5" out=$outfile.mask
+                 # endif
 
                # Clean map
                  if ($algorithm == "mossdi") then
