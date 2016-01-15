@@ -181,7 +181,7 @@
               else 
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
-                     model=$outfile.cc
+                     model=$outfile.cc region=""
               endif
 
            else if ($algorithm == "mosmem") then
@@ -261,7 +261,7 @@
                            cutoff=$cutoff niters=$niter region=@$polygon_region
                     else 
                          mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter
+                           cutoff=$cutoff niters=$niter region=""
                     endif
 
                  else if ($algorithm == "mosmem") then
@@ -278,7 +278,7 @@
                     echo 'set algorithm = "mossdi" or "mosmem"'
                     exit
                  endif
-            endif
+                 endif
             # Create cleaned image and residuals
               if ($run_restor == 1) then
                  # Clean image
