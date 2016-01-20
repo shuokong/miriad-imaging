@@ -52,6 +52,12 @@
   set rmsfac     = 1.0
   set flux       = 1e-10
 
+# Flux recovered vs. Clean component plot parameters
+  set plot_ccflux = 1 
+  set plotfile = 'ccflux.pdf'
+  set flux_str = 'Flux Recovered'
+  set cc_str = 'CLEAN Component'
+
 # Override user supplied parameters with command line arguments
   foreach a ( $* )
     set nargs = `echo $a | awk -F= '{print NF}'`
@@ -305,4 +311,12 @@
        echo "*** Finished to make maps of $outfile"
        echo ""
        echo ""
+
+       # Plot the flux recovered by CLEAN vs the number of clean iterations used.a
+       if (plot_ccflux == 1) then
+         set infile = $outfile.cc
+         python ccflux.py -infile $infile -plotfile $outfile.$plotfile -flux_str $flux_str -cc_str $cc_str        
+       endif     
+
+
   end # molecule
