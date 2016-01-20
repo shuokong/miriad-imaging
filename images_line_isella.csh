@@ -140,8 +140,9 @@
        if $run_clean == 1 then
          echo "Running clean..."
          #Use define_region.py to create a polygon region file using the gain image and a floor of 1.0
-         if $run_mkmask == 1 then         
-           if (!(-e $polygon_region)) then
+         if $run_mkmask == 1 then 
+         # Can put calls to imsub here to pick out the narrower region and use the outputs of IMSUB as the inputs to mossdi.        
+           if (!(-e $polygon_region)) then  
            echo "Defining polygon region..."
            fits in=$dirtyGain out=gain.fits op=xyout
            python define_region.py -image gain.fits -image_type 'gain' -outfile $polygon_region
@@ -198,6 +199,11 @@
               echo 'set algorithm = "mossdi" or "mosmem"'
               exit
            endif
+
+         # Move the new clean component file to overwrite the old one.
+         rm -rf $outfile.cc
+         mv $outfile.cc.new $outfile.cc 
+
          endif
 
          if $run_restart == 0 then 
