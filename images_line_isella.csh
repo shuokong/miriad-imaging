@@ -317,7 +317,8 @@
          echo "Plotting cc vs. flux..."
          set infile = $outfile.$cclogfile
          set plotfile = $outfile.$plotfile
-         python ccflux.py -infile $infile -plotfile $plotfile         
+         python ccflux.py -infile $infile -plotfile $plotfile 
+         pdfopen $plotfile        
        endif     
 
 
