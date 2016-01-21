@@ -54,6 +54,7 @@
 
 # Flux recovered vs. Clean component plot parameters
   set plot_ccflux = 1 
+  set cclogfile = 'ccflux.log'
   set plotfile = 'ccflux.pdf'
   set flux_str = 'Flux Recovered'
   set cc_str = 'CLEAN Component'
@@ -184,22 +185,22 @@
               if ($run_mkmask == 1) then
                    mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
-                     model=$outfile.cc
+                     model=$outfile.cc > $outfile.$cclogfile
               else 
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
-                     model=$outfile.cc region=""
+                     model=$outfile.cc region="" > $outfile.$cclogfile
               endif
 
            else if ($algorithm == "mosmem") then
               if ($run_mkmask == 1) then 
                    mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                        niters=$niter rmsfac=$rmsfac \
-                       flux=$flux measure=gull region=@$polygon_region model=$outfile.cc
+                       flux=$flux measure=gull region=@$polygon_region model=$outfile.cc > $outfile.$cclogfile
               else
                    mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                        niters=$niter rmsfac=$rmsfac \
-                       flux=$flux measure=gull model=$outfile.cc
+                       flux=$flux measure=gull model=$outfile.cc > $outfile.$cclogfile
               endif
            else
               echo 'set algorithm = "mossdi" or "mosmem"'
@@ -270,21 +271,21 @@
                  if ($algorithm == "mossdi") then
                     if ($run_mkmask == 1) then
                          mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=@$polygon_region
+                           cutoff=$cutoff niters=$niter region=@$polygon_region > $outfile.$cclogfile
                     else 
                          mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=""
+                           cutoff=$cutoff niters=$niter region="" > $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mosmem") then
                     if ($run_mkmask == 1) then 
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull region=@$polygon_region
+                             flux=$flux measure=gull region=@$polygon_region > $outfile.$cclogfile
                     else
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull
+                             flux=$flux measure=gull > $outfile.$cclogfile
                     endif
                  else
                     echo 'set algorithm = "mossdi" or "mosmem"'
@@ -314,7 +315,7 @@
 
        # Plot the flux recovered by CLEAN vs the number of clean iterations used.a
        if (plot_ccflux == 1) then
-         set infile = $outfile.cc
+         set infile = $outfile.$cclogfile
          python ccflux.py -infile $infile -plotfile $outfile.$plotfile -flux_str $flux_str -cc_str $cc_str        
        endif     
 
