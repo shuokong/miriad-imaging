@@ -317,7 +317,8 @@
        if ($plot_ccflux == 1) then
          echo "Plotting cc vs. flux..."
          set infile = $outfile.$cclogfile
-         python ccflux.py -infile $infile -plotfile $outfile.$plotfile -flux_str $flux_str -cc_str $cc_str        
+         set plotfile = $outfile.$plotfile
+         python ccflux.py -infile $infile -plotfile $plotfile -flux_str $flux_str -cc_str $cc_str        
        endif     
 
 
