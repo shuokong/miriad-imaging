@@ -151,7 +151,7 @@
            if (!(-e $polygon_region)) then  
            echo "Defining polygon region..."
            fits in=$dirtyGain out=gain.fits op=xyout
-           python define_region.py -image gain.fits -image_type 'gain' -outfile $polygon_region
+           python define_region.py -image 'gain.fits' -image_type 'gain' -outfile $polygon_region
            endif
          endif
          if $run_restart == 1 then
@@ -180,6 +180,7 @@
          #   endif
 
          # Clean map
+           rm -rf $outfile.$cclogfile
            if ($algorithm == "mossdi") then
               if ($run_mkmask == 1) then
                    mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
