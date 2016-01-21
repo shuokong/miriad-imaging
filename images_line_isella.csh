@@ -69,7 +69,7 @@
     endif
     set $a
   end
-
+  echo $niter
 # Set which molecule(s) to process
   if ($mol != "") set molecules = ($mol)
 
