@@ -56,8 +56,8 @@
   set plot_ccflux = 1 
   set cclogfile = 'ccflux.log'
   set plotfile = 'ccflux.pdf'
-  set flux_str = 'Flux Recovered'
-  set cc_str = 'CLEAN Component'
+  set flux_str = 'Total CLEANed flux'
+  set cc_str = 'Steer'
 
 # Override user supplied parameters with command line arguments
   foreach a ( $* )
