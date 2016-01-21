@@ -314,7 +314,8 @@
        echo ""
 
        # Plot the flux recovered by CLEAN vs the number of clean iterations used.a
-       if (plot_ccflux == 1) then
+       if ($plot_ccflux == 1) then
+         echo "Plotting cc vs. flux..."
          set infile = $outfile.$cclogfile
          python ccflux.py -infile $infile -plotfile $outfile.$plotfile -flux_str $flux_str -cc_str $cc_str        
        endif     
