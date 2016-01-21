@@ -56,8 +56,7 @@
   set plot_ccflux = 1 
   set cclogfile = 'ccflux.log'
   set plotfile = 'ccflux.pdf'
-  set flux_str = 'Total CLEANed flux'
-  set cc_str = 'Steer'
+  
 
 # Override user supplied parameters with command line arguments
   foreach a ( $* )
@@ -318,7 +317,7 @@
          echo "Plotting cc vs. flux..."
          set infile = $outfile.$cclogfile
          set plotfile = $outfile.$plotfile
-         python ccflux.py -infile $infile -plotfile $plotfile -flux_str $flux_str -cc_str $cc_str        
+         python ccflux.py -infile $infile -plotfile $plotfile         
        endif     
 
 
