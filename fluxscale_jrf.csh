@@ -31,7 +31,7 @@
 
 # Set which source to image
   set coords = "dec(-6.5,-4)"
-  set source = "omc*"
+  set source = "omc43"
   #set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
   #set source = @nro_subregions.txt
 
@@ -68,7 +68,7 @@
 # The resampled NRO data do not look correct if nchannel=1
 # jjjjjChannels set first and last channel to use.
   #set chan = (171 172) 
-  set chan = (186 187)
+  set chan = (171 172)
   ## set line = "velocity,2,8.0,0.264,0.264"
 
 # Set NRO file names

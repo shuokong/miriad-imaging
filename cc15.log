@@ -1,0 +1,141 @@
+Setting run_invert and vis
+Setting vis
+Setting dirty_name and source...
+Setting run_mkmask, mask, run_clean, run_restor...
+13co
+Beam size = 8.362 x 6.213 arcsec at PA = -1.59 deg
+Running clean...
+Not running restart...
+Determining which channel to clean next...
+Found an uncleaned channel, cleaning it...
+Processing channel 001, velocity = .2000036447
+Imsub: version 1.0 3-dec-02
+Imsub: version 1.0 3-dec-02
+
+maths: CVS Revision 1.5, 2013/12/27 18:32:30 UTC
+
+
+maths: CVS Revision 1.5, 2013/12/27 18:32:30 UTC
+
+
+mossdi: CVS Revision 1.6, 2012/06/04 21:25:22 UTC
+
+Beginning to CLEAN ...
+Steer Iterations: 649
+ Residual min,max,rms:   -1.548E+00   1.505E+02   1.898E+01
+ Total CLEANed flux:    7.424E+01
+Steer Iterations: 2032
+ Residual min,max,rms:   -1.548E+00   1.505E+02   1.890E+01
+ Total CLEANed flux:    2.113E+02
+Steer Iterations: 3231
+ Residual min,max,rms:   -1.548E+00   1.513E+02   1.884E+01
+ Total CLEANed flux:    3.276E+02
+Steer Iterations: 6725
+ Residual min,max,rms:   -1.548E+00   1.505E+02   1.868E+01
+ Total CLEANed flux:    6.259E+02
+Steer Iterations: 11303
+ Residual min,max,rms:   -1.548E+00   1.502E+02   1.850E+01
+ Total CLEANed flux:    9.904E+02
+Steer Iterations: 14150
+ Residual min,max,rms:   -1.548E+00   1.497E+02   1.841E+01
+ Total CLEANed flux:    1.186E+03
+Steer Iterations: 19086
+ Residual min,max,rms:   -1.548E+00   1.480E+02   1.826E+01
+ Total CLEANed flux:    1.532E+03
+Steer Iterations: 26427
+ Residual min,max,rms:   -1.548E+00   1.462E+02   1.807E+01
+ Total CLEANed flux:    1.976E+03
+Steer Iterations: 35058
+ Residual min,max,rms:   -1.548E+00   1.442E+02   1.787E+01
+ Total CLEANed flux:    2.486E+03
+Steer Iterations: 42099
+ Residual min,max,rms:   -1.548E+00   1.447E+02   1.757E+01
+ Total CLEANed flux:    2.916E+03
+Steer Iterations: 51405
+ Residual min,max,rms:   -1.548E+00   1.402E+02   1.736E+01
+ Total CLEANed flux:    3.398E+03
+Steer Iterations: 66277
+ Residual min,max,rms:   -1.548E+00   1.224E+02   1.693E+01
+ Total CLEANed flux:    4.152E+03
+Steer Iterations: 84560
+ Residual min,max,rms:   -1.548E+00   1.244E+02   1.655E+01
+ Total CLEANed flux:    5.011E+03
+Steer Iterations: 96662
+ Residual min,max,rms:   -1.548E+00   1.159E+02   1.626E+01
+ Total CLEANed flux:    5.556E+03
+Steer Iterations: 124864
+ Residual min,max,rms:   -1.548E+00   1.155E+02   1.576E+01
+ Total CLEANed flux:    6.694E+03
+Steer Iterations: 138531
+ Residual min,max,rms:   -1.548E+00   1.041E+02   1.547E+01
+ Total CLEANed flux:    7.249E+03
+Steer Iterations: 181528
+ Residual min,max,rms:   -1.548E+00   9.995E+01   1.480E+01
+ Total CLEANed flux:    8.816E+03
+Steer Iterations: 194274
+ Residual min,max,rms:   -1.549E+00   9.319E+01   1.460E+01
+ Total CLEANed flux:    9.255E+03
+Steer Iterations: 256978
+ Residual min,max,rms:   -1.571E+00   8.879E+01   1.387E+01
+ Total CLEANed flux:    1.122E+04
+Steer Iterations: 276503
+ Residual min,max,rms:   -1.574E+00   8.441E+01   1.362E+01
+ Total CLEANed flux:    1.182E+04
+Steer Iterations: 343101
+ Residual min,max,rms:   -1.612E+00   7.780E+01   1.302E+01
+ Total CLEANed flux:    1.363E+04
+Steer Iterations: 370810
+ Residual min,max,rms:   -1.611E+00   7.201E+01   1.282E+01
+ Total CLEANed flux:    1.432E+04
+Steer Iterations: 440987
+ Residual min,max,rms:   -1.640E+00   6.858E+01   1.223E+01
+ Total CLEANed flux:    1.606E+04
+Steer Iterations: 464955
+ Residual min,max,rms:   -1.637E+00   6.452E+01   1.203E+01
+ Total CLEANed flux:    1.664E+04
+Steer Iterations: 543034
+ Residual min,max,rms:   -1.657E+00   6.287E+01   1.140E+01
+ Total CLEANed flux:    1.840E+04
+Steer Iterations: 583236
+ Residual min,max,rms:   -1.660E+00   5.805E+01   1.112E+01
+ Total CLEANed flux:    1.923E+04
+Steer Iterations: 633717
+ Residual min,max,rms:   -1.646E+00   5.570E+01   1.082E+01
+ Total CLEANed flux:    2.023E+04
+Steer Iterations: 690400
+ Residual min,max,rms:   -1.661E+00   5.516E+01   1.049E+01
+ Total CLEANed flux:    2.131E+04
+Steer Iterations: 727986
+ Residual min,max,rms:   -1.655E+00   5.103E+01   1.026E+01
+ Total CLEANed flux:    2.201E+04
+Steer Iterations: 791568
+ Residual min,max,rms:   -1.672E+00   4.867E+01   9.871E+00
+ Total CLEANed flux:    2.315E+04
+Steer Iterations: 860437
+ Residual min,max,rms:   -1.656E+00   4.720E+01   9.531E+00
+ Total CLEANed flux:    2.431E+04
+Steer Iterations: 915363
+ Residual min,max,rms:   -1.667E+00   4.580E+01   9.225E+00
+ Total CLEANed flux:    2.521E+04
+Steer Iterations: 937273
+ Residual min,max,rms:   -1.660E+00   4.394E+01   9.072E+00
+ Total CLEANed flux:    2.558E+04
+Steer Iterations: 979548
+ Residual min,max,rms:   -1.659E+00   4.217E+01   8.848E+00
+ Total CLEANed flux:    2.626E+04
+Steer Iterations: 1031412
+ Residual min,max,rms:   -1.653E+00   4.050E+01   8.631E+00
+ Total CLEANed flux:    2.700E+04
+
+restor: CVS Revision 1.6, 2013/07/20 03:35:27 UTC
+
+Using Gaussian beam fwhm of    8.362 by    6.213 arcsec.
+Position angle:   -1.6 degrees.
+
+restor: CVS Revision 1.6, 2013/07/20 03:35:27 UTC
+
+
+
+*** Finished to make maps of 13co/13co.001/13co.001
+
+
