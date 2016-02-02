@@ -189,7 +189,7 @@
               else 
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
-                     model=$outfile.cc region="" > $outfile.$cclogfile
+                     model=$outfile.cc > $outfile.$cclogfile
               endif
 
            else if ($algorithm == "mosmem") then
@@ -274,7 +274,7 @@
                            cutoff=$cutoff niters=$niter region=@$polygon_region > $outfile.$cclogfile
                     else 
                          mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region="" > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter > $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mosmem") then

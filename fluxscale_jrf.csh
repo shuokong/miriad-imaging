@@ -68,7 +68,7 @@
 # The resampled NRO data do not look correct if nchannel=1
 # jjjjjChannels set first and last channel to use.
   #set chan = (171 172) 
-  set chan = (171 172)
+  set chan = (163 164)
   ## set line = "velocity,2,8.0,0.264,0.264"
 
 # Set NRO file names
