@@ -6,7 +6,7 @@ def mir2fits(pattern='*'):
     import glob
     import os
     for f in glob.glob(pattern):
-        os.system('fits in={0} out={1} op=xyout'.format(f, f))
+        os.system('fits in={0} out={1}.fits op=xyout'.format(f, f))
 
 
 def main():
