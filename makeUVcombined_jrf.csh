@@ -286,7 +286,7 @@ calculation:
 
   uvflag vis=uvgauss.mir flagval=flag "select=uvrange(10.0,1000.0)"
   uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
-  rm -r uvgauss.mir
+  rm -rf uvgauss.mir
   mv tmptmp.mir uvgauss.mir
 # smauvplt device=/xs vis=uvgauss.mir axis=uc,vc options=equal
 
