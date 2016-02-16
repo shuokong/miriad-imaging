@@ -42,7 +42,7 @@
 
 # Set velocity to image
   set source = "omc*"
-  set chan = (130 220)
+  set chan = (171 172)
   # set vel    = "9.5"
 
 
