@@ -317,6 +317,7 @@ calculation:
 
 # Combine all UV data
   if (-e $nrod/$nrod.uv.all) rm -rf $nrod/$nrod.uv.all
+  echo "Running vismerge..."
   python $vismerge_single_path $nrodtmp $mol $nrod
 
 # Clean up
