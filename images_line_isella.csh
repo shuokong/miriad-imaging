@@ -10,7 +10,7 @@
 #The root file name for the dirty map, beam, psf,sen etc.
   echo "Setting dirty_name and source..."
   set dirty_name = 'combined_scalefactor' 
-  set source = 'omc42,omc43'
+#  set source = 'omc42,omc43'
   # set vis = "/hifi/carmaorion/orion/images/jrf/nro/13co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/13co/13co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
