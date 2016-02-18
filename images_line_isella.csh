@@ -104,7 +104,7 @@
            echo ""
            echo "*** Making $dirtyImage and $dirtyBeam ***"
            invert vis=$vis map=$dirtyImage beam=$dirtyBeam \
-                    select="source($source)" \
+                    #select="source($source)" \
                     cell=$cell \
                     imsize=$imsize \
                     robust=$robust \
