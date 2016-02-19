@@ -268,6 +268,7 @@
                  # endif
 
                # Clean map
+                 echo "Cleaning..."
                  if ($algorithm == "mossdi") then
                     if ($run_mkmask == 1) then
                          mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
