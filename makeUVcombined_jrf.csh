@@ -33,7 +33,7 @@
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
   # set caruv  = omc43.mir
   set caruv  = "/hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir"
-  set run_fluxscale = 0
+  set run_fluxscale = 1
 
   set imsize  = 257
   set cell    = 1.0
