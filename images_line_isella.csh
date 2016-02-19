@@ -16,6 +16,7 @@
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
   set run_mkmask = 0
   set polygon_region = 'region.txt'
+  set region_limit = 0.
   set mask = ""
 
 # If run_clean = 1, then we clean!
@@ -151,7 +152,7 @@
            if (!(-e $polygon_region)) then  
            echo "Defining polygon region..."
            fits in=$dirtyGain out=gain.fits op=xyout
-           python define_region.py -image 'gain.fits' -image_type 'gain' -outfile "$polygon_region"
+           python define_region.py -image 'gain.fits' -image_type 'gain' -outfile "$polygon_region" -limit $region_limit
            endif
          endif
          if $run_restart == 1 then
