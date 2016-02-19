@@ -162,7 +162,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-image", type=str, default='gain.fits',
                         help="Path to the FITS image to use in defining the polygon.")
-    parser.add_argument("-out", "-outfile", type=str, default='region.txt',
+    parser.add_argument("-outfile", type=str, default='region.txt',
                         help="Path to the output text file.")
     parser.add_argument("-l", "-limit", type=float, default=1.0,
                         help="The lower limit on gain to use for defining the outer edge of the polygon.")
