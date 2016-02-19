@@ -164,9 +164,9 @@ def main():
                         help="Path to the FITS image to use in defining the polygon.")
     parser.add_argument("-outfile", type=str, default='region.txt',
                         help="Path to the output text file.")
-    parser.add_argument("-l", "-limit", type=float, default=1.0,
+    parser.add_argument("-limit", type=float, default=1.0,
                         help="The lower limit on gain to use for defining the outer edge of the polygon.")
-    parser.add_argument("-f", "-format", type=str, default='pixels', choices=['pixels', 'radec'],
+    parser.add_argument("-format", type=str, default='pixels', choices=['pixels', 'radec'],
                         help="The output format of the polygon string. radec has not been implemented.")
     parser.add_argument("-outformat", type=str, default='oneline', choices=['oneline', 'multiline'],
                         help="Do we want the polygon string on one line or multiple lines?")
