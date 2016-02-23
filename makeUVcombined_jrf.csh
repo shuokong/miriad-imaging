@@ -42,8 +42,8 @@
   set options = "mosaic,double,systemp"
 
 # Set velocity to image
-#  set source = "omc*"
-  set source = @nro_subregions.txt
+  set source = "omc*"
+#  set source = @nro_subregions.txt
   set chan = (171 172)
   # set vel    = "9.5"
 
