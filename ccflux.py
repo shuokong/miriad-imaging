@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+"""
+Plots for evaluating the state of CLEANing.
+"""
 
 
 def plot(infile='clean_region.log', plotfile='ccflux_region.pdf',
@@ -58,6 +61,10 @@ def plotmulti(infiles, plotfile='ccflux_multi.pdf',
     plt.ylabel('Flux Recovered', fontsize=14)
     plt.legend(loc='best')
     plt.savefig(plotfile)
+
+
+def plot_ratio_image(clean_map, nro_regridded_map, ratio_image='cm_nro_ratio.pdf'):
+    from astropy.io import fits
 
 
 def main():
