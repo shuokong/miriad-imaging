@@ -33,15 +33,16 @@
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
   # set caruv  = omc43.mir
   set caruv  = "/hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir"
-  set run_fluxscale = 0
+  set run_fluxscale = 1
 
   set imsize  = 257
   set cell    = 1.0
-  set robust  = 2
-  set options = "mosaic"
+  set robust  = 0
+  set options = "mosaic,double,systemp"
 
 # Set velocity to image
-  set source = "omc*"
+#  set source = "omc*"
+  set source = @nro_subregions.txt
   set chan = (171 172)
   # set vel    = "9.5"
 
