@@ -193,6 +193,12 @@
        source $nroparams
   endif
 
+# Remake NRO beam
+if ($remakeBeam != 0) then
+    echo "Remaking NRO beam..."
+    makeBeam_jrf.csh mol=$mol carmap=$carmap
+#  set bmnro = "beamsNRO/$mol/beamnro.bm"
+
 
 # Regrid wrt CARMA map
   echo "Regridding NRO image with respect to CARMA map."
