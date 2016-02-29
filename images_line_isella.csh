@@ -43,6 +43,7 @@
   set cell   = 1.0
   set imsize = 257
   set options = "mosaic" 
+  set select = ""
 
 # mossdi parameters
   set cutoff = 0.01 
@@ -105,7 +106,7 @@
            echo ""
            echo "*** Making $dirtyImage and $dirtyBeam ***"
            invert vis=$vis map=$dirtyImage beam=$dirtyBeam \
-                    #select="source($source)" \
+                    select=$select \
                     cell=$cell \
                     imsize=$imsize \
                     robust=$robust \
