@@ -43,6 +43,7 @@
 
 # Set velocity to image
   set source = "omc*"
+  set select = "source($source),dec(-10,-3)"
 #  set source = @nro_subregions.txt
   set chan = (171 172)
   # set vel    = "9.5"
@@ -176,7 +177,8 @@
   #
   set caruvavg = $nrod/carma_uv.mir
   rm -rf $caruvavg
-  set select = "source($source),dec(-10,-3)"
+  #set select = "source($source),dec(-10,-3)"
+
   # set select = "$ant,uvrange($uvrange),source($source)"
   #if ($coords != "") set select = "$select,$coords"
   echo "Averaging CARMA over veloicity range..."
@@ -188,7 +190,8 @@
        echo "Making CARMA dirty image."
        rm -rf $carmap $carbeam
        invert vis=$caruvavg map=$carmap beam=$carbeam \
-              select="source($source)" \
+              # select="source($source)" \
+              select="$select" \
               imsize=$imsize  cell=$cell robust=$robust options=$options
        # Source the NRO parameters file again because we need parameters from
        # the CARMA image.
@@ -275,7 +278,7 @@ calculation:
 # Make images of pointings
 # If you do not use hkdemos, miriad will not understand each FoV positions appropriately
 # demos map=$nrodcv vis=tmp/tmptmp.uv out=$nrodem"." select="source($source)"
-  hkdemos map=$nrodcv vis=$tmpuv out=$nrodem"." select="source($source)"
+  hkdemos map=$nrodcv vis=$tmpuv out=$nrodem"." select="$select" #select="source($source)"
   rm -rf $tmpuv
 
 # Make NRO45 UV data
