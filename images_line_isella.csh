@@ -43,7 +43,7 @@
   set cell   = 1.0
   set imsize = 257
   set options = "mosaic" 
-  set select = ""
+  set select = "dec(-10,3)"
 
 # mossdi parameters
   set cutoff = 0.01 
