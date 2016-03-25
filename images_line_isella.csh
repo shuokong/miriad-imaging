@@ -45,6 +45,9 @@
   set options = "mosaic" 
   set select = "dec(-10,3)"
 
+  set different_beam = 0
+  set use_psf_as_beam = 0
+  set use_which_antennas = 0
 # mossdi parameters
   set cutoff = 0.01 
   set region = ""
@@ -96,6 +99,25 @@
        set dirtyGain = $dir/$dirty_name\_$mol.gain
        set dirtySNR = $dir/$dirty_name\_$mol.SNR
 
+       if ($different_beam == 1) then
+            set dirtyBeam = 13co/carmaonly_42_mosaic_171.172_13co.beam
+            set dirtyPSF = 13co/carmaonly_42_mosaic_171.172_13co.psf
+       endif
+
+       if ($use_which_antennas == "10m") then
+            set ant = "-ant(7,8,9,10,11,12,13,14,15)"
+            set select = $select,$ant
+       endif
+
+       if ($use_which_antennas == "6m") then
+            set ant = "-ant(1,2,3,4,5,6)"
+            set select = $select,$ant
+       endif
+
+       if ($use_which_antennas == "6m10m") then
+            set ant = "ant(1,2,3,4,5,6)(7,8,9,10,11,12,13,14,15)"
+            set select = $select,$ant
+       endif
       # Make dirty map
        if ($run_invert == 1) then
          # Clean existing files
@@ -187,7 +209,7 @@
               if ($run_mkmask == 1) then
                    mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
-                     model=$outfile.cc > $outfile.$cclogfile
+                     model=$outfile.cc  > $outfile.$cclogfile
               else 
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
@@ -270,6 +292,10 @@
                  # endif
 
                # Clean map
+                 if ($use_psf_as_beam != 0) then 
+                    set dirtyBeam = $dirtyPSF
+                 endif
+
                  echo "Cleaning..."
                  if ($algorithm == "mossdi") then
                     if ($run_mkmask == 1) then

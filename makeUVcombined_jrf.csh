@@ -295,7 +295,7 @@ calculation:
   hkuvrandom npts=$npoint nchan=$nzcar inttime=$tintnro sdev=$sdev gauss=true freq=$freq out=uvgauss.mir
   # uvrandom npts=$npoint nchan=$nzcar inttime=$tintnro uvmax=$klammax gauss=true freq=$freq out=uvgauss.mir # from jens script
 
-  uvflag vis=uvgauss.mir flagval=flag "select=uvrange(10.0,1000.0)"
+  uvflag vis=uvgauss.mir flagval=flag "select=uvrange(6,1000.0)"
   uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
   rm -rf uvgauss.mir
   mv tmptmp.mir uvgauss.mir

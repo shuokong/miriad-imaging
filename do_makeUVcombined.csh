@@ -1,3 +1,3 @@
-source makeUVcombined_jrf.csh carmap='carma_trim_171.172.map' carbeam='carma_trim_171.172.beam' makeImage=1 select="dec(-05:30,-05:22),ra(5:33:37,5:34:20)"#source='omc28,omc29,omc38,omc39'
-mv nro/13co/13co.uv.all nro/13co/13co.uv_trim_171.172_scalefactor.all
-mv nro/13co/carma_uv.mir nro/13co/carma_uv_trim_171.172_scalefactor.mir
+source makeUVcombined_jrf.csh carmap='carma_42.43_171.172_uv6to1000.map' carbeam='carma_42.43_171.172_uv6to1000.beam' makeImage=1 source='omc42,omc43'
+mv nro/13co/13co.uv.all nro/13co/13co.uv_42.43_171.172_scalefactor_uv6to1000.all
+mv nro/13co/carma_uv.mir nro/13co/carma_uv_42.43_171.172_scalefactor_uv6to1000.mir
