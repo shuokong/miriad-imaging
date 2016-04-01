@@ -42,12 +42,14 @@
   set options = "mosaic,double,systemp"
 
 # Set velocity to image
-  set source = "omc*"
+  set source = "omc42"
   set select = "source($source),dec(-10,-3)"
 #  set source = @nro_subregions.txt
   set chan = (171 172)
   # set vel    = "9.5"
-
+# Set 
+  set uvflag = 1
+  set uvselect = "uvrange(6,1000.0)"
 
 # End of user-supplied arguments
 #############################################################################
@@ -295,11 +297,15 @@ calculation:
   hkuvrandom npts=$npoint nchan=$nzcar inttime=$tintnro sdev=$sdev gauss=true freq=$freq out=uvgauss.mir
   # uvrandom npts=$npoint nchan=$nzcar inttime=$tintnro uvmax=$klammax gauss=true freq=$freq out=uvgauss.mir # from jens script
 
-  uvflag vis=uvgauss.mir flagval=flag "select=uvrange(6,1000.0)"
+  if ($uvflag != 0) then
+  #uvflag vis=uvgauss.mir flagval=flag select=$uvselect #"select=uvrange(6,1000.0)"
+  #uvflag vis=uvgauss.mir flagval=flag "select=uvrange(6,1000.0)"
   uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
   rm -rf uvgauss.mir
   mv tmptmp.mir uvgauss.mir
-# smauvplt device=/xs vis=uvgauss.mir axis=uc,vc options=equal
+  endif
+  #smauvplt device=/xs vis=uvgauss.mir axis=uc,vc options=equal
+  cp -r uvgauss.mir uvgauss2.mir
 
 # Swap amp/phase with NRO45 ones
   foreach f ($nrodem*)
