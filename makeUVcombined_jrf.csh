@@ -299,7 +299,7 @@ calculation:
 
   if ($uvflag != 0) then
   #uvflag vis=uvgauss.mir flagval=flag select=$uvselect #"select=uvrange(6,1000.0)"
-  #uvflag vis=uvgauss.mir flagval=flag "select=uvrange(6,1000.0)"
+  uvflag vis=uvgauss.mir flagval=flag "select=uvrange(6,1000.0)"
   uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
   rm -rf uvgauss.mir
   mv tmptmp.mir uvgauss.mir
