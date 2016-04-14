@@ -311,8 +311,8 @@ calculation:
   foreach f ($nrodem*)
      set n = `echo $f | sed s/".dem."/" "/ | awk '{printf("%d",$2)}'`
      set g = $nrouv"."$n
-#    hkuvmodel vis=uvgauss.mir model=$f out=$g options=replace,imhead # XXX
-     uvmodel vis=uvgauss.mir model=$f out=$g options=replace,imhead
+     hkuvmodel vis=uvgauss.mir model=$f out=$g options=replace,imhead # XXX
+#     uvmodel vis=uvgauss.mir model=$f out=$g options=replace,imhead
   end
 
 # Add params in header

@@ -118,6 +118,7 @@
             set ant = "ant(1,2,3,4,5,6)(7,8,9,10,11,12,13,14,15)"
             set select = $select,$ant
        endif
+      echo $run_invert
       # Make dirty map
        if ($run_invert == 1) then
          # Clean existing files
