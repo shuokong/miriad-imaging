@@ -13,7 +13,7 @@
      set lambda   = 2.72            # 13CO(J=1-0) wavelength [mm]
      set freq     = 110.2013542798  # 13CO(J=1-0) frequency [GHz]
      set effmb    = 0.36            # main beam efficiency/2013; same for C18O(J=1-0)/2013
-     set fwhmnro  = 22.9            # OTF-Beam HWHM: from convbeam.c (case of 13co and c18o)
+     set fwhmnro  = 22.9            # OTF-Beam HWHM: from convbeam.c (case of 13co and c18o)    
                                     #   19.7" for Sph. func. & grid=5.96"
                                     #   22.9" for Sph. func  * grid=8.00"
      set scalefac = 3.3             # CARMA/NRO median scale factor         
@@ -58,9 +58,22 @@
   set bwcar = `calc "$dvcar/2.99792458e5*$freq*1.0e9"` # chan. width in Hz
 
 # CJYKNRO: Conversion coefficient (Ta* -> Jy)
+#     Eqns from Tools of Radio Astronomy ed. 5 (2013) [TRA] and Essentials of Radio Astronomy [ERA]
+#     From Essentials of Radio Astronomy: Antenna Temperature: Ta = P_nu/k, P_nu = Ae*S_nu/2
+#       so S_nu = 2*k*Ta/Ae; Ae = lambda**2 / Omega_A [TRA 7.11]; eta_mb = Omega_mb / Omega_A
+#     Thus, S_nu = 2*k*Ta*Omega_A/lambda**2 = 2*k*Ta*Omega_mb/(eta_mb*lambda**2)
 #
+#     where Omega_A [sr] is the antenna's normalized power pattern integrated over the whole sphere.
+#           Omega_mb [sr] is the " integrated over the main beam.
+#           Ae is the effective area of the antenna.
+#
+#     
 #     S[Jy] = Ta* [K] / eta_mb * 2*k*Omega_MB/lambda**2
-#           = Ta* [K] / eta_mb / [13.6 * (lambda/mm)^2 * (bmaj/"*bmin/")]
+#           = (1/13.6) * Ta* [K] * b_maj["] * b_min["] / (eta_mb * lambda[mm]^2)
+#
+#   The 1/13.6 comes from the combination of factosrs of 2, k (in units of mm^2 * Jy / K),
+#          1.133 (which comes from the solid angle of a gaussian beam: Omega_mb = 1.133*b_maj*b_min)
+#          and the conversion of b_maj and b_min from radians to arcseconds. (Omega_MB is in sr)
 #
 # JYPERK = [2*k*Omega_MB / lambda**2 / eta_mb / eta_q] * sqrt(2) * eta_q
 #         last term "sqrt(2)*eta_q" is from MIRIAD history
