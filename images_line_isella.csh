@@ -122,6 +122,7 @@
        if ($use_which_antennas == "not10m10m") then
             set ant = "-ant(1,2,3,4,5,6)(1,2,3,4,5,6)"
             set select = $select,$ant
+            echo $select
        endif
       echo $run_invert
       # Make dirty map
