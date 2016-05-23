@@ -42,7 +42,7 @@
   set robust = 2
   set cell   = 1.0
   set imsize = 257
-  set options = "mosaic" 
+  set options = "mosaic, double" 
   set select = "dec(-10,3)"
 
   set different_beam = 0
