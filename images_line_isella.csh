@@ -43,7 +43,7 @@
   set cell   = 1.0
   set imsize = 257
   set options = "mosaic, double" 
-  set select = "dec(-10,3)"
+  set select = "dec(-10,-3)"
 
   set different_beam = 0
   set use_psf_as_beam = 0
