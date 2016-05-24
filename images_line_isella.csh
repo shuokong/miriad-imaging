@@ -6,6 +6,8 @@
   echo "Setting run_invert and vis"
   set run_invert = 0
   echo "Setting vis"
+  #set carvis = "nro/13co/carma_uv.mir"
+  #set nrovis = "nro/13co/13co.uv.all"
   set vis = "nro/13co/carma_uv.mir,nro/13co/13co.uv.all"
 #The root file name for the dirty map, beam, psf,sen etc.
   echo "Setting dirty_name and source..."
@@ -104,27 +106,28 @@
             set dirtyPSF = 13co/carmaonly_42_mosaic_171.172_13co.psf
        endif
 
-       if ($use_which_antennas == "10m") then
-            set ant = "-ant(7,8,9,10,11,12,13,14,15)"
-            set select = $select,$ant
-       endif
+#       if ($use_which_antennas == "10m") then
+#            set ant = "-ant(7,8,9,10,11,12,13,14,15)"
+#            set select = $select,$ant
+#       endif
 
-       if ($use_which_antennas == "6m") then
-            set ant = "-ant(1,2,3,4,5,6)"
-            set select = $select,$ant
-       endif
+#       if ($use_which_antennas == "6m") then
+#            set ant = "-ant(1,2,3,4,5,6)"
+#            set select = $select,$ant
+#       endif
 
-       if ($use_which_antennas == "6m10m") then
-            set ant = "ant(1,2,3,4,5,6)(7,8,9,10,11,12,13,14,15)"
-            set select = $select,$ant
-       endif
+#      if ($use_which_antennas == "6m10m") then
+#            set ant = "ant(1,2,3,4,5,6)(7,8,9,10,11,12,13,14,15)"
+#            set select = $select,$ant
+#       endif
 
-       if ($use_which_antennas == "not10m10m") then
-            set ant = "-ant(1,2,3,4,5,6)(1,2,3,4,5,6)"
-            set select = $select,$ant
-            echo $select
-       endif
+#       if ($use_which_antennas == "not10m10m") then
+#            set ant = "-ant(1,2,3,4,5,6)(1,2,3,4,5,6)"
+#            set select = $select,$ant
+#            echo $select
+#       endif
       echo $run_invert
+
       # Make dirty map
        if ($run_invert == 1) then
          # Clean existing files
