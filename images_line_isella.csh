@@ -54,7 +54,7 @@
   set cutoff = 0.01 
   set region = ""
   set niter      = 1000
-
+  set gain = 0.1
 # mosmem parameters
   set rmsfac     = 1.0
   set flux       = 1e-10
@@ -219,11 +219,11 @@
               if ($run_mkmask == 1) then
                    mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
-                     model=$outfile.cc  > $outfile.$cclogfile
+                     model=$outfile.cc gain=$gain  > $outfile.$cclogfile
               else 
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
-                     model=$outfile.cc > $outfile.$cclogfile
+                     model=$outfile.cc gain=$gain > $outfile.$cclogfile
               endif
 
            else if ($algorithm == "mosmem") then
@@ -310,10 +310,10 @@
                  if ($algorithm == "mossdi") then
                     if ($run_mkmask == 1) then
                          mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=@$polygon_region > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain > $outfile.$cclogfile
                     else 
                          mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter gain=$gain > $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mosmem") then
