@@ -26,7 +26,7 @@ set region_limit = 0
 set options="double,systemp,mosaic"
 set different_beam = 0
 set use_psf_as_beam = 0
-set remove_baselines = 0 
+set remove_baselines = "10m10m" 
 #set use_which_antennas = "6m10m" 
 #set select = "dec(-8,-05:25)"
 #set options="mosaic"
@@ -48,7 +48,8 @@ if ($remove_baselines == "6m6m") then
 	set carvis = "cartmp3.mir"
 endif
 
-vis = $carvis,$nrovis
+set vis = $carvis,$nrovis
+
 time images_line_isella.csh niter=$niter run_mkmask=$run_mkmask run_restart=$run_restart cutoff=$cutoff polygon_region=$polygon_region restart_channel=$restart_channel run_invert=$run_invert run_clean=$run_clean run_restor=$run_restor robust=$robust vis=$vis dirty_name=$dirty_name options=$options region_limit=$region_limit different_beam=$different_beam use_psf_as_beam=$use_psf_as_beam use_which_antennas=$use_which_antennas cell=$cell#select=$select #source=$source
 
 #mv 13co/13co.001/ 13co/13co.001_nrobm16_uv6to1000_1e6_not10m10m
