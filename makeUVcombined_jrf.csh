@@ -42,7 +42,7 @@
   set options = "mosaic,double,systemp"
 
 # Set velocity to image
-  set source = "omc42"
+  set source = "omc41"
   set select = "source($source),dec(-10,-3)"
 #  set source = @nro_subregions.txt
   set chan = (171 172)
@@ -299,6 +299,7 @@ calculation:
 
   if ($uvflag != 0) then
   #uvflag vis=uvgauss.mir flagval=flag select=$uvselect #"select=uvrange(6,1000.0)"
+  #uvflag vis=uvgauss.mir flagval=flag "select=uvrange(3,1000.0)"
   uvflag vis=uvgauss.mir flagval=flag "select=uvrange(6,1000.0)"
   uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
   rm -rf uvgauss.mir

@@ -41,6 +41,7 @@
 #    if ($carmap == "") set carmap  = "../13co/dv0.5kms_ch0.0kms/carma_13co.map"
      if ($carmap == "") set carmap = "/hifi/carmaorion/orion/images/test/13co/omc43_13co.map"
      set nrobm   = "16.2"
+     #set nrobm = "10.0"
   else if ($mol == "12co") then
 #    if ($carmap == "") set carmap  = "../13co/dv0.5kms_ch0.0kms/carma_13co.map"
      set nrobm = "14.9"
