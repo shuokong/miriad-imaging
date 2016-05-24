@@ -358,7 +358,7 @@
          set infile = $outfile.$cclogfile
          set plotfile = $outfile.$plotfile
          python ccflux.py -infile $infile -plotfile $plotfile 
-         pdfopen $plotfile        
+         pdfopen --file $plotfile        
        endif     
 
 
