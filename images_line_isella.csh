@@ -17,6 +17,7 @@
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
   set run_mkmask = 0
+  set mkmask_dummy = 1
   set polygon_region = 'region.txt'
   set region_limit = 0.
   set mask = ""
@@ -173,7 +174,7 @@
        imfit in=$outfile.psf object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
        set bmaj=`grep "Major axis" $log | awk '{print $4}'`
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
-       set bpa=`grep "  Position angle" $log | awk '{print $4}'`
+        
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
 
 
@@ -181,6 +182,15 @@
          echo "Running clean..."
          #Use define_region.py to create a polygon region file using the gain image and a floor of 1.0
          if $run_mkmask == 1 then 
+           if $mkmask_dummy == 1 then
+            #Make a polygon region file with the 4 corners of the map as the vertices, this dummy region
+            #tricks mossdi into only CLEANing the channel of the map that we want. Otherwise mossdi will output
+            #multiple planes of clean components even if only one channel is requested.
+            set naxis1 = `imhead in=$dirtyImage key=naxis1`
+            set naxis2 = `imhead in=$dirtyImage key=naxis2`
+            echo "polygon(1,1,1,$naxis2,$naxis1,$naxis2,$naxis1,1,1,1)" > $polygon_region
+            endif
+
          # Can put calls to imsub here to pick out the narrower region and use the outputs of IMSUB as the inputs to mossdi2.        
            if (!(-e $polygon_region)) then  
            echo "Defining polygon region..."
