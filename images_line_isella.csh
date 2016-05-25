@@ -1,6 +1,6 @@
 #!/bin/csh -fe
 # Select algorithm
-  set algorithm = "mossdi2"
+  set algorithm = "mossdi"
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   echo "Setting run_invert and vis"
@@ -215,6 +215,17 @@
 
          # Clean map
            rm -rf $outfile.$cclogfile
+           if ($algorithm == "mossdi") then
+              if ($run_mkmask == 1) then
+                   mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
+                     cutoff=$cutoff niters=$niter region=@$polygon_region\
+                     model=$outfile.cc gain=$gain  > $outfile.$cclogfile
+              else 
+                   mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
+                     cutoff=$cutoff niters=$niter\
+                     model=$outfile.cc gain=$gain > $outfile.$cclogfile
+              endif
+
            if ($algorithm == "mossdi2") then
               if ($run_mkmask == 1) then
                    mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
@@ -307,6 +318,17 @@
                  endif
 
                  echo "Cleaning..."
+                 if ($algorithm == "mossdi") then
+                    if ($run_mkmask == 1) then
+                         mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
+                           cutoff=$cutoff niters=$niter region=@$polygon_region\
+                           model=$outfile.cc gain=$gain  > $outfile.$cclogfile
+                    else 
+                         mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
+                           cutoff=$cutoff niters=$niter\
+                           model=$outfile.cc gain=$gain > $outfile.$cclogfile
+                    endif
+
                  if ($algorithm == "mossdi2") then
                     if ($run_mkmask == 1) then
                          mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
