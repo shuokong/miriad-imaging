@@ -320,13 +320,13 @@
                  echo "Cleaning..."
                  if ($algorithm == "mossdi") then
                     if ($run_mkmask == 1) then
-                         mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
+                         mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                            cutoff=$cutoff niters=$niter region=@$polygon_region\
-                           model=$outfile.cc gain=$gain  > $outfile.$cclogfile
+                            gain=$gain  > $outfile.$cclogfile
                     else 
-                         mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
+                         mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
                            cutoff=$cutoff niters=$niter\
-                           model=$outfile.cc gain=$gain > $outfile.$cclogfile
+                            gain=$gain > $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mossdi2") then
