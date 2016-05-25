@@ -50,7 +50,7 @@
   set different_beam = 0
   set use_psf_as_beam = 0
   set use_which_antennas = 0
-# mossdi2 parameters
+# mossdi parameters
   set cutoff = 0.01 
   set region = ""
   set niter      = 1000
@@ -226,7 +226,7 @@
                      model=$outfile.cc gain=$gain > $outfile.$cclogfile
               endif
 
-           if ($algorithm == "mossdi2") then
+           else if ($algorithm == "mossdi2") then
               if ($run_mkmask == 1) then
                    mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
@@ -329,7 +329,7 @@
                            model=$outfile.cc gain=$gain > $outfile.$cclogfile
                     endif
 
-                 if ($algorithm == "mossdi2") then
+                 else if ($algorithm == "mossdi2") then
                     if ($run_mkmask == 1) then
                          mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                            cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain > $outfile.$cclogfile
