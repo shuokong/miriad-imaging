@@ -174,7 +174,7 @@
        imfit in=$outfile.psf object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
        set bmaj=`grep "Major axis" $log | awk '{print $4}'`
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
-        
+       set bpa=`grep "  Position angle" $log | awk '{print $4}'`
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
 
 
