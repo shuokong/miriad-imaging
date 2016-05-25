@@ -1,6 +1,6 @@
 #!/bin/csh -fe
 # Select algorithm
-  set algorithm = "mossdi"
+  set algorithm = "mossdi2"
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   echo "Setting run_invert and vis"
@@ -50,7 +50,7 @@
   set different_beam = 0
   set use_psf_as_beam = 0
   set use_which_antennas = 0
-# mossdi parameters
+# mossdi2 parameters
   set cutoff = 0.01 
   set region = ""
   set niter      = 1000
@@ -181,7 +181,7 @@
          echo "Running clean..."
          #Use define_region.py to create a polygon region file using the gain image and a floor of 1.0
          if $run_mkmask == 1 then 
-         # Can put calls to imsub here to pick out the narrower region and use the outputs of IMSUB as the inputs to mossdi.        
+         # Can put calls to imsub here to pick out the narrower region and use the outputs of IMSUB as the inputs to mossdi2.        
            if (!(-e $polygon_region)) then  
            echo "Defining polygon region..."
            fits in=$dirtyGain out=gain.fits op=xyout
@@ -215,13 +215,13 @@
 
          # Clean map
            rm -rf $outfile.$cclogfile
-           if ($algorithm == "mossdi") then
+           if ($algorithm == "mossdi2") then
               if ($run_mkmask == 1) then
-                   mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
+                   mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
                      model=$outfile.cc gain=$gain  > $outfile.$cclogfile
               else 
-                   mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
+                   mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
                      model=$outfile.cc gain=$gain > $outfile.$cclogfile
               endif
@@ -237,7 +237,7 @@
                        flux=$flux measure=gull model=$outfile.cc > $outfile.$cclogfile
               endif
            else
-              echo 'set algorithm = "mossdi" or "mosmem"'
+              echo 'set algorithm = "mossdi2" or "mosmem"'
               exit
            endif
 
@@ -307,12 +307,12 @@
                  endif
 
                  echo "Cleaning..."
-                 if ($algorithm == "mossdi") then
+                 if ($algorithm == "mossdi2") then
                     if ($run_mkmask == 1) then
-                         mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
+                         mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                            cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain > $outfile.$cclogfile
                     else 
-                         mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
+                         mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
                            cutoff=$cutoff niters=$niter gain=$gain > $outfile.$cclogfile
                     endif
 
@@ -327,7 +327,7 @@
                              flux=$flux measure=gull > $outfile.$cclogfile
                     endif
                  else
-                    echo 'set algorithm = "mossdi" or "mosmem"'
+                    echo 'set algorithm = "mossdi2" or "mosmem"'
                     exit
                  endif
                  endif
