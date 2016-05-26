@@ -377,7 +377,6 @@
               endif 
          endif
        endif
-       endif
 
      # Done with channel
        echo ""
@@ -394,6 +393,6 @@
          python ccflux.py -infile $infile -plotfile $plotfile 
          pdfopen --file $plotfile        
        endif     
-
+       endif
 
   end # molecule
