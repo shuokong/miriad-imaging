@@ -166,12 +166,14 @@
        endif 
 
      # Set outfile
-       set outfile = $dir/combined_$mol
+     #  set outfile = $dir/combined_$mol
 
      # Get beam size
-       set log = $outfile.psf.log
+       # set log = $outfile.psf.log
+       set log = $dirtyPSF.log
        rm -rf $log
-       imfit in=$outfile.psf object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
+#       imfit in=$outfile.psf object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
+       imfit in=$dirtyPSF object=beam 'region=arcsec,box(-5,-5,5,5)' > $log
        set bmaj=`grep "Major axis" $log | awk '{print $4}'`
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
        set bpa=`grep "  Position angle" $log | awk '{print $4}'`
