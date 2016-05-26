@@ -42,7 +42,7 @@
   set options = "mosaic,double,systemp"
 
 # Set velocity to image
-  set source = "omc41"
+  set source = "omc42"
   set select = "source($source),dec(-10,-3)"
 #  set source = @nro_subregions.txt
   set chan = (171 172)
