@@ -376,9 +376,8 @@
                         out=$outfile.rs fwhm=$bmaj,$bmin pa=$bpa mode=residual
               endif 
          endif
-       endif
-
-     # Done with channel
+         
+          # Done with channel
        echo ""
        echo ""
        echo "*** Finished to make maps of $outfile"
@@ -393,6 +392,11 @@
          python ccflux.py -infile $infile -plotfile $plotfile 
          pdfopen --file $plotfile        
        endif     
-       endif
+
+     endif
+   endif
+
+    
+
 
   end # molecule
