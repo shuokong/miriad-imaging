@@ -1,4 +1,4 @@
-set niter=200000
+set niter=2000000
 set run_invert = 1
 #se1 vis = "nro/13co/carma_uv_full_171.172_scalefactor.mir,nro/13co/13co.uv_full_171.172_scalefactor.all"
 #set vis = "nro/13co/carma_uv_42_171.172_scalefactor.mir,nro/13co/13co.uv_42_171.172_scalefactor.mir"
@@ -14,7 +14,7 @@ set nrovis = "nro/13co/13co.carmacell1_uv6to1000_nrobm16.all"
 #set dirty_name = 'carmaonly_noscalefactor'
 #set dirty_name = 'omc_full_mosaic.double.systemp_171.172'
 #set dirty_name = 'combined_cell1rob2_uv6to1000_nrobm16_not10m10m'
-set dirty_name = 'combined_cell1rob2_uv6to1000_nrobm16_only6m6m'
+set dirty_name = 'combined_cell1rob2_uv6to1000_nrobm16_only10m10m'
 set source = 'omc42'
 set robust = 2
 set cell = 1
@@ -23,8 +23,8 @@ set run_mkmask = 1
 set mkmask_dummy = 1
 set run_restart = 0
 set restart_channel = 2
-set run_clean = 0
-set run_restor = 0
+set run_clean = 1
+set run_restor = 1
 set cutoff = 0.01
 set gain = 0.1
 set polygon_region = 'region_none.txt'
@@ -33,7 +33,7 @@ set region_limit = 0
 set options="double,systemp,mosaic"
 set different_beam = 0
 set use_psf_as_beam = 0
-set remove_baselines = "10m10m" 
+set remove_baselines = 0 
 #set use_which_antennas = 0 
 #set select = "dec(-8,-05:25)"
 #set options="mosaic"
@@ -46,12 +46,12 @@ if ($remove_baselines == "10m10m") then
 	uvcat vis=$carvis out="cartmp.mir" select="-ant(1,2,3,4,5,6)(1,2,3,4,5,6)"
 	set carvis = "cartmp.mir"
 endif
-
 set remove_baselines = "6m10m"
 if ($remove_baselines == "6m10m") then 
 	uvcat vis=$carvis out="cartmp2.mir" select="-ant(1,2,3,4,5,6)(7,8,9,10,11,12,13,14,15)"
 	set carvis = "cartmp2.mir"
 endif
+set remove_baselines = "6m6m"
 if ($remove_baselines == "6m6m") then 
 	uvcat vis=$carvis out="cartmp3.mir" select="-ant(7,8,9,10,11,12,13,14,15)(7,8,9,10,11,12,13,14,15)"
 	set carvis = "cartmp3.mir"
@@ -62,4 +62,6 @@ set vis = $carvis,$nrovis
 time images_line_isella.csh imsize=$imsize niter=$niter gain=$gain run_mkmask=$run_mkmask run_restart=$run_restart cutoff=$cutoff polygon_region=$polygon_region restart_channel=$restart_channel run_invert=$run_invert run_clean=$run_clean run_restor=$run_restor robust=$robust vis=$vis dirty_name=$dirty_name options=$options region_limit=$region_limit different_beam=$different_beam use_psf_as_beam=$use_psf_as_beam cell=$cell #select=$select #source=$source
 
 #mv 13co/13co.001/ 13co/13co.001_nrobm16_uv6to1000_1e6_not10m10m
-#mv 13co/13co.002/ 13co/13co.002_nrobm16_uv6to1000_imsize257_2e5
+mv 13co/13co.001/ 13co/13co.001_nrobm16_uv6to1000_2e6_only10m10m_correctbeam
+fits in=13co/$dirty_name.map out=13co/baseline_test/10m10m.map.fits op=xyout
+fits in=13co/13co.001_nrobm16_uv6to1000_2e6_only10m10m_correctbeam/13co.001.cm out=13co/baseline_test/10m10m.cm.fits op=xyout
