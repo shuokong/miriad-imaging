@@ -264,8 +264,9 @@
               exit
            endif
 
-         # Move the new clean component file to overwrite the old one.
-         rm -rf $outfile.cc
+         # Move the new clean component file and copy the old one.
+         rm -rf $outfile.cc.old
+         mv $outfile.cc $outfile.cc.old
          mv $outfile.cc.new $outfile.cc 
 
          endif
