@@ -354,11 +354,15 @@
                     if ($run_mkmask == 1) then 
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull region=@$polygon_region > $outfile.$cclogfile
+                             flux=$flux measure=gull region=@$polygon_region \
+                             default="nro/13co/tmp/13co171_172chan.scl" \
+                             > $outfile.$cclogfile
                     else
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull > $outfile.$cclogfile
+                             flux=$flux measure=gull \
+                             default="nro/13co/tmp/13co171_172chan.scl" \
+                             > $outfile.$cclogfile
                     endif
                  else
                     echo 'set algorithm = "mossdi2" or "mosmem"'
