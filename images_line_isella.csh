@@ -344,23 +344,23 @@
                  else if ($algorithm == "mossdi2") then
                     if ($run_mkmask == 1) then
                          mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain  > $outfile.$cclogfile
                     else 
                          mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter gain=$gain > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter gain=$gain  > $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mosmem") then
                     if ($run_mkmask == 1) then 
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull region=@$polygon_region \
+                             flux=$flux measure=gull region=@$polygon_region options=verbose \
                              #default="nro/13co/tmp/13co171_172chan.scl" \
                              > $outfile.$cclogfile
                     else
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull \
+                             flux=$flux measure=gull options=verbose\
                              #default="nro/13co/tmp/13co171_172chan.scl" \
                              > $outfile.$cclogfile
                     endif
