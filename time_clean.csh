@@ -1,9 +1,9 @@
 #Use miriad-4.3.9 
 #source miriad_64/miriad_start.csh
 #
-set niter=100000
+set niter=5000000
 set run_invert = 0
-set algorithm = "mossdi2"
+set algorithm = "mossdi"
 #se1 vis = "nro/13co/carma_uv_full_171.172_scalefactor.mir,nro/13co/13co.uv_full_171.172_scalefactor.all"
 #set vis = "nro/13co/carma_uv_42_171.172_scalefactor.mir,nro/13co/13co.uv_42_171.172_scalefactor.mir"
 
@@ -27,12 +27,12 @@ set cell = 1
 set imsize = 257 
 set run_mkmask = 1
 set mkmask_dummy = 1
-set run_restart = 0
+set run_restart = 1
 set restart_channel = 1
 set run_clean = 1
 set run_restor = 0
 set cutoff = 0.01
-set gain = 0.2
+set gain = 0.1
 set polygon_region = 'region_full_simple.txt'
 #set polygon_region = '42_region.txt'
 set region_limit = 0
