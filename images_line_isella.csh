@@ -264,9 +264,8 @@
               exit
            endif
 
-         # Move the new clean component file and copy the old one.
-         rm -rf $outfile.cc.old
-         mv $outfile.cc $outfile.cc.old
+         # Move the new clean component file to overwrite the old one.
+         rm -rf $outfile.cc
          mv $outfile.cc.new $outfile.cc 
 
          endif
@@ -345,24 +344,24 @@
                  else if ($algorithm == "mossdi2") then
                     if ($run_mkmask == 1) then
                          mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain  > $outfile.$cclogfile
                     else 
                          mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter gain=$gain > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter gain=$gain  > $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mosmem") then
                     if ($run_mkmask == 1) then 
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull region=@$polygon_region \
-                             default="nro/13co/tmp/13co171_172chan.scl" \
+                             flux=$flux measure=gull region=@$polygon_region options=verbose \
+                             #default="nro/13co/tmp/13co171_172chan.scl" \
                              > $outfile.$cclogfile
                     else
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
-                             flux=$flux measure=gull \
-                             default="nro/13co/tmp/13co171_172chan.scl" \
+                             flux=$flux measure=gull options=verbose\
+                             #default="nro/13co/tmp/13co171_172chan.scl" \
                              > $outfile.$cclogfile
                     endif
                  else
