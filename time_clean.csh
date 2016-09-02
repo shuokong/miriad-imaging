@@ -30,9 +30,19 @@ set mkmask_dummy = 1
 set run_restart = 1
 set restart_channel = 1
 set run_clean = 1
+<<<<<<< HEAD
+set run_restor = 1
+set cutoff = 10.
+set gain = 0.1
+=======
 set run_restor = 0
 set cutoff = 0.01
+<<<<<<< HEAD
 set gain = 0.1
+=======
+set gain = 0.2
+>>>>>>> cd65a854858a637a1d34aef832d25e0b9bdb581d
+>>>>>>> 694fbb8cc2635e4b33be810d5cfa93c3824fba24
 set polygon_region = 'region_full_simple.txt'
 #set polygon_region = '42_region.txt'
 set region_limit = 0
