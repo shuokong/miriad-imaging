@@ -1,9 +1,9 @@
 #Use miriad-4.3.9 
 #source miriad_64/miriad_start.csh
 #
-set niter=100000
+set niter=5000000
 set run_invert = 0
-set algorithm = "mossdi2"
+set algorithm = "mossdi"
 #se1 vis = "nro/13co/carma_uv_full_171.172_scalefactor.mir,nro/13co/13co.uv_full_171.172_scalefactor.all"
 #set vis = "nro/13co/carma_uv_42_171.172_scalefactor.mir,nro/13co/13co.uv_42_171.172_scalefactor.mir"
 
@@ -27,7 +27,7 @@ set cell = 1
 set imsize = 257 
 set run_mkmask = 1
 set mkmask_dummy = 1
-set run_restart = 0
+set run_restart = 1
 set restart_channel = 1
 set run_clean = 1
 <<<<<<< HEAD
@@ -37,8 +37,12 @@ set gain = 0.1
 =======
 set run_restor = 0
 set cutoff = 0.01
+<<<<<<< HEAD
+set gain = 0.1
+=======
 set gain = 0.2
 >>>>>>> cd65a854858a637a1d34aef832d25e0b9bdb581d
+>>>>>>> 694fbb8cc2635e4b33be810d5cfa93c3824fba24
 set polygon_region = 'region_full_simple.txt'
 #set polygon_region = '42_region.txt'
 set region_limit = 0
@@ -80,16 +84,8 @@ set vis = $carvis,$nrovis
 
 time images_line_isella.csh imsize=$imsize niter=$niter gain=$gain run_mkmask=$run_mkmask run_restart=$run_restart cutoff=$cutoff polygon_region=$polygon_region restart_channel=$restart_channel run_invert=$run_invert run_clean=$run_clean run_restor=$run_restor robust=$robust vis=$vis dirty_name=$dirty_name options=$options region_limit=$region_limit different_beam=$different_beam use_psf_as_beam=$use_psf_as_beam cell=$cell algorithm=$algorithm #select=$select #source=$source
 #mv 13co/13co.001/ 13co/13co.001_nrobm16_uv6to1000_1e6_not10m10m
-<<<<<<< HEAD
-mv 13co/13co.001/ 13co/13co.001_all.full.1e7iters.cutoff10sig
-fits in=13co/13co.001_all.full.1e7iters.cutoff10sig/13co.001.map out=13co/13co.001_all.full.1e7iters.cutoff10sig/13co.001.map.fits op=xyout
-fits in=13co/13co.001_all.full.1e7iters.cutoff10sig/13co.001.cm out=13co/13co.001_all.full.1e7iters.cutoff10sig/13co.001.cm.fits op=xyout
-
-echo "1e7 iterations of mossdi finished at 13co/13co.001_all.full.1e7iters.cutoff10sig,  started 2:10pm September 1." | mail -s "CLEAN Finished" jesse.feddersen@yale.edu
-=======
 #mv 13co/13co.002/ 13co/13co.002_all.full.1e8iters
 #fits in=13co/13co.002_all.full.1e8iters/13co.002.map out=13co/baseline_test/all.full.1e8iters.map.fits op=xyout
 #fits in=13co/13co.002_all.full.1e8iters/13co.002.cm out=13co/baseline_test/all.full.1e8iters.cm.fits op=xyout
 
 #echo "1e6 iterations of mossdi finished at 13co/13co.002_all.full.1e8iters,  started 2:47pm June 23." | mail -a 13co/13co.002_all.full.1e8iters/13co.002.ccflux.log -a 13co/13co.002_all.full.1e8iters/13co.002.ccflux.pdf -s "CLEAN Finished" jesse.feddersen@yale.edu
->>>>>>> cd65a854858a637a1d34aef832d25e0b9bdb581d
