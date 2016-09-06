@@ -184,6 +184,7 @@
          echo "Running clean..."
          #Use define_region.py to create a polygon region file using the gain image and a floor of 1.0
          if $run_mkmask == 1 then 
+           echo "Using a region mask..."
            if $mkmask_dummy == 1 then
             #Make a polygon region file with the 4 corners of the map as the vertices, this dummy region
             #tricks mossdi into only CLEANing the channel of the map that we want. Otherwise mossdi will output
@@ -193,7 +194,7 @@
             echo "polygon(1,1,1,$naxis2,$naxis1,$naxis2,$naxis1,1,1,1)" > $polygon_region
             endif
 
-         # Can put calls to imsub here to pick out the narrower region and use the outputs of IMSUB as the inputs to mossdi2.        
+         # Can put calls to imsub here to pick out the narrower region and use the outputs of IMSUB as the inputs to mossdi.        
            if (!(-e $polygon_region)) then  
            echo "Defining polygon region..."
            fits in=$dirtyGain out=gain.fits op=xyout
