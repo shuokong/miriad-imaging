@@ -14,10 +14,10 @@
 
   set verb = 1
 # Molecule
-  set mol = "13co"
+  set mol = "12co"
 
 # NRO image in miriad format
-  set nroorg = "../nro45m/$mol/13co_dv0.264kms_tmb.mir" # Ta*
+  set nroorg = "../nro45m/$mol/12CO_20160905_BEARS_FOREST_xyb_spheroidal_0254kms_weight_YS.mir" # Ta*
 
 # CARMA uv data
 # set caruv = "../../calibrate/merged/13co/orion.E.narrow.mir,../../calibrate/merged/13co/orion.D.narrow.mir"
@@ -31,7 +31,7 @@
 
 # Set which source to image
   set coords = "dec(-6.5,-4)"
-  set source = "omc43"
+  set source = "omc43" # strongest, Orion KL
   #set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
   #set source = @nro_subregions.txt
 
@@ -68,7 +68,7 @@
 # The resampled NRO data do not look correct if nchannel=1
 # jjjjjChannels set first and last channel to use.
   #set chan = (171 172) 
-  set chan = (163 164)
+  set chan = (115 116) # seems to be the strongest NRO 12co channel. shuokong 2016-09-28
   ## set line = "velocity,2,8.0,0.264,0.264"
 
 # Set NRO file names
