@@ -19,6 +19,7 @@ set nromap = "nro.map"
 set cutoffmap = "nro"
 
 set out = "ratio.map"
+set out2 = "ratio2.map"
 
   foreach a ( $* )
     set nargs = `echo $a | awk -F= '{print NF}'`
@@ -36,6 +37,10 @@ echo 'removing files'
 rm -rf carma.mask nro.mask
 rm -rf carma2.map nro2.map
 rm -rf $out
+rm -rf ${out2}
+
+# Compute ratio
+maths exp="<carma.map>/<nro.map>" out=$out
 
 if $cutoffmap == "carma" then
   echo 'applying carma cutoff'
@@ -56,5 +61,5 @@ if $cutoffmap == "nro" then
 endif
 
 # Compute ratio
-maths exp="<carma2.map>/<nro2.map>" out=$out
+maths exp="<carma2.map>/<nro2.map>" out=${out2}
 

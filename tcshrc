@@ -1,0 +1,11 @@
+alias cdco "cd /hifi/carmaorion/orion/calibrate/merged/12co"
+alias cdsk "cd /hifi/carmaorion/orion/images/sk"
+alias lst "ls -thl | head -20"
+alias gits "git status"
+alias gname "git log --name-only"
+alias gpull "git pull origin master"
+alias gpush "git push origin master"
+alias gitc "git commit -a -m \!:1"
+alias gitf "git ls-tree -r \!:1 --name-only"
+alias gitlist "git log --oneline --decorate --graph --all"
+

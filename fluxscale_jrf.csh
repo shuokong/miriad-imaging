@@ -382,4 +382,5 @@
 # imfit in=test.bm object=gauss "region=relcen,box(-10,-10,10,10)" 
 
 # Check flux scaling
-# smauvplt vis=$caruv4model.avg,$nrouv.avg axis=uvdistance,amplitude device=uvamp.eps/cps
+ #smauvplt vis=$caruv4model.avg,$nrouv.avg axis=uvdistance,amplitude device=uvamp.eps/cps
+ smauvplt vis=$caruvavg,$nrouv.all axis=uvdistance,amplitude device=uvamp.eps/cps
