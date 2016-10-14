@@ -4,16 +4,16 @@
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   echo "Setting run_invert and vis"
-  set run_invert = 0
+  set run_invert = 1
   echo "Setting vis"
-  #set carvis = "nro/13co/carma_uv.mir"
-  #set nrovis = "nro/13co/13co.uv.all"
-  set vis = "nro/13co/carma_uv.mir,nro/13co/13co.uv.all"
+  #set carvis = "nro/12co/carma_uv.mir"
+  #set nrovis = "nro/12co/12co.uv.all"
+  set vis = "nro/12co/carma_uv.mir,nro/12co/12co.uv.all"
 #The root file name for the dirty map, beam, psf,sen etc.
   echo "Setting dirty_name and source..."
   set dirty_name = 'combined_scalefactor' 
 #  set source = 'omc42,omc43'
-  # set vis = "/hifi/carmaorion/orion/images/jrf/nro/13co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/13co/13co.uv.all"
+  # set vis = "/hifi/carmaorion/orion/images/jrf/nro/12co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/12co/12co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
   set run_mkmask = 0
@@ -38,7 +38,7 @@
   
 
 # Read molecule
-  set mol = "13co"
+  set mol = "12co"
   # set molecules = ''
 
 # Invert parameters
@@ -54,14 +54,14 @@
 # mossdi parameters
   set cutoff = 0.01 
   set region = ""
-  set niter      = 1000
+  set niter      = 100000
   set gain = 0.1
 # mosmem parameters
   set rmsfac     = 1.0
   set flux       = 1e-10
 
 # Flux recovered vs. Clean component plot parameters
-  set plot_ccflux = 1 
+  set plot_ccflux = 0 
   set cclogfile = 'ccflux.log'
   set plotfile = 'ccflux.pdf'
   
@@ -91,7 +91,7 @@
 ####CHANGE THIS !!!!!!!!!!##########
 ######################
 ########################@@@@@@@@@@@@@@@@@@@@@@@@!!!!!!!!!!!!!DSF:LKJSDF:LKJSD:FLKJ:SDLFJK:SLDK
-#       set vis = 'nro/13co/carma_uv.mir,nro/13co/13co.uv.all'
+#       set vis = 'nro/12co/carma_uv.mir,nro/12co/12co.uv.all'
 #      set dir = ${mol}_center
 
      # Set dirty image and beam
@@ -103,8 +103,8 @@
        set dirtySNR = $dir/$dirty_name\_$mol.SNR
 
        if ($different_beam == 1) then
-            set dirtyBeam = 13co/carmaonly_42_mosaic_171.172_13co.beam
-            set dirtyPSF = 13co/carmaonly_42_mosaic_171.172_13co.psf
+            set dirtyBeam = 12co/carmaonly_42_mosaic_115.116_12co.beam
+            set dirtyPSF = 12co/carmaonly_42_mosaic_115.116_12co.psf
        endif
 
 #       if ($use_which_antennas == "10m") then
@@ -243,11 +243,11 @@
               if ($run_mkmask == 1) then
                    mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
-                     model=$outfile.cc gain=$gain  > $outfile.$cclogfile
+                     model=$outfile.cc gain=$gain  | tee $outfile.$cclogfile
               else 
                    mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
-                     model=$outfile.cc gain=$gain > $outfile.$cclogfile
+                     model=$outfile.cc gain=$gain  | tee $outfile.$cclogfile
               endif
 
            else if ($algorithm == "mosmem") then
@@ -345,10 +345,10 @@
                  else if ($algorithm == "mossdi2") then
                     if ($run_mkmask == 1) then
                          mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain  > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain  | tee $outfile.$cclogfile
                     else 
                          mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter gain=$gain  > $outfile.$cclogfile
+                           cutoff=$cutoff niters=$niter gain=$gain  | tee $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mosmem") then
@@ -356,13 +356,13 @@
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
                              flux=$flux measure=gull region=@$polygon_region options=verbose \
-                             #default="nro/13co/tmp/13co171_172chan.scl" \
+                             #default="nro/12co/tmp/12co115_116chan.scl" \
                              > $outfile.$cclogfile
                     else
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
                              flux=$flux measure=gull options=verbose\
-                             #default="nro/13co/tmp/13co171_172chan.scl" \
+                             #default="nro/12co/tmp/12co115_116chan.scl" \
                              > $outfile.$cclogfile
                     endif
                  else

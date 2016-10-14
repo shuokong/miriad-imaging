@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from astropy.io import fits
 from astropy.wcs import WCS
 import matplotlib as mpl
@@ -20,13 +21,14 @@ for k in range(len(data[:,0,0])):
                 ratio.append(data[k,j,i])
 
 x = ratio
+p=plt.figure(figsize=(7,6))
 # the histogram of the data
 n, bins, patches = plt.hist(x, 50, normed=1, facecolor='green', alpha=0.75)
 
 plt.xlabel('CARMA/NRO')
-plt.ylabel('Probability')
+plt.ylabel('Probability Density')
 plt.grid(True)
-
-plt.show()
-
+os.system('rm ratio.png')
+plt.savefig('ratio.png')
+#plt.show()
 

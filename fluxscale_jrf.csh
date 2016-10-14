@@ -17,22 +17,25 @@
   set mol = "12co"
 
 # NRO image in miriad format
-  set nroorg = "../nro45m/$mol/12CO_20160905_BEARS_FOREST_xyb_spheroidal_0254kms_weight_YS.mir" # Ta*
+  set nroorg = "../nro45m/$mol/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.mir" # Tmb
 
 # CARMA uv data
-# set caruv = "../../calibrate/merged/13co/orion.E.narrow.mir,../../calibrate/merged/13co/orion.D.narrow.mir"
+ set caruv = "../../calibrate/merged/12co/orion.E.narrow.mir,../../calibrate/merged/12co/orion.D.narrow.mir"
 # set caruv = omc43.mir
-  set caruv = omc.mir
+# set caruv = omc.mir
 
 # Which baselines to include
-  set use10m10m = 0
-  set use6m10m  = 0
+  set use10m10m = 1
+  set use6m10m  = 1
   set use6m6m   = 1
 
 # Set which source to image
-  set coords = "dec(-6.5,-4)"
-  set source = "omc43" # strongest, Orion KL
+  #set coords = "dec(-6.5,-4)"
+  set coords = "dec(-10,-3)"
+  #set source = "omc43" # strongest, Orion KL
+  #set source = "omc*" # try bigger. shuokong 2016-10-10 
   #set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
+  set source = "omc31,omc32,omc33,omc41,omc42,omc43,omc52,omc53,omc54"
   #set source = @nro_subregions.txt
 
 # CARMA dirty image
@@ -200,6 +203,7 @@
 # NRO45: Convert unit to Janskys
 # Convert Ta* -> Jy
   maths exp="<$nroorg>*$cjyknro" out=$nroscl
+#  set junk = $<
 
 # Add keywords to NRO image
   puthd in=$nroscl/bunit    value=Jy/BEAM       type=ascii 
@@ -315,9 +319,18 @@
             endif
 
           # Make single dish images for the CARMA pointings
+          # $nrodcv is the deconvolved NRO image, $tmpmir is the sub-set uv
+          # specified by antenna pair selection. shuokong 2016-10-10
+          # demos command de-mosaic NRO deconvolved image with pointing
+          # information from $tmpmir which is from CARMA. output images for
+          # every pointing, see demos documentation. shuokong 2016-10-11
             hkdemos map=$nrodcv vis=$tmpmir out=$dem"."
+          # set junk = $<
 
           # Swap amp/phase with NRO45 ones
+          # for each demos result image $dem".", use uvmodel to get visibility
+          # data set (Fourier transform) based on the uv pairs from vis
+          # shuokong 2016-10-11
             foreach f ($dem*)
                set n = `echo $f | sed s/".dem.$itype."/" "/ | awk '{printf("%d",$2)}'`
                # If you change the "%.6d" format statement below, then you need

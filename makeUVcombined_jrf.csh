@@ -18,22 +18,22 @@
 
 # Molecule name - required
   set verb = 1
-  set mol = "13co"
+  set mol = "12co"
 
 # NRO image in miriad format
-  set nroorg = /hifi/carmaorion/orion/images/$mol/nro_13co_dv0.2kms # 
-  set nroparams = /hifi/carmaorion/orion/images/jrf/nroParams_jrf.csh
+  set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.mir" # Tmb
+  set nroparams = /hifi/carmaorion/orion/images/sk/nroParams_jrf.csh
 
 # CARMA dirty image 
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
-  set carmap = "carma_full_171.172.map"
-  set carbeam = "carma_full_171.172.beam"
+  set carmap = "carma_full_115.116.map"
+  set carbeam = "carma_full_115.116.beam"
   set makeImage = 1
   set remakeBeam = 1
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
-  # set caruv  = omc43.mir
   set caruv  = "/hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir"
+  set caruv  = omc.mir
   set run_fluxscale = 1
 
   set imsize  = 257
@@ -43,9 +43,10 @@
 
 # Set velocity to image
   set source = "omc42"
+  set source = "omc*"
   set select = "source($source),dec(-10,-3)"
 #  set source = @nro_subregions.txt
-  set chan = (171 172)
+  set chan = (115 116)
   # set vel    = "9.5"
 # Set 
   set uvflag = 1

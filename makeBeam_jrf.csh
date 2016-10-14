@@ -6,8 +6,8 @@
 #########################################################################
 
 # Set default parameters
-  set mol = ""           # Must be entered
-  set carmap   = ""      # Optional - default hard coded below
+  set mol = "12co"           # Must be entered
+  set carmap   = "carma.map"      # use the one from fluxscale_jrf.csh
   set cellnro  = "7.5"   # Cell size for NRO map in arcseconds; should not need to change
 
 # Set output directories
@@ -43,7 +43,7 @@
      set nrobm   = "16.2"
      #set nrobm = "10.0"
   else if ($mol == "12co") then
-#    if ($carmap == "") set carmap  = "../13co/dv0.5kms_ch0.0kms/carma_13co.map"
+     if ($carmap == "") set carmap  = "carma.map"
      set nrobm = "14.9"
   else 
      echo "Image not set for molecule $mol"

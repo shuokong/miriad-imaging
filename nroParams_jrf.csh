@@ -21,7 +21,8 @@
   else if ($mol == "12co") then
      set lambda   = 2.6             # CO(J=1-0) wavelength [mm]
      set freq     = 115.271204      # CO(J=1-0) frequency [GHz]
-     set effmb    = 0.34            # main beam efficiency in 12CO(J=1-0)/2008
+     #set effmb    = 0.34            # main beam efficiency in 12CO(J=1-0)/2008
+     set effmb    = 1.0            # 12CO data already in Tmb. shuokong 2016-10-03
      set fwhmnro  = 21.6            # OTF-Beam HWHM: from convbeam.c (case of 12co)
 
      set scalefac = 1.0             # to be determined. shuokong 2016-10-03
@@ -96,7 +97,7 @@
 # ------------------------------------------------------
 #  set cjyknro = `calc "0.07354*($fwhmnro/$lambda)**2/$effmb"`
   set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2"` # map is already converted to TMB
-#  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
+  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
   if sigk != "" then
      set sigjy = `calc "$sigk*$cjyknro"` # calculate noise from sigk
   endif
@@ -111,7 +112,7 @@ echo "## NRO45 map:"
 echo "##     nx,ny,nz   = " $nxnro,$nynro,$nznro
 echo "##     cell[asec] = " $cellnro
 echo "##     Jy/K[Ta*]  = " $cjyknro
-#echo "##     JYPERK     = " $jyperk
+echo "##     JYPERK     = " $jyperk
 echo "##     CARMA/NRO Scale Factor = " $scalefac 
 echo "## CARMA map:"
 echo "##     nx,ny,nz   = " $nxcar,$nycar,$nzcar
