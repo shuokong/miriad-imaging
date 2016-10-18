@@ -58,4 +58,6 @@ endif
 
 # Compute ratio
 maths exp="<carma2.map>/<nro2.map>" out=${out}
+# Convert to fits
+fits in=ratio.map op=xyout out=ratio.fits
 

@@ -17,7 +17,7 @@
   set mol = "12co"
 
 # NRO image in miriad format
-  set nroorg = "../nro45m/$mol/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.mir" # Tmb
+  set nroorg = "../nro45m/$mol/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.mir" # Tmb
 
 # CARMA uv data
  set caruv = "../../calibrate/merged/12co/orion.E.narrow.mir,../../calibrate/merged/12co/orion.D.narrow.mir"
@@ -106,9 +106,12 @@
   set nxnro    = `imhead in="$nroorg" key="naxis1" | awk '{printf("%i",$1)}'`
   set nynro    = `imhead in="$nroorg" key="naxis2" | awk '{printf("%i",$1)}'`
   set nznro    = `imhead in="$nroorg" key="naxis3" | awk '{printf("%i",$1)}'`
-  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '{printf("%i",$1)}'`
+  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '{printf("%f",$1)}'`
   set cellnro  = `imhead in="$nroorg" key="cdelt2" | awk '{printf("%f",$1*206264.8)}'`
   set dvnro    = `imhead in="$nroorg" key="cdelt3" | awk '{printf("%f",$1)}'`
+  if $verb echo "v1nro = $v1nro"
+  if $verb echo "dvnro = $dvnro"
+  if $verb echo "nznro = $nznro"
 
 #Set line definition, assuming that we want all channels between chan[1] and
 #chan[2]
@@ -118,6 +121,7 @@
   set line = "velocity,$nchan,$chan1,$dvnro,$dvnro"
   if $verb echo "line = $line"
   ## set line = "velocity,2,8.0,0.264,0.264"
+  #set junk = $<
 
 # Set source to all sources
   if $verb echo "Setting sources..."
@@ -167,6 +171,7 @@
   uvputhd hdvar=systemp type=r length=1 varval=650 vis=$caruvavg out=$tmp
   rm -rf $caruvavg
   mv $tmp $caruvavg
+  #set junk = $<
 
 # First, load miriad version miriad_64
   echo ""
@@ -214,6 +219,7 @@
 
 # Regrid NRO map wrt CARMA map
   regrid in=$nroscl tin=$carmap out=$nroreg
+  #set junk = $<
 
 # Display images
   echo "Displaying images"
