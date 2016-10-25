@@ -25,16 +25,16 @@
 # set caruv = omc.mir
 
 # Which baselines to include
-  set use10m10m = 1
-  set use6m10m  = 1
+  set use10m10m = 0
+  set use6m10m  = 0
   set use6m6m   = 1
 
 # Set which source to image
-  #set coords = "dec(-6.5,-4)"
+  set coords = "dec(-6.3,-6)"
   set coords = "dec(-10,-3)"
-  #set source = "omc43" # strongest, Orion KL
-  #set source = "omc*" # try bigger. shuokong 2016-10-10 
-  #set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
+  set source = "omc43" # strongest, Orion KL
+  set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
+  set source = "omc*" # try bigger. shuokong 2016-10-10 
   set source = "omc31,omc32,omc33,omc41,omc42,omc43,omc52,omc53,omc54"
   #set source = @nro_subregions.txt
 
@@ -45,8 +45,8 @@
   set carmap  = "carma.map"
   set carbeam = "carma.beam"
   set uvrange = "0,6"
-  set makeImage = 1
-  set caronly = 0
+  set makeImage = 1 #
+  set caronly = 0 #
 
 # Set the file names for the NRO output images.
   set nromap = "nro.map"
@@ -189,6 +189,8 @@
               imsize=$imsize  cell=$cell robust=$robust options=$options
   endif
 
+  cgdisp device=3/xs in=$carmap region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
+
   if ($caronly == 1) exit 
     
 # Remake NRO beam
@@ -208,7 +210,7 @@
 # NRO45: Convert unit to Janskys
 # Convert Ta* -> Jy
   maths exp="<$nroorg>*$cjyknro" out=$nroscl
-#  set junk = $<
+  #set junk = $<
 
 # Add keywords to NRO image
   puthd in=$nroscl/bunit    value=Jy/BEAM       type=ascii 
@@ -223,7 +225,6 @@
 
 # Display images
   echo "Displaying images"
-  cgdisp device=3/xs in=$carmap region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
   cgdisp device=4/xs in=$nroreg region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
 # cgdisp device=3/xs in=$nroscl labtyp=hms options=3value,3pixel nxy=2,2
 

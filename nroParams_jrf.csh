@@ -97,7 +97,8 @@
 # ------------------------------------------------------
 #  set cjyknro = `calc "0.07354*($fwhmnro/$lambda)**2/$effmb"`
   set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2"` # map is already converted to TMB
-  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
+  set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2/1.414"` # try removing the sqrt(2) factor, see if the fluxscale ratio change or not
+#  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
   if sigk != "" then
      set sigjy = `calc "$sigk*$cjyknro"` # calculate noise from sigk
   endif
@@ -112,7 +113,7 @@ echo "## NRO45 map:"
 echo "##     nx,ny,nz   = " $nxnro,$nynro,$nznro
 echo "##     cell[asec] = " $cellnro
 echo "##     Jy/K[Ta*]  = " $cjyknro
-echo "##     JYPERK     = " $jyperk
+#echo "##     JYPERK     = " $jyperk
 echo "##     CARMA/NRO Scale Factor = " $scalefac 
 echo "## CARMA map:"
 echo "##     nx,ny,nz   = " $nxcar,$nycar,$nzcar
