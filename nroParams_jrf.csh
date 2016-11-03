@@ -21,12 +21,12 @@
   else if ($mol == "12co") then
      set lambda   = 2.6             # CO(J=1-0) wavelength [mm]
      set freq     = 115.271204      # CO(J=1-0) frequency [GHz]
-     #set effmb    = 0.34            # main beam efficiency in 12CO(J=1-0)/2008
-     set effmb    = 1.0            # 12CO data already in Tmb. shuokong 2016-10-03
+     set effmb    = 0.32            # main beam efficiency in 12CO(J=1-0)/2008
      set fwhmnro  = 21.6            # OTF-Beam HWHM: from convbeam.c (case of 12co)
 
      set scalefac = 1.0             # to be determined. shuokong 2016-10-03
-     #set scalefac = 3.3             # copied over from above, don't know meaning shuokong 2016-09-28
+     set scalefac = 1.6             # found after using Jy/K = 5
+     set scalefac = 1.2             # found after using Jy/K = 7.7 (with sqrt2)
      #echo "12CO observing parameters need to be checked"
      #exit
   else 
@@ -40,7 +40,7 @@
   set tsyscarma  = "" 
 # set tsysnro    = 1      # no physical meaning
 # set tsysnro    = 50     # extram case
-  set sigk       = "0.3"  # noise level of 45m map. also can used for changing weighting.
+  set sigk       = "0.6"  # noise level of 45m map. also can used for changing weighting.
 
 # NRO45 uv params
   set tintnro      = 0.001     # Integration time for NRO45 visibility ; default in Koda et al. (2011) is 0.01
@@ -49,7 +49,7 @@
   set nxnro    = `imhead in="$nroorg" key="naxis1" | awk '{printf("%i",$1)}'`
   set nynro    = `imhead in="$nroorg" key="naxis2" | awk '{printf("%i",$1)}'`
   set nznro    = `imhead in="$nroorg" key="naxis3" | awk '{printf("%i",$1)}'`
-  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '{printf("%i",$1)}'`
+  set v1nro    = `imhead in="$nroorg" key="crval3" | awk '{printf("%f",$1)}'`
   set cellnro  = `imhead in="$nroorg" key="cdelt2" | awk '{printf("%f",$1*206264.8)}'`
   set dvnro    = `imhead in="$nroorg" key="cdelt3" | awk '{printf("%f",$1)}'`
 
@@ -96,9 +96,10 @@
 #     1/13.6*sqrt(2) = 0.10399
 # ------------------------------------------------------
 #  set cjyknro = `calc "0.07354*($fwhmnro/$lambda)**2/$effmb"`
-  set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2"` # map is already converted to TMB
   set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2/1.414"` # try removing the sqrt(2) factor, see if the fluxscale ratio change or not
-#  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
+  set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2"` # map is already converted to TMB
+  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb/1.414"` # XXX
+  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
   if sigk != "" then
      set sigjy = `calc "$sigk*$cjyknro"` # calculate noise from sigk
   endif
@@ -113,7 +114,7 @@ echo "## NRO45 map:"
 echo "##     nx,ny,nz   = " $nxnro,$nynro,$nznro
 echo "##     cell[asec] = " $cellnro
 echo "##     Jy/K[Ta*]  = " $cjyknro
-#echo "##     JYPERK     = " $jyperk
+echo "##     JYPERK     = " $jyperk
 echo "##     CARMA/NRO Scale Factor = " $scalefac 
 echo "## CARMA map:"
 echo "##     nx,ny,nz   = " $nxcar,$nycar,$nzcar

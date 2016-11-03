@@ -21,7 +21,7 @@
   set mol = "12co"
 
 # NRO image in miriad format
-  set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.mir" # Tmb
+  set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.mir" # Tmb
   set nroparams = /hifi/carmaorion/orion/images/sk/nroParams_jrf.csh
 
 # CARMA dirty image 
@@ -33,7 +33,7 @@
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
   set caruv  = "/hifi/carmaorion/orion/calibrate/merged/$mol/orion.D.narrow.mir,/hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir"
-  set caruv  = omc.mir
+  #set caruv  = omc.mir
   set run_fluxscale = 1
 
   set imsize  = 257
@@ -42,6 +42,7 @@
   set options = "mosaic,double,systemp"
 
 # Set velocity to image
+  set source = "omc31,omc32,omc33,omc41,omc42,omc43,omc52,omc53,omc54"
   set source = "omc42"
   set source = "omc*"
   set select = "source($source),dec(-10,-3)"
@@ -225,7 +226,7 @@ calculation:
   set z2    = `echo $nzcar | awk '{printf("%d",$1-1)}'`
   set z3    = $nzcar
   echo "*** WARNING: Using a subregion of image" # XXX
-  if sigk == "" then
+  if $sigk == "" then
      set sig1  = `imstat in=$nroreg "region=images($z0,$z1)" | tail -1 | sed s/"-"/" "/g | sed s/"+"/" "/g | awk '{printf("%f",$5)}'` # XXX
      set sig2  = `imstat in=$nroreg "region=images($z2,$z3)" | tail -1 | sed s/"-"/" "/g | sed s/"+"/" "/g | awk '{printf("%f",$5)}'` # XXX
      set sig1  = `sigest in=$nroreg region=abspix,"images($z0,$z1)" \
@@ -235,9 +236,12 @@ calculation:
      set sigjy = `echo $sig1 $sig2 | awk '{printf("%f",($1+$2)/2.0)}'`
      set sigk  = `calc "$sigjy/$cjyknro"`    # jy -> K in Ta*
   endif
+  echo $sigjy,$sigk
     
   set inttot = `calc "$tsysnro**2/$sigk**2/$effq**2/$bwcar"`
   set npoint = `calc "$inttot/$tintnro" | awk '{printf("%d",$1)}'`
+  echo $inttot,$npoint
+#  set junk = $<
 
   echo "## REGRIDDED NRO45 MAP: "
   echo "##    RMS [Jy,K(mb)]   = " $sigjy ", " $sigk
@@ -252,7 +256,8 @@ calculation:
 
   echo "Check beam size is near $fwhmnro"
   imfit in=$bmnro object=beam region=arcsec,box'(-20,-20,20,20)'
-  sleep 2
+#  sleep 2
+#  set junk = $<
 
 # Deconvolve NRO45 map with the NRO45 beam
   set sigma = `echo $sigjy | awk '{printf("%f",$1/2.0)}'`  # down to sigma/2
@@ -293,6 +298,8 @@ calculation:
 #           sqrt(2ln2)/PI * (180*60*60/PI) * 1/10 / 29.979 = 257.86
   set sdev    = `calc "257.86*$lambda/$fwhmnro"`
   set klammax = `calc "180.*3600./1.0e3/3.14/$fwhmnro"` # twice of the beam in nsec
+  echo "max klambda:" $klammax
+#  set junk = $<
 
   if (-r uvgauss.mir) rm -rf uvgauss.mir
   hkuvrandom npts=$npoint nchan=$nzcar inttime=$tintnro sdev=$sdev gauss=true freq=$freq out=uvgauss.mir
@@ -307,6 +314,7 @@ calculation:
   mv tmptmp.mir uvgauss.mir
   endif
   #smauvplt device=/xs vis=uvgauss.mir axis=uc,vc options=equal
+  rm -rf uvgauss2.mir
   cp -r uvgauss.mir uvgauss2.mir
 
 # Swap amp/phase with NRO45 ones

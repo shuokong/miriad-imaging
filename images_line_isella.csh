@@ -8,6 +8,8 @@
   echo "Setting vis"
   #set carvis = "nro/12co/carma_uv.mir"
   #set nrovis = "nro/12co/12co.uv.all"
+  set vis = "nro/12co/12co.uv.all"
+  set vis = "nro/12co/carma_uv.mir"
   set vis = "nro/12co/carma_uv.mir,nro/12co/12co.uv.all"
 #The root file name for the dirty map, beam, psf,sen etc.
   echo "Setting dirty_name and source..."
@@ -16,7 +18,7 @@
   # set vis = "/hifi/carmaorion/orion/images/jrf/nro/12co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/12co/12co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
-  set run_mkmask = 0
+  set run_mkmask = 1
   set mkmask_dummy = 1
   set polygon_region = 'region.txt'
   set region_limit = 0.
@@ -42,19 +44,19 @@
   # set molecules = ''
 
 # Invert parameters
-  set robust = 2
+  set robust = 2 #
   set cell   = 1.0
   set imsize = 257
-  set options = "mosaic, double" 
+  set options = "mosaic,double" 
   set select = "dec(-10,-3)"
 
   set different_beam = 0
-  set use_psf_as_beam = 0
+  set use_psf_as_beam = 0 #
   set use_which_antennas = 0
 # mossdi parameters
-  set cutoff = 0.01 
+  set cutoff = 15 
   set region = ""
-  set niter      = 100000
+  set niter  = 10000000
   set gain = 0.1
 # mosmem parameters
   set rmsfac     = 1.0
@@ -144,7 +146,7 @@
                     imsize=$imsize \
                     robust=$robust \
                     options=$options
-               cgdisp device =/xs in=$dirtyImage options=wedge labtyp=hms
+               cgdisp device=/xs in=$dirtyImage options=wedge labtyp=hms
 #           invert vis=$vis map=$dirtyImage beam=$dirtyBeam \
 #                    select="source($source)" \
 #                    cell=$cell \
@@ -178,7 +180,7 @@
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
        set bpa=`grep "  Position angle" $log | awk '{print $4}'`
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
-
+       set junk = $<
 
        if $run_clean == 1 then
          echo "Running clean..."
@@ -201,6 +203,7 @@
            python define_region.py -image 'gain.fits' -image_type 'gain' -outfile "$polygon_region" -limit $region_limit
            endif
          endif
+         # run_restart begin
          if $run_restart == 1 then
            echo "Running restart..."
            set n = $restart_channel
@@ -232,11 +235,11 @@
               if ($run_mkmask == 1) then
                    mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
-                     model=$outfile.cc gain=$gain  > $outfile.$cclogfile
+                     model=$outfile.cc gain=$gain  | tee $outfile.$cclogfile
               else 
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
-                     model=$outfile.cc gain=$gain > $outfile.$cclogfile
+                     model=$outfile.cc gain=$gain | tee $outfile.$cclogfile
               endif
 
            else if ($algorithm == "mossdi2") then
@@ -270,6 +273,7 @@
          mv $outfile.cc.new $outfile.cc 
 
          endif
+         # run_restart end
 
          if $run_restart == 0 then 
             echo "Not running restart..."
@@ -335,11 +339,11 @@
                     if ($run_mkmask == 1) then
                          mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                            cutoff=$cutoff niters=$niter region=@$polygon_region\
-                            gain=$gain  > $outfile.$cclogfile
+                            gain=$gain  | tee $outfile.$cclogfile
                     else 
                          mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
                            cutoff=$cutoff niters=$niter\
-                            gain=$gain > $outfile.$cclogfile
+                            gain=$gain | tee $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mossdi2") then
