@@ -42,10 +42,12 @@
   set options = "mosaic,double,systemp"
 
 # Set velocity to image
-  set source = "omc31,omc32,omc33,omc41,omc42,omc43,omc52,omc53,omc54"
   set source = "omc42"
   set source = "omc*"
+  set source = "omc31,omc32,omc33,omc41,omc42,omc43,omc52,omc53,omc54"
   set select = "source($source),dec(-10,-3)"
+  set select = "dec(-6.5,-6)"
+  set select = "dec(-6.3,-6.1)"
 #  set source = @nro_subregions.txt
   set chan = (115 116)
   # set vel    = "9.5"
@@ -241,7 +243,7 @@ calculation:
   set inttot = `calc "$tsysnro**2/$sigk**2/$effq**2/$bwcar"`
   set npoint = `calc "$inttot/$tintnro" | awk '{printf("%d",$1)}'`
   echo $inttot,$npoint
-#  set junk = $<
+  set junk = $<
 
   echo "## REGRIDDED NRO45 MAP: "
   echo "##    RMS [Jy,K(mb)]   = " $sigjy ", " $sigk
@@ -308,7 +310,7 @@ calculation:
   if ($uvflag != 0) then
   #uvflag vis=uvgauss.mir flagval=flag select=$uvselect #"select=uvrange(6,1000.0)"
   #uvflag vis=uvgauss.mir flagval=flag "select=uvrange(3,1000.0)"
-  uvflag vis=uvgauss.mir flagval=flag "select=uvrange(6,1000.0)"
+  uvflag vis=uvgauss.mir flagval=flag "select=$uvselect"
   uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
   rm -rf uvgauss.mir
   mv tmptmp.mir uvgauss.mir
@@ -360,7 +362,7 @@ calculation:
   if (-e test.dm) rm -rf test.dm
   if (-e test.bm) rm -rf test.bm
   if (-e test.psf) rm -rf test.psf
-  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
+# invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
   cgdisp device=/xs in=test.dm
   mospsf beam=test.bm out=test.psf
 

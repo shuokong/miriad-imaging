@@ -1,10 +1,11 @@
 #!/bin/csh -fe
 # Select algorithm
+  set algorithm = "mossdi2"
   set algorithm = "mossdi"
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   echo "Setting run_invert and vis"
-  set run_invert = 1
+  set run_invert = 0 #
   echo "Setting vis"
   #set carvis = "nro/12co/carma_uv.mir"
   #set nrovis = "nro/12co/12co.uv.all"
@@ -18,14 +19,14 @@
   # set vis = "/hifi/carmaorion/orion/images/jrf/nro/12co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/12co/12co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
-  set run_mkmask = 1
+  set run_mkmask = 0 #
   set mkmask_dummy = 1
   set polygon_region = 'region.txt'
   set region_limit = 0.
   set mask = ""
 
 # If run_clean = 1, then we clean!
-  set run_clean = 1
+  set run_clean = 1 #
 
 # If make_plots = 1, then plot the flux recovered vs. clean component every
 # time a channel finishes.
@@ -44,11 +45,17 @@
   # set molecules = ''
 
 # Invert parameters
-  set robust = 2 #
+  set robust = 0 #
+  set robust = 0.5 #
   set cell   = 1.0
+  set imsize = 50
   set imsize = 257
   set options = "mosaic,double" 
-  set select = "dec(-10,-3)"
+  set select = "dec(-6:17:00,-6:09:00),ra(5:35:40,5:36:50)"
+  set select = "dec(-6:13:10,-6:00:00),dec(-6:18:00,-6:13:20),ra(5:34:30,5:35:14.25),ra(5:35:15,5:35:38.5),ra(5:35:39,5:36:02.5),ra(5:36:03,5:36:26.75),ra(5:36:27.25,5:36:50.75),ra(5:36:51.5,5:37:30)"
+  set select = "dec(-6.5,-6.0),amplitude(0,6300)"
+  set select = "dec(-10,-3),amplitude(0,6300)"
+  set select = @selection.txt
 
   set different_beam = 0
   set use_psf_as_beam = 0 #
@@ -56,8 +63,8 @@
 # mossdi parameters
   set cutoff = 15 
   set region = ""
-  set niter  = 10000000
-  set gain = 0.1
+  set niter  = 20000000
+  set gain = 0.2
 # mosmem parameters
   set rmsfac     = 1.0
   set flux       = 1e-10
@@ -102,6 +109,7 @@
        set dirtyPSF   = $dir/$dirty_name\_$mol.psf
        set dirtySen   = $dir/$dirty_name\_$mol.sen
        set dirtyGain = $dir/$dirty_name\_$mol.gain
+       set dirtymask = $dir/$dirty_name\_$mol.mask
        set dirtySNR = $dir/$dirty_name\_$mol.SNR
 
        if ($different_beam == 1) then
@@ -134,7 +142,7 @@
       # Make dirty map
        if ($run_invert == 1) then
          # Clean existing files
-           rm -rf $dirtyImage $dirtyBeam $dirtyPSF $dirtySen $dirtyGain $dirtySNR
+           rm -rf $dirtyImage $dirtyBeam $dirtyPSF $dirtySen $dirtyGain $dirtymask $dirtySNR
 
            echo ""
            echo ""
@@ -162,6 +170,10 @@
         
            mossen in=$dirtyImage sen=$dirtySen gain=$dirtyGain
 
+         # Create mask for gain > 0.5
+        
+           maths exp="<$dirtyGain>.gt.0.99" region="images(1)" out=$dirtymask
+
          # Create signal to noise image
            
            maths exp="<$dirtyImage>/<$dirtySen>" out=$dirtySNR
@@ -180,7 +192,7 @@
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
        set bpa=`grep "  Position angle" $log | awk '{print $4}'`
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
-       set junk = $<
+#       set junk = $<
 
        if $run_clean == 1 then
          echo "Running clean..."
@@ -233,10 +245,12 @@
            rm -rf $outfile.$cclogfile
            if ($algorithm == "mossdi") then
               if ($run_mkmask == 1) then
+                   echo "restart mossdi, run_mkmask == 1"
                    mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
                      model=$outfile.cc gain=$gain  | tee $outfile.$cclogfile
               else 
+                   echo "restart mossdi, run_mkmask == 0"
                    mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
                      model=$outfile.cc gain=$gain | tee $outfile.$cclogfile
@@ -244,10 +258,12 @@
 
            else if ($algorithm == "mossdi2") then
               if ($run_mkmask == 1) then
+                   echo "restart mossdi2, run_mkmask == 1"
                    mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter region=@$polygon_region\
                      model=$outfile.cc gain=$gain  | tee $outfile.$cclogfile
               else 
+                   echo "restart mossdi2, run_mkmask == 0"
                    mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc.new \
                      cutoff=$cutoff niters=$niter\
                      model=$outfile.cc gain=$gain  | tee $outfile.$cclogfile
@@ -255,10 +271,12 @@
 
            else if ($algorithm == "mosmem") then
               if ($run_mkmask == 1) then 
+                   echo "restart mosmem, run_mkmask == 1"
                    mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                        niters=$niter rmsfac=$rmsfac \
                        flux=$flux measure=gull region=@$polygon_region model=$outfile.cc > $outfile.$cclogfile
               else
+                   echo "restart mosmem, run_mkmask == 0"
                    mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc.new \
                        niters=$niter rmsfac=$rmsfac \
                        flux=$flux measure=gull model=$outfile.cc > $outfile.$cclogfile
@@ -337,32 +355,34 @@
                  echo "Cleaning..."
                  if ($algorithm == "mossdi") then
                     if ($run_mkmask == 1) then
-                         mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=@$polygon_region\
-                            gain=$gain  | tee $outfile.$cclogfile
+                         echo "mossdi, run_mkmask == 1"
+                         mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain | tee $outfile.$cclogfile
+                            #gain=$gain region="polygon(100,100,100,500,2300,500,2300,100,100,100)" | tee $outfile.$cclogfile
+                            #gain=$gain region="mask($dirtymask)" | tee $outfile.$cclogfile
                     else 
-                         mossdi map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter\
-                            gain=$gain | tee $outfile.$cclogfile
+                         echo "mossdi, run_mkmask == 0"
+                         mossdi map=$outfile.map beam=$dirtyBeam out=$outfile.cc cutoff=$cutoff niters=$niter gain=$gain 
                     endif
 
                  else if ($algorithm == "mossdi2") then
                     if ($run_mkmask == 1) then
-                         mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain  | tee $outfile.$cclogfile
+                         echo "mossdi2, run_mkmask == 1"
+                         mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc cutoff=$cutoff niters=$niter region=@$polygon_region gain=$gain | tee $outfile.$cclogfile
                     else 
-                         mossdi2 map=$dirtyImage beam=$dirtyBeam out=$outfile.cc \
-                           cutoff=$cutoff niters=$niter gain=$gain  | tee $outfile.$cclogfile
+                         echo "mossdi2, run_mkmask == 0"
+                         mossdi2 map=$outfile.map beam=$dirtyBeam out=$outfile.cc cutoff=$cutoff niters=$niter gain=$gain  | tee $outfile.$cclogfile
                     endif
 
                  else if ($algorithm == "mosmem") then
                     if ($run_mkmask == 1) then 
+                         echo "mosmem, run_mkmask == 1"
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
                              flux=$flux measure=gull region=@$polygon_region options=verbose \
                              #default="nro/12co/tmp/12co115_116chan.scl" \
                              > $outfile.$cclogfile
                     else
+                         echo "mosmem, run_mkmask == 0"
                          mosmem map=$outfile.map beam=$dirtyBeam out=$outfile.cc \
                              niters=$niter rmsfac=$rmsfac \
                              flux=$flux measure=gull options=verbose\
