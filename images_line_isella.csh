@@ -1,11 +1,11 @@
 #!/bin/csh -fe
 # Select algorithm
-  set algorithm = "mossdi2"
   set algorithm = "mossdi"
+  set algorithm = "mossdi2"
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   echo "Setting run_invert and vis"
-  set run_invert = 0 #
+  set run_invert = 1 
   echo "Setting vis"
   #set carvis = "nro/12co/carma_uv.mir"
   #set nrovis = "nro/12co/12co.uv.all"
@@ -19,14 +19,14 @@
   # set vis = "/hifi/carmaorion/orion/images/jrf/nro/12co/carma_uv.mir, /hifi/carmaorion/orion/images/jrf/nro/12co/12co.uv.all"
 # If run_mkmask = 1, then we use mask in clean ; c.hara
   echo "Setting run_mkmask, mask, run_clean, run_restor..." 
-  set run_mkmask = 0 #
+  set run_mkmask = 0 
   set mkmask_dummy = 1
   set polygon_region = 'region.txt'
   set region_limit = 0.
   set mask = ""
 
 # If run_clean = 1, then we clean!
-  set run_clean = 1 #
+  set run_clean = 1 
 
 # If make_plots = 1, then plot the flux recovered vs. clean component every
 # time a channel finishes.
@@ -45,8 +45,8 @@
   # set molecules = ''
 
 # Invert parameters
-  set robust = 0 #
-  set robust = 0.5 #
+  set robust = 0 
+  set robust = 0.5 
   set cell   = 1.0
   set imsize = 50
   set imsize = 257
@@ -58,10 +58,10 @@
   set select = @selection.txt
 
   set different_beam = 0
-  set use_psf_as_beam = 0 #
+  set use_psf_as_beam = 0 
   set use_which_antennas = 0
 # mossdi parameters
-  set cutoff = 15 
+  set cutoff = 5 
   set region = ""
   set niter  = 20000000
   set gain = 0.2

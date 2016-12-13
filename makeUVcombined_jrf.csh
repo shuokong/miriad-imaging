@@ -43,13 +43,15 @@
 
 # Set velocity to image
   set source = "omc42"
-  set source = "omc*"
   set source = "omc31,omc32,omc33,omc41,omc42,omc43,omc52,omc53,omc54"
+  set source = "omc*"
   set select = "source($source),dec(-10,-3)"
-  set select = "dec(-6.5,-6)"
-  set select = "dec(-6.3,-6.1)"
+#  set select = "dec(-6.5,-6)"
+#  set select = "dec(-6.3,-6.1)"
 #  set source = @nro_subregions.txt
-  set chan = (115 116)
+  set chan = (1 2)
+  set carmap = "carma_full_$chan[1].$chan[2].map"
+  set carbeam = "carma_full_$chan[1].$chan[2].beam"
   # set vel    = "9.5"
 # Set 
   set uvflag = 1
@@ -136,12 +138,12 @@
   ## set line = "velocity,2,8.0,0.264,0.264"
 
 # Set source to all sources
-  if $verb echo "Setting sources..."
-  set source_orig = $source
-  if ($source_orig == "") then
-     set source = "omc*"
-  endif
-  if $verb echo "Passed source_orig..."
+#  if $verb echo "Setting sources..."
+#  set source_orig = $source # this line is causing trouble suddenly, comment out 2016-Dec-12
+#  if ($source_orig == "") then
+#     set source = "omc*"
+#  endif
+#  if $verb echo "Passed source_orig..."
 
 # Make directories
   if (!(-e $nrod))     mkdir -p $nrod
@@ -243,7 +245,7 @@ calculation:
   set inttot = `calc "$tsysnro**2/$sigk**2/$effq**2/$bwcar"`
   set npoint = `calc "$inttot/$tintnro" | awk '{printf("%d",$1)}'`
   echo $inttot,$npoint
-  set junk = $<
+#  set junk = $<
 
   echo "## REGRIDDED NRO45 MAP: "
   echo "##    RMS [Jy,K(mb)]   = " $sigjy ", " $sigk
@@ -362,7 +364,7 @@ calculation:
   if (-e test.dm) rm -rf test.dm
   if (-e test.bm) rm -rf test.bm
   if (-e test.psf) rm -rf test.psf
-# invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
+  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
   cgdisp device=/xs in=test.dm
   mospsf beam=test.bm out=test.psf
 
