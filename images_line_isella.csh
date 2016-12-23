@@ -172,7 +172,7 @@
 
          # Create mask for gain > 0.5
         
-           maths exp="<$dirtyGain>.gt.0.99" region="images(1)" out=$dirtymask
+         #  maths exp="<$dirtyGain>.gt.0.99" region="images(1)" out=$dirtymask
 
          # Create signal to noise image
            
@@ -192,7 +192,7 @@
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
        set bpa=`grep "  Position angle" $log | awk '{print $4}'`
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
-#       set junk = $<
+       set junk = $<
 
        if $run_clean == 1 then
          echo "Running clean..."

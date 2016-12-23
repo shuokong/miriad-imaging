@@ -22,13 +22,12 @@
 
 # NRO image in miriad format
   set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.mir" # Tmb
+  set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/regrid_12CO.mir" # Tmb
   set nroparams = /hifi/carmaorion/orion/images/sk/nroParams_jrf.csh
 
 # CARMA dirty image 
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
-  set carmap = "carma_full_115.116.map"
-  set carbeam = "carma_full_115.116.beam"
-  set makeImage = 1
+  set makeImage = 1 
   set remakeBeam = 1
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
@@ -49,7 +48,7 @@
 #  set select = "dec(-6.5,-6)"
 #  set select = "dec(-6.3,-6.1)"
 #  set source = @nro_subregions.txt
-  set chan = (1 2)
+  set chan = (1 90)
   set carmap = "carma_full_$chan[1].$chan[2].map"
   set carbeam = "carma_full_$chan[1].$chan[2].beam"
   # set vel    = "9.5"
@@ -184,27 +183,23 @@
 
   #
   set caruvavg = $nrod/carma_uv.mir
-  rm -rf $caruvavg
-  #set select = "source($source),dec(-10,-3)"
-
-  # set select = "$ant,uvrange($uvrange),source($source)"
-  #if ($coords != "") set select = "$select,$coords"
-  echo "Averaging CARMA over veloicity range..."
-  uvaver vis=$caruv out=$caruvavg line=$line select="$select"
 
   # Make CARMA image, if needed
   if ($makeImage != 0) then
+       rm -rf $caruvavg
+       echo "Averaging CARMA over veloicity range..."
+       uvaver vis=$caruv out=$caruvavg line=$line select="$select"
      # Make image
        echo "Making CARMA dirty image."
        rm -rf $carmap $carbeam
        invert vis=$caruvavg map=$carmap beam=$carbeam \
-              # select="source($source)" \
               select="$select" \
               imsize=$imsize  cell=$cell robust=$robust options=$options
-       # Source the NRO parameters file again because we need parameters from
-       # the CARMA image.
-       source $nroparams
   endif
+
+  # Source the NRO parameters file again because we need parameters from
+  # the CARMA image.
+  source $nroparams
 
 # Remake NRO beam
 if ($remakeBeam != 0) then
@@ -364,8 +359,8 @@ calculation:
   if (-e test.dm) rm -rf test.dm
   if (-e test.bm) rm -rf test.bm
   if (-e test.psf) rm -rf test.psf
-  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
-  cgdisp device=/xs in=test.dm
-  mospsf beam=test.bm out=test.psf
+#  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
+#  cgdisp device=/xs in=test.dm
+#  mospsf beam=test.bm out=test.psf
 
-  imfit in=test.psf object=beam "region=relcen,box(-10,-10,10,10)" 
+#  imfit in=test.psf object=beam "region=relcen,box(-10,-10,10,10)" 
