@@ -5,7 +5,7 @@
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   echo "Setting run_invert and vis"
-  set run_invert = 1 
+  set run_invert = 0 
   echo "Setting vis"
   #set carvis = "nro/12co/carma_uv.mir"
   #set nrovis = "nro/12co/12co.uv.all"
@@ -192,7 +192,7 @@
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
        set bpa=`grep "  Position angle" $log | awk '{print $4}'`
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
-       set junk = $<
+#       set junk = $<
 
        if $run_clean == 1 then
          echo "Running clean..."
@@ -224,7 +224,7 @@
            #mkdir -p $outcc
            set outfile = $dir/$mol.$chan/$mol.$chan
 
-           set crval3 = `imlist in=$dirtyImage | grep cdelt3 | awk '{print $9}'`
+           set crval3 = `imlist in=$dirtyImage | grep crval3 | awk '{print $6}'`
            set crpix3 = `imlist in=$dirtyImage | grep crpix3 | awk '{print $9}'`
            set cdelt3 = `imlist in=$dirtyImage | grep cdelt3 | awk '{print $9}'`
            set velocity = `echo "scale=5;$crval3 + $cdelt3 * ($n - $crpix3)" | bc`
@@ -313,17 +313,24 @@
 
                 # If it doesn't exist, then we found the channel
                   if (!(-e $outcc)) then
-                     set found = 1
+                     #set found = 1
                      mkdir -p $outcc
                      set outfile = $dir/$mol.$chan/$mol.$chan
+                     imsub in=$dirtyImage out=$outfile.map region=abspix,images"($chan,$chan)"
+                     imsub in=$dirtySen out=$outfile.sen region=abspix,images"($chan,$chan)"
+                     set outfile = $mol.$chan
+                     echo "mossdi2 map=$outfile.map beam=../${dirty_name}_$mol.beam out=$outfile.cc cutoff=$cutoff niters=$niter gain=$gain > $outfile.$cclogfile" > $dir/$mol.$chan/$outfile.csh
+                     echo "restor map=$outfile.map beam=../${dirty_name}_$mol.beam model=$outfile.cc out=$outfile.cm fwhm=$bmaj,$bmin pa=$bpa" >> $dir/$mol.$chan/$outfile.csh
+                     echo "restor map=$outfile.map beam=../${dirty_name}_$mol.beam model=$outfile.cc out=$outfile.rs fwhm=$bmaj,$bmin pa=$bpa mode=residual" >> $dir/$mol.$chan/$outfile.csh
                   endif
             end
+            exit
 
           # If found a channel, then clean it
             if ($found == 1) then
                 echo "Found an uncleaned channel, cleaning it..."
                # Compute velocity of this channel
-                 set crval3 = `imlist in=$dirtyImage | grep cdelt3 | awk '{print $9}'`
+                 set crval3 = `imlist in=$dirtyImage | grep crval3 | awk '{print $6}'`
                  set crpix3 = `imlist in=$dirtyImage | grep crpix3 | awk '{print $9}'`
                  set cdelt3 = `imlist in=$dirtyImage | grep cdelt3 | awk '{print $9}'`
                  set velocity = `echo "scale=5;$crval3 + $cdelt3 * ($n - $crpix3)" | bc`
