@@ -27,7 +27,7 @@
 
 # CARMA dirty image 
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
-  set makeImage = 1 
+  set makeImage = 0 
   set remakeBeam = 1
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
@@ -240,7 +240,7 @@ calculation:
   set inttot = `calc "$tsysnro**2/$sigk**2/$effq**2/$bwcar"`
   set npoint = `calc "$inttot/$tintnro" | awk '{printf("%d",$1)}'`
   echo $inttot,$npoint
-#  set junk = $<
+  set junk = $<
 
   echo "## REGRIDDED NRO45 MAP: "
   echo "##    RMS [Jy,K(mb)]   = " $sigjy ", " $sigk
@@ -359,8 +359,8 @@ calculation:
   if (-e test.dm) rm -rf test.dm
   if (-e test.bm) rm -rf test.bm
   if (-e test.psf) rm -rf test.psf
-#  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
-#  cgdisp device=/xs in=test.dm
+  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
+  cgdisp device=/xs in=test.dm
 #  mospsf beam=test.bm out=test.psf
 
 #  imfit in=test.psf object=beam "region=relcen,box(-10,-10,10,10)" 

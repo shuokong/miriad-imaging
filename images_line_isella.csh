@@ -5,7 +5,7 @@
 # set algorithm = "mosmem"
 # If run_invert = 1, then make the combined dirty map from the CARMA and NRO UV files.
   echo "Setting run_invert and vis"
-  set run_invert = 0 
+  set run_invert = 1 
   echo "Setting vis"
   #set carvis = "nro/12co/carma_uv.mir"
   #set nrovis = "nro/12co/12co.uv.all"
@@ -33,7 +33,7 @@
   set make_plots = 0
 
 # If run_restor =1, then runrestor
-  set run_restor = 1
+  set run_restor = 0
 
 # If run_restart, then clean up to niters on the specified channel.
   set run_restart = 0
@@ -192,7 +192,7 @@
        set bmin=`grep "Minor axis" $log | awk '{print $4}'`
        set bpa=`grep "  Position angle" $log | awk '{print $4}'`
        echo "Beam size = $bmaj x $bmin arcsec at PA = $bpa deg"
-#       set junk = $<
+       set junk = $<
 
        if $run_clean == 1 then
          echo "Running clean..."
