@@ -21,7 +21,7 @@
   set mol = "12co"
 
 # NRO image in miriad format
-  set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.mir" # Tmb
+  #set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.mir" # Tmb
   set nroorg = "/hifi/carmaorion/orion/images/nro45m/$mol/regrid_12CO.mir" # Tmb
   set nroparams = /hifi/carmaorion/orion/images/sk/nroParams_jrf.csh
 
@@ -37,8 +37,9 @@
 
   set imsize  = 257
   set cell    = 1.0
-  set robust  = 0
+  set robust  = 0.5
   set options = "mosaic,double,systemp"
+  set options = "mosaic,double"
 
 # Set velocity to image
   set source = "omc42"
@@ -240,7 +241,7 @@ calculation:
   set inttot = `calc "$tsysnro**2/$sigk**2/$effq**2/$bwcar"`
   set npoint = `calc "$inttot/$tintnro" | awk '{printf("%d",$1)}'`
   echo $inttot,$npoint
-  set junk = $<
+  #set junk = $<
 
   echo "## REGRIDDED NRO45 MAP: "
   echo "##    RMS [Jy,K(mb)]   = " $sigjy ", " $sigk
@@ -356,11 +357,11 @@ calculation:
 
 
 # Dirty image for check
-  if (-e test.dm) rm -rf test.dm
-  if (-e test.bm) rm -rf test.bm
-  if (-e test.psf) rm -rf test.psf
-  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
-  cgdisp device=/xs in=test.dm
+#  if (-e test.dm) rm -rf test.dm
+#  if (-e test.bm) rm -rf test.bm
+#  if (-e test.psf) rm -rf test.psf
+#  invert vis=$nrod/$mol".uv.all" map=test.dm beam=test.bm imsize=$imsize cell=$cell robust=$robust options=mosaic,systemp,double line=$line
+#  cgdisp device=/xs in=test.dm
 #  mospsf beam=test.bm out=test.psf
 
 #  imfit in=test.psf object=beam "region=relcen,box(-10,-10,10,10)" 
