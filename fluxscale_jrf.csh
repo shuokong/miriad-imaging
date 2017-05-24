@@ -17,7 +17,7 @@
   set mol = "12co"
 
 # NRO image in miriad format
-  set nroorg = "../nro45m/$mol/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.mir" # Tmb
+  set nroorg = "../nro45m/$mol/regrid_12CO_specsmooth.mir" # Tmb
 
 # CARMA uv data
  set caruv = "../../calibrate/merged/12co/orion.E.narrow.mir,../../calibrate/merged/12co/orion.D.narrow.mir"
@@ -70,8 +70,8 @@
 # Possible bug if only channel in line commmand!
 # The resampled NRO data do not look correct if nchannel=1
 # jjjjjChannels set first and last channel to use.
-  #set chan = (171 172) 
   set chan = (115 116) # seems to be the strongest NRO 12co channel. shuokong 2016-09-28
+  set chan = (45 46) 
   ## set line = "velocity,2,8.0,0.264,0.264"
 
 # Set NRO file names

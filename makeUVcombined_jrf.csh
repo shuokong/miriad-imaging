@@ -27,7 +27,7 @@
 
 # CARMA dirty image 
 # set carmap = "../$mol/dv0.264kms/carma_$mol.map"
-  set makeImage = 0 
+  set makeImage = 1 
   set remakeBeam = 1
 # CARMA uv data
   # set caruv  = /hifi/carmaorion/orion/calibrate/merged/$mol/orion.E.narrow.mir
@@ -50,6 +50,7 @@
 #  set select = "dec(-6.3,-6.1)"
 #  set source = @nro_subregions.txt
   set chan = (1 90)
+  set chan = (45 46)
   set carmap = "carma_full_$chan[1].$chan[2].map"
   set carbeam = "carma_full_$chan[1].$chan[2].beam"
   # set vel    = "9.5"
@@ -241,7 +242,7 @@ calculation:
   set inttot = `calc "$tsysnro**2/$sigk**2/$effq**2/$bwcar"`
   set npoint = `calc "$inttot/$tintnro" | awk '{printf("%d",$1)}'`
   echo $inttot,$npoint
-  #set junk = $<
+  set junk = $<
 
   echo "## REGRIDDED NRO45 MAP: "
   echo "##    RMS [Jy,K(mb)]   = " $sigjy ", " $sigk
@@ -301,26 +302,38 @@ calculation:
   echo "max klambda:" $klammax
 #  set junk = $<
 
-  if (-r uvgauss.mir) rm -rf uvgauss.mir
-  hkuvrandom npts=$npoint nchan=$nzcar inttime=$tintnro sdev=$sdev gauss=true freq=$freq out=uvgauss.mir
-  # uvrandom npts=$npoint nchan=$nzcar inttime=$tintnro uvmax=$klammax gauss=true freq=$freq out=uvgauss.mir # from jens script
+  #if (-r uvgauss.mir) rm -rf uvgauss.mir
+  #hkuvrandom npts=$npoint nchan=$nzcar inttime=$tintnro sdev=$sdev gauss=true freq=$freq out=uvgauss.mir
+  ## uvrandom npts=$npoint nchan=$nzcar inttime=$tintnro uvmax=$klammax gauss=true freq=$freq out=uvgauss.mir # from jens script
 
-  if ($uvflag != 0) then
-  #uvflag vis=uvgauss.mir flagval=flag select=$uvselect #"select=uvrange(6,1000.0)"
-  #uvflag vis=uvgauss.mir flagval=flag "select=uvrange(3,1000.0)"
-  uvflag vis=uvgauss.mir flagval=flag "select=$uvselect"
-  uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
-  rm -rf uvgauss.mir
-  mv tmptmp.mir uvgauss.mir
-  endif
-  #smauvplt device=/xs vis=uvgauss.mir axis=uc,vc options=equal
-  rm -rf uvgauss2.mir
-  cp -r uvgauss.mir uvgauss2.mir
+  #if ($uvflag != 0) then
+  ##uvflag vis=uvgauss.mir flagval=flag select=$uvselect #"select=uvrange(6,1000.0)"
+  ##uvflag vis=uvgauss.mir flagval=flag "select=uvrange(3,1000.0)"
+  #uvflag vis=uvgauss.mir flagval=flag "select=$uvselect"
+  #uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
+  #rm -rf uvgauss.mir
+  #mv tmptmp.mir uvgauss.mir
+  #endif
+  ##smauvplt device=/xs vis=uvgauss.mir axis=uc,vc options=equal
+  #rm -rf uvgauss2.mir
+  #cp -r uvgauss.mir uvgauss2.mir
 
 # Swap amp/phase with NRO45 ones
   foreach f ($nrodem*)
      set n = `echo $f | sed s/".dem."/" "/ | awk '{printf("%d",$2)}'`
      set g = $nrouv"."$n
+     if (-r uvgauss.mir) rm -rf uvgauss.mir
+     hkuvrandom npts=$npoint nchan=$nzcar inttime=$tintnro sdev=$sdev gauss=true freq=$freq out=uvgauss.mir
+     # uvrandom npts=$npoint nchan=$nzcar inttime=$tintnro uvmax=$klammax gauss=true freq=$freq out=uvgauss.mir # from jens script
+
+     if ($uvflag != 0) then
+     #uvflag vis=uvgauss.mir flagval=flag select=$uvselect #"select=uvrange(6,1000.0)"
+     #uvflag vis=uvgauss.mir flagval=flag "select=uvrange(3,1000.0)"
+     uvflag vis=uvgauss.mir flagval=flag "select=$uvselect"
+     uvcat vis=uvgauss.mir out=tmptmp.mir options=unflagged
+     rm -rf uvgauss.mir
+     mv tmptmp.mir uvgauss.mir
+     endif
 #     hkuvmodel vis=uvgauss.mir model=$f out=$g options=replace,imhead # XXX
      uvmodel vis=uvgauss.mir model=$f out=$g options=replace,imhead
   end
