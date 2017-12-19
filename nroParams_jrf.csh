@@ -7,7 +7,6 @@
 # nroorg : name of the original NRO single dish image
 # carmap : name of the CARMA dirty image
 
-
 # Set NRO45 observing parameters
   if ($mol == "13co") then
      set lambda   = 2.72            # 13CO(J=1-0) wavelength [mm]
@@ -23,10 +22,11 @@
      set freq     = 115.271204      # CO(J=1-0) frequency [GHz]
      set effmb    = 0.32            # main beam efficiency in 12CO(J=1-0)/2008
      set fwhmnro  = 21.6            # OTF-Beam HWHM: from convbeam.c (case of 12co)
+     set fwhmnro  = 19.6            # OTF-Beam HWHM: from convbeam.c (case of 12co)
 
-     set scalefac = 1.0             # to be determined. shuokong 2016-10-03
+     set scalefac = 1.25             # found after using Jy/K = 7.7 (with sqrt2)
      set scalefac = 1.6             # found after using Jy/K = 5
-     set scalefac = 1.2             # found after using Jy/K = 7.7 (with sqrt2)
+     set scalefac = 1.0             # to be determined. shuokong 2016-10-03
      #echo "12CO observing parameters need to be checked"
      #exit
   else 
@@ -36,13 +36,12 @@
 
 # Other NRO45 Obs. params - molecule independent
   set effq       = 0.88   # quantum efficiency of digital correlator
-  set tsysnro    = 650.0  # Typical Tsys
+  set tsysnro    = 400.0  # Typical Tsys
   set tsyscarma  = "" 
 # set tsysnro    = 1      # no physical meaning
-  set sigk       = "0.4"  # noise level of 45m map. also can used for changing weighting.
+  set sigk       = "0.5"  # noise level of 45m map. also can used for changing weighting.
 
 # NRO45 uv params
-  set tintnro      = 0.001     # Integration time for NRO45 visibility ; default in Koda et al. (2011) is 0.01
   set tintnro      = 0.01     # 
 
 # Parameters from NRO45 map
@@ -96,9 +95,8 @@
 #     1/13.6*sqrt(2) = 0.10399
 # ------------------------------------------------------
 #  set cjyknro = `calc "0.07354*($fwhmnro/$lambda)**2/$effmb"`
+#  set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2"` # map is already converted to TMB
   set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2/1.414"` # try removing the sqrt(2) factor, see if the fluxscale ratio change or not
-  set cjyknro = `calc "0.10399*($fwhmnro/$lambda)**2"` # map is already converted to TMB
-  set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb/1.414"` # XXX
   set jyperk  = `calc "0.10399*($fwhmnro/$lambda)**2/$effmb"` # XXX
   if sigk != "" then
      set sigjy = `calc "$sigk*$cjyknro"` # calculate noise from sigk

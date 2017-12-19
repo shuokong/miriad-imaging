@@ -9,9 +9,9 @@
   echo "Setting vis"
   #set carvis = "nro/12co/carma_uv.mir"
   #set nrovis = "nro/12co/12co.uv.all"
-  set vis = "nro/12co/12co.uv.all"
   set vis = "nro/12co/carma_uv.mir"
   set vis = "nro/12co/carma_uv.mir,nro/12co/12co.uv.all"
+  set vis = "nro/12co/12co.uv.all"
 #The root file name for the dirty map, beam, psf,sen etc.
   echo "Setting dirty_name and source..."
   set dirty_name = 'combined_scalefactor' 
@@ -52,9 +52,9 @@
   set options = "mosaic,double" 
   set select = "dec(-6:17:00,-6:09:00),ra(5:35:40,5:36:50)"
   set select = "dec(-6:13:10,-6:00:00),dec(-6:18:00,-6:13:20),ra(5:34:30,5:35:14.25),ra(5:35:15,5:35:38.5),ra(5:35:39,5:36:02.5),ra(5:36:03,5:36:26.75),ra(5:36:27.25,5:36:50.75),ra(5:36:51.5,5:37:30)"
+  set select = @selection.txt
   set select = "dec(-6.5,-6.0),amplitude(0,6300)"
   set select = "dec(-10,-3),amplitude(0,6300)"
-  set select = @selection.txt
 
   set different_beam = 0
   set use_psf_as_beam = 0 

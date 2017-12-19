@@ -14,7 +14,7 @@
 #set rmsNRO   = `imstat in=carma.sen | tail -n 1 | awk '{print $3}'`
 #echo "rms from NRO   sensitivity map is $rmsNRO"
 #exit
-set cutoff = 50
+set cutoff = 30
 set carmap = "carma.map"
 set nromap = "nro.map"
 set cutoffmap = "nro"

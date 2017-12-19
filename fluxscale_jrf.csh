@@ -17,26 +17,33 @@
   set mol = "12co"
 
 # NRO image in miriad format
+  #set nroorg = "tmb_convol_chan_40_50_12co_CARMAonly_pix_1.cm" # Tmb
+  #set nroorg = "convol_chan_40_50_12co_pix_2_Tmb.mir" # combined image Tmb
+  set nroorg = "regrid_12CO_specsmooth_pix596.mir" # Tmb
   set nroorg = "../nro45m/$mol/regrid_12CO_specsmooth.mir" # Tmb
+  #set nroorg = "../nro45m/$mol/regrid_cowide_specsmooth.mir" # Tmb
 
 # CARMA uv data
+ set caruv = "../../calibrate/merged/12co/orion.D.narrow.mir"
+ set caruv = "../../calibrate/merged/12co/orion.E.narrow.mir"
  set caruv = "../../calibrate/merged/12co/orion.E.narrow.mir,../../calibrate/merged/12co/orion.D.narrow.mir"
 # set caruv = omc43.mir
 # set caruv = omc.mir
 
 # Which baselines to include
-  set use10m10m = 0
-  set use6m10m  = 0
-  set use6m6m   = 1
+  set use10m10m = 0 # 
+  set use6m10m  = 0 #
+  set use6m6m   = 1 #
 
 # Set which source to image
   set coords = "dec(-6.3,-6)"
   set coords = "dec(-10,-3)"
   set source = "omc43" # strongest, Orion KL
   set source = "omc32,omc33,omc42,omc43,omc53,omc54,omc65,omc66,omc22,omc23"
+  set source = @nro_subregions.txt
   set source = "omc*" # try bigger. shuokong 2016-10-10 
+  set source = "omc108,omc109,omc114,omc115,omc120,omc121" # L1641 region
   set source = "omc31,omc32,omc33,omc41,omc42,omc43,omc52,omc53,omc54"
-  #set source = @nro_subregions.txt
 
 # CARMA dirty image
 # If makeImage = 1, then the maps will be generated.
@@ -44,9 +51,10 @@
 # uvrange is the range in kilolambda to make the maps
   set carmap  = "carma.map"
   set carbeam = "carma.beam"
-  set uvrange = "0,6"
+  set uvrange = "3,6"
+  set uvrange = "5,7"
   set makeImage = 1 #
-  set caronly = 0 #
+  set caronly = 0 # 
 
 # Set the file names for the NRO output images.
   set nromap = "nro.map"
@@ -61,21 +69,24 @@
 # be generated with the same system temperature; to have the same data
 # weighting between single dish and interferometer data, we cannot weight
 # by system temperature.
-  set imsize  = 257
-  set cell    = 1.0
-  set robust  = 2
-  set options = "mosaic"  
+  set imsize  = 100
+  set cell    = 2.0
+  set robust  = 2 # 
+  set options = "double,mosaic"  
  
 
 # Possible bug if only channel in line commmand!
 # The resampled NRO data do not look correct if nchannel=1
-# jjjjjChannels set first and last channel to use.
+# Channels set first and last channel to use.
   set chan = (115 116) # seems to be the strongest NRO 12co channel. shuokong 2016-09-28
+  set chan = (99 100) 
+  set chan = (1 2) 
   set chan = (45 46) 
   ## set line = "velocity,2,8.0,0.264,0.264"
 
 # Set NRO file names
   set nrod     = "nro/$mol/fluxscale"      # Directory
+  rm -rf $nrod
 
 # End of user-supplied arguments
 ##########################################################################
@@ -123,21 +134,14 @@
   ## set line = "velocity,2,8.0,0.264,0.264"
   #set junk = $<
 
-# Set source to all sources
-  if $verb echo "Setting sources..."
-  set source_orig = $source
-  if ($source_orig == "") then
-     set source = "omc*"
-  endif
-  if $verb echo "Passed source_orig..."
 # Make directories
   if (!(-e $nrod)) mkdir -p $nrod
 
 # Remove preexisting files
-  if (-e $nroscl) rm -rf $nroscl
-  if (-e $nroreg) rm -rf $nroreg
-  if (-e $nrodcv) rm -rf $nrodcv
-  if (-e $nroavg) rm -rf $nroavg
+#  if (-e $nroscl) rm -rf $nroscl
+#  if (-e $nroreg) rm -rf $nroreg
+#  if (-e $nrodcv) rm -rf $nrodcv
+#  if (-e $nroavg) rm -rf $nroavg
 
 # Average CARMA over velocity range.
 # We need to set which antennas to select
@@ -161,6 +165,7 @@
   if ($coords != "") set select = "$select,$coords"
   if $verb echo "Averaging CARMA over veloicity range..."
   uvaver vis=$caruv out=$caruvavg line=$line select="$select"
+#  exit # make CARMA uv files for Thushara to test CASA 2017Aug03
 
 # The CARMA data has variable system temperature, but the NRO data 
 # does not. In order to get identical weighting of the pointings,
@@ -169,8 +174,9 @@
   set tmp = $nrod/tmptmp.mir
   rm -rf $tmp
   uvputhd hdvar=systemp type=r length=1 varval=650 vis=$caruvavg out=$tmp
-  rm -rf $caruvavg
-  mv $tmp $caruvavg
+#  uvputhd hdvar=systemp type=r length=1 varval=350 vis=$caruvavg out=$tmp
+  rm -rf $caruvavg 
+  mv $tmp $caruvavg 
   #set junk = $<
 
 # First, load miriad version miriad_64
@@ -185,17 +191,19 @@
      # Make image
        rm -rf $carmap $carbeam
        invert vis=$caruvavg map=$carmap beam=$carbeam \
-              select="source($source)" \
+#              fwhm=21.6 \
+#              select=@selection.txt \
               imsize=$imsize  cell=$cell robust=$robust options=$options
   endif
 
-  cgdisp device=3/xs in=$carmap region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
+#  cgdisp device=3/xs in=$carmap region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
 
   if ($caronly == 1) exit 
     
 # Remake NRO beam
   makeBeam_jrf.csh mol=$mol carmap=$carmap
   set bmnro = "beamsNRO/$mol/beamnro.bm"
+  set junk = $<
 
 # Make sure correct version of miriad is loaded
   echo ""
@@ -208,15 +216,15 @@
   source nroParams_jrf.csh
 
 # NRO45: Convert unit to Janskys
-# Convert Ta* -> Jy
+# Convert Tmb -> Jy
   maths exp="<$nroorg>*$cjyknro" out=$nroscl
-  #set junk = $<
+#  set junk = $<
 
 # Add keywords to NRO image
   puthd in=$nroscl/bunit    value=Jy/BEAM       type=ascii 
   puthd in=$nroscl/bmaj     value=$fwhmnro,arcs type=real
   puthd in=$nroscl/bmin     value=$fwhmnro,arcs type=real
-  puthd in=$nroscl/bpa      value=0.0,arcs      type=real
+  puthd in=$nroscl/bpa      value=0.0,deg      type=real
   puthd in=$nroscl/restfreq value=$freq         type=double
 
 # Regrid NRO map wrt CARMA map
@@ -225,7 +233,7 @@
 
 # Display images
   echo "Displaying images"
-  cgdisp device=4/xs in=$nroreg region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
+#  cgdisp device=4/xs in=$nroreg region="image(1)" labtyp=hms options=3value,3pixel,full nxy=1
 # cgdisp device=3/xs in=$nroscl labtyp=hms options=3value,3pixel nxy=2,2
 
 # Derive NRO45 RMS
@@ -262,8 +270,11 @@
 
 # Deconvolve NRO45 map with the NRO45 beam
   set sigma = `echo $sigjy | awk '{printf("%f",$1/2.0)}'`  # down to sigma/2
-  set factor = `calc "$cellcar*$cellcar/($fwhmnro*$fwhmnro*3.141592654/4./0.693147)"`
+#  set sigma = `echo $sigjy | awk '{printf("%f",$1*2.0)}'`  # up to 2sigma
+#  set factor = `calc "$cellcar*$cellcar/($fwhmnro*$fwhmnro*3.141592654/4./0.693147)"`
   convol map=$nroreg beam=$bmnro out=$nrodcv options=divide sigma=$sigma
+  puthd in=$nrodcv/bunit value="JY/PIXEL" # be consistent with makeUV
+#  set junk = $<
 
 # Now must switch to miriad version 4.3.8
   echo ""
@@ -331,8 +342,9 @@
           # demos command de-mosaic NRO deconvolved image with pointing
           # information from $tmpmir which is from CARMA. output images for
           # every pointing, see demos documentation. shuokong 2016-10-11
+            puthd in=$tmpmir/telescop value="GAUS(120)" # be consistent with makeUV
             hkdemos map=$nrodcv vis=$tmpmir out=$dem"."
-          # set junk = $<
+            #set junk = $<
 
           # Swap amp/phase with NRO45 ones
           # for each demos result image $dem".", use uvmodel to get visibility
@@ -392,8 +404,9 @@
   if (-e $nrobeam) rm -rf $nrobeam
   echo "Making Nobeyama map from $nrouv.all"
   invert vis=$nrouv".all" map=$nromap beam=$nrobeam \
+#         fwhm=21.6 \
          imsize=$imsize cell=$cell robust=$robust \
-         options=$options select="uvrange($uvrange)"
+         options=$options # select=@selection.txt
   set n = 0
   foreach image ($nromap $carmap) 
     @ n += 1
@@ -403,4 +416,4 @@
 
 # Check flux scaling
  #smauvplt vis=$caruv4model.avg,$nrouv.avg axis=uvdistance,amplitude device=uvamp.eps/cps
- smauvplt vis=$caruvavg,$nrouv.all axis=uvdistance,amplitude device=uvamp.eps/cps
+ #smauvplt vis=$caruvavg,$nrouv.all axis=uvdistance,amplitude device=uvamp.eps/cps

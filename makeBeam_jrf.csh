@@ -9,6 +9,7 @@
   set mol = "12co"           # Must be entered
   set carmap   = "carma.map"      # use the one from fluxscale_jrf.csh
   set cellnro  = "7.5"   # Cell size for NRO map in arcseconds; should not need to change
+  set cellnro  = "5.95"   # Cell size for NRO map in arcseconds; should not need to change
 
 # Set output directories
   set outdirRoot = "beamsNRO"
